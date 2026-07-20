@@ -1,125 +1,230 @@
 ---
 title: "Event 1"
-date: 2024-01-01
+date: 2026-05-23
 weight: 1
 chapter: false
 pre: " <b> 4.1. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-# Bài thu hoạch “GenAI-powered App-DB Modernization workshop”
 
-### Mục Đích Của Sự Kiện
 
-- Chia sẻ best practices trong thiết kế ứng dụng hiện đại
-- Giới thiệu phương pháp DDD và event-driven architecture
-- Hướng dẫn lựa chọn compute services phù hợp
-- Giới thiệu công cụ AI hỗ trợ development lifecycle
+# Bài thu hoạch Buổi **"Non-Determinism of "Deterministic" LLM Settings"**
 
-### Danh Sách Diễn Giả
+## Mục Đích Của Sự Kiện
 
-- **Jignesh Shah** - Director, Open Source Databases
-- **Erica Liu** - Sr. GTM Specialist, AppMod
-- **Fabrianne Effendi** - Assc. Specialist SA, Serverless Amazon Web Services
+* Giải thích cách **Large Language Models (LLMs)** sinh văn bản và lựa chọn **token** tiếp theo.
+* Làm rõ vì sao **Temperature = 0** không đảm bảo kết quả hoàn toàn **deterministic** như nhiều người vẫn nghĩ.
+* Phân tích các nguyên nhân kỹ thuật và thương mại dẫn đến hiện tượng **non-determinism** trong các mô hình AI hiện đại.
+* Chia sẻ các chiến lược giúp tăng tính ổn định và độ tin cậy khi triển khai **LLM** trong môi trường thực tế.
+* Giúp **Developer** và **AI Engineer** xây dựng các ứng dụng **Production-ready** với **Large Language Models**.
 
-### Nội Dung Nổi Bật
+---
 
-#### Đưa ra các ảnh hưởng tiêu cực của kiến trúc ứng dụng cũ
+## Danh Sách Diễn Giả
 
-- Thời gian release sản phẩm lâu → Mất doanh thu/bỏ lỡ cơ hội
-- Hoạt động kém hiệu quả → Mất năng suất, tốn kém chi phí
-- Không tuân thủ các quy định về bảo mật → Mất an ninh, uy tín
+* **Đức Đào** – Solution Architect, Cloud Kinetics
 
-#### Chuyển đổi sang kiến trúc ứng dụng mới - Microservice Architecture
+---
 
-Chuyển đổi thành hệ thống modular – từng chức năng là một **dịch vụ độc lập** giao tiếp với nhau qua **sự kiện** với 3 trụ cột cốt lõi:
+## Nội Dung Nổi Bật
 
-- **Queue Management**: Xử lý tác vụ bất đồng bộ
-- **Caching Strategy:** Tối ưu performance
-- **Message Handling:** Giao tiếp linh hoạt giữa services
+### Cách LLM Lựa Chọn Token Tiếp Theo
 
-#### Domain-Driven Design (DDD)
+* Giải thích quy trình sinh văn bản của **Large Language Models**.
+* Mỗi bước mô hình sẽ:
 
-- **Phương pháp 4 bước**: Xác định domain events → sắp xếp timeline → identify actors → xác định bounded contexts
-- **Case study bookstore**: Minh họa cách áp dụng DDD thực tế
-- **Context mapping**: 7 patterns tích hợp bounded contexts
+  * Tính toán **logits** cho toàn bộ từ vựng.
+  * Chuyển đổi thành xác suất bằng **Softmax**.
+  * Chọn **token** tiếp theo dựa trên xác suất cao nhất.
+* Quá trình này được lặp lại cho đến khi mô hình hoàn thành câu trả lời.
 
-#### Event-Driven Architecture
+---
 
-- **3 patterns tích hợp**: Publish/Subscribe, Point-to-point, Streaming
-- **Lợi ích**: Loose coupling, scalability, resilience
-- **So sánh sync vs async**: Hiểu rõ trade-offs (sự đánh đổi)
+### Vai Trò của Temperature, Top-P và Top-K
 
-#### Compute Evolution
+* Giải thích ảnh hưởng của **Temperature** đến khả năng sinh văn bản của mô hình.
+* Các mức **Temperature** phổ biến:
 
-- **Shared Responsibility Model**: Từ EC2 → ECS → Fargate → Lambda
-- **Serverless benefits**: No server management, auto-scaling, pay-for-value
-- **Functions vs Containers**: Criteria lựa chọn phù hợp
+  * **Temperature > 1:** Nội dung đa dạng nhưng nhiều tính ngẫu nhiên.
+  * **Temperature = 1:** Cân bằng giữa tính sáng tạo và sự ổn định.
+  * **Temperature gần 0:** Kết quả nhất quán hơn.
+  * **Temperature = 0:** Về lý thuyết luôn chọn **token** có xác suất cao nhất.
+* So sánh vai trò của **Top-P** và **Top-K** trong việc kiểm soát quá trình lấy mẫu (**sampling**).
 
-#### Amazon Q Developer
+---
 
-- **SDLC automation**: Từ planning đến maintenance
-- **Code transformation**: Java upgrade, .NET modernization
-- **AWS Transform agents**: VMware, Mainframe, .NET migration
+### Giả Định và Thực Tế về Temperature = 0
 
-### Những Gì Học Được
+* Nhiều người tin rằng **Temperature = 0** sẽ luôn tạo ra cùng một kết quả.
+* Đây là nền tảng của nhiều ứng dụng như:
 
-#### Tư Duy Thiết Kế
+  * **Structured Output**
+  * **Regression Testing**
+  * **Prompt Benchmarking**
+  * **Production Reliability**
+* Tuy nhiên, các nghiên cứu thực tế cho thấy giả định này không hoàn toàn chính xác.
 
-- **Business-first approach**: Luôn bắt đầu từ business domain, không phải technology
-- **Ubiquitous language**: Importance của common vocabulary giữa business và tech teams
-- **Bounded contexts**: Cách identify và manage complexity trong large systems
+---
 
-#### Kiến Trúc Kỹ Thuật
+### Nghiên Cứu về Non-Determinism
 
-- **Event storming technique**: Phương pháp thực tế để mô hình hóa quy trình kinh doanh
-- Sử dụng **Event-driven communication** thay vì synchronous calls
-- **Integration patterns**: Hiểu khi nào dùng sync, async, pub/sub, streaming
-- **Compute spectrum**: Criteria chọn từ VM → containers → serverless
+* Thử nghiệm trên nhiều mô hình:
 
-#### Chiến Lược Hiện Đại Hóa
+  * **GPT-3.5 Turbo**
+  * **GPT-4o**
+  * **Llama 3**
+  * **Mixtral**
+* Tiến hành nhiều lần với:
 
-- **Phased approach**: Không rush, phải có roadmap rõ ràng
-- **7Rs framework**: Nhiều con đường khác nhau tùy thuộc vào đặc điểm của mỗi ứng dụng
-- **ROI measurement**: Cost reduction + business agility
+  * Cùng **Prompt**
+  * Cùng **Seed**
+  * **Temperature = 0**
+* Kết quả cho thấy:
 
-### Ứng Dụng Vào Công Việc
+  * Không có mô hình nào luôn tạo ra kết quả giống nhau.
+  * Độ chính xác có thể thay đổi giữa các lần chạy.
+  * Nội dung sinh ra đôi khi khác biệt mặc dù cấu hình hoàn toàn giống nhau.
 
-- **Áp dụng DDD** cho project hiện tại: Event storming sessions với business team
-- **Refactor microservices**: Sử dụng bounded contexts để identify service boundaries
-- **Implement event-driven patterns**: Thay thế một số sync calls bằng async messaging
-- **Serverless adoption**: Pilot AWS Lambda cho một số use cases phù hợp
-- **Try Amazon Q Developer**: Integrate vào development workflow để boost productivity
+---
 
-### Trải nghiệm trong event
+### Nguyên Nhân Gây Ra Non-Determinism
 
-Tham gia workshop **“GenAI-powered App-DB Modernization”** là một trải nghiệm rất bổ ích, giúp tôi có cái nhìn toàn diện về cách hiện đại hóa ứng dụng và cơ sở dữ liệu bằng các phương pháp và công cụ hiện đại. Một số trải nghiệm nổi bật:
+#### Nguyên nhân kỹ thuật
 
-#### Học hỏi từ các diễn giả có chuyên môn cao
-- Các diễn giả đến từ AWS và các tổ chức công nghệ lớn đã chia sẻ **best practices** trong thiết kế ứng dụng hiện đại.
-- Qua các case study thực tế, tôi hiểu rõ hơn cách áp dụng **Domain-Driven Design (DDD)** và **Event-Driven Architecture** vào các project lớn.
+* Sai số của phép toán **Floating-point** trên **GPU**.
+* **GPU** xử lý song song nên thứ tự thực thi có thể thay đổi.
+* Sai số rất nhỏ trong **logits** có thể khiến mô hình lựa chọn **token** khác.
 
-#### Trải nghiệm kỹ thuật thực tế
-- Tham gia các phiên trình bày về **event storming** giúp tôi hình dung cách **mô hình hóa quy trình kinh doanh** thành các domain events.
-- Học cách **phân tách microservices** và xác định **bounded contexts** để quản lý sự phức tạp của hệ thống lớn.
-- Hiểu rõ trade-offs giữa **synchronous và asynchronous communication** cũng như các pattern tích hợp như **pub/sub, point-to-point, streaming**.
+#### Nguyên nhân từ nhà cung cấp dịch vụ
 
-#### Ứng dụng công cụ hiện đại
-- Trực tiếp tìm hiểu về **Amazon Q Developer**, công cụ AI hỗ trợ SDLC từ lập kế hoạch đến maintenance.
-- Học cách **tự động hóa code transformation** và pilot serverless với **AWS Lambda**, từ đó nâng cao năng suất phát triển.
+* Các nền tảng AI thường sử dụng **Inference Batching**.
+* Nhiều yêu cầu (**request**) được xử lý đồng thời nhằm tối ưu hiệu năng của **GPU**.
+* Kết quả của một yêu cầu có thể chịu ảnh hưởng từ các yêu cầu khác trong cùng một **batch**.
 
-#### Kết nối và trao đổi
-- Workshop tạo cơ hội trao đổi trực tiếp với các chuyên gia, đồng nghiệp và team business, giúp **nâng cao ngôn ngữ chung (ubiquitous language)** giữa business và tech.
-- Qua các ví dụ thực tế, tôi nhận ra tầm quan trọng của **business-first approach**, luôn bắt đầu từ nhu cầu kinh doanh thay vì chỉ tập trung vào công nghệ.
+---
 
-#### Bài học rút ra
-- Việc áp dụng DDD và event-driven patterns giúp giảm **coupling**, tăng **scalability** và **resilience** cho hệ thống.
-- Chiến lược hiện đại hóa cần **phased approach** và đo lường **ROI**, không nên vội vàng chuyển đổi toàn bộ hệ thống.
-- Các công cụ AI như Amazon Q Developer có thể **boost productivity** nếu được tích hợp vào workflow phát triển hiện tại.
+### Ảnh Hưởng Trong Thực Tế
 
-#### Một số hình ảnh khi tham gia sự kiện
-* Thêm các hình ảnh của các bạn tại đây
-> Tổng thể, sự kiện không chỉ cung cấp kiến thức kỹ thuật mà còn giúp tôi thay đổi cách tư duy về thiết kế ứng dụng, hiện đại hóa hệ thống và phối hợp hiệu quả hơn giữa các team.
+* Đối với các hệ thống yêu cầu độ chính xác cao như:
+
+  * **Healthcare**
+  * **Legal**
+  * **Finance**
+* Việc giả định rằng **Temperature = 0** luôn ổn định có thể gây ra rủi ro trong quá trình vận hành hệ thống.
+
+---
+
+### Chiến Lược Giảm Thiểu
+
+* Chạy mô hình nhiều lần và sử dụng **Majority Voting**.
+* Áp dụng:
+
+  * **JSON Mode**
+  * **Function Calling**
+  * **Structured Output**
+* Tự triển khai mô hình (**Self-hosted LLM**) để kiểm soát hạ tầng.
+* Thiết kế hệ thống theo hướng chấp nhận sự biến thiên của **LLM**.
+* Xây dựng cơ chế xử lý các kết quả không chắc chắn.
+
+---
+
+### Best Practices
+
+* Không nên luôn đặt **Temperature = 0**.
+* **Temperature = 0.1** thường mang lại kết quả ổn định hơn trong nhiều trường hợp.
+* Tăng **Repeat Penalty** để giảm hiện tượng lặp nội dung.
+* Luôn tham khảo tài liệu của từng mô hình vì mỗi nhà cung cấp có cách triển khai khác nhau.
+
+---
+
+## Những Gì Học Được
+
+### AI & Large Language Models
+
+* Hiểu cách **LLM** sinh từng **token**.
+* Hiểu cơ chế hoạt động của:
+
+  * **Softmax**
+  * **Temperature**
+  * **Top-P**
+  * **Top-K**
+* Biết vì sao kết quả của **LLM** vẫn có thể thay đổi dù sử dụng cùng một **Prompt**.
+
+---
+
+### Machine Learning Infrastructure
+
+* Hiểu rằng phép toán **Floating-point** trên **GPU** không hoàn toàn xác định.
+* **Inference Optimization** có thể ảnh hưởng trực tiếp đến kết quả của mô hình.
+* **Non-determinism** là đặc tính của hệ thống chứ không phải lỗi của mô hình.
+
+---
+
+### Production AI
+
+* Không nên giả định **LLM** luôn trả về cùng một kết quả.
+* Thiết kế hệ thống cần tính đến sự biến thiên của AI.
+* **Testing** và **Validation** đóng vai trò quan trọng trong quá trình triển khai thực tế.
+
+---
+
+### Prompt Engineering
+
+* **Temperature = 0** không phải lúc nào cũng là lựa chọn tối ưu.
+* **Structured Output** giúp tăng tính ổn định của kết quả.
+* Kết hợp **Prompt Engineering** với các tham số của mô hình để đạt hiệu quả cao hơn.
+
+---
+
+## Ứng Dụng Vào Công Việc
+
+* Thiết kế chatbot có khả năng xử lý các kết quả khác nhau của **LLM**.
+* Sử dụng **Structured Output** khi xây dựng các **AI API**.
+* Áp dụng **Majority Voting** cho các bài toán yêu cầu độ chính xác cao.
+* Điều chỉnh **Temperature**, **Top-P** và **Repeat Penalty** phù hợp với từng bài toán.
+* Thiết kế quy trình kiểm thử AI dựa trên nhiều lần chạy thay vì chỉ đánh giá một kết quả duy nhất.
+
+---
+
+## Trải Nghiệm Trong Sự Kiện
+
+Tham gia buổi chia sẻ **"Non-Determinism of "Deterministic" LLM Settings"** giúp tôi hiểu rõ hơn về cách hoạt động thực sự của **Large Language Models**. Trước đây, tôi cho rằng chỉ cần đặt **Temperature = 0** thì mô hình sẽ luôn trả về cùng một kết quả. Tuy nhiên, bài trình bày đã chỉ ra rằng điều này không hoàn toàn đúng trong môi trường triển khai thực tế và còn phụ thuộc vào nhiều yếu tố về hạ tầng cũng như cơ chế suy luận của mô hình.
+
+### Học Hỏi Từ Chuyên Gia
+
+* Hiểu sâu hơn về cơ chế sinh **token** của **LLM**.
+* Tiếp cận các nghiên cứu mới về **Non-determinism** trong AI.
+* Hiểu rõ hơn những hạn chế khi triển khai **Large Language Models** trên các nền tảng Cloud.
+
+---
+
+### Trải Nghiệm Kỹ Thuật
+
+* Quan sát cách **Temperature**, **Top-P** và **Top-K** ảnh hưởng đến kết quả sinh văn bản.
+* Hiểu nguyên nhân gây ra sự khác biệt giữa các lần chạy của cùng một **Prompt**.
+* Tìm hiểu ảnh hưởng của **GPU**, **Floating-point Arithmetic** và **Inference Batching**.
+
+---
+
+### Kiến Thức Thực Tế
+
+* Biết cách thiết kế các hệ thống AI có độ tin cậy cao hơn.
+* Hiểu vai trò của **Structured Output**, **Majority Voting** và **Guardrails** trong các ứng dụng Production.
+* Nhận thức rằng việc triển khai AI không chỉ phụ thuộc vào **Prompt** mà còn phụ thuộc vào hạ tầng và cơ chế suy luận của mô hình.
+
+---
+
+### Bài Học Rút Ra
+
+* **Temperature = 0** không đảm bảo kết quả hoàn toàn **deterministic**.
+* **Non-determinism** là đặc điểm tự nhiên của nhiều hệ thống **LLM** hiện đại.
+* Khi phát triển ứng dụng AI, cần thiết kế hệ thống để chấp nhận sự biến thiên thay vì cố gắng loại bỏ hoàn toàn.
+* Luôn kiểm thử nhiều lần và đánh giá trên nhiều tình huống khác nhau trước khi đưa hệ thống vào môi trường **Production**.
+
+---
+
+### Tổng Kết
+
+
+> Nhìn chung, buổi chia sẻ đã giúp tôi thay đổi góc nhìn về tính ổn định của **Large Language Models** và hiểu rõ hơn các yếu tố ảnh hưởng đến quá trình suy luận của AI. Những kiến thức này sẽ rất hữu ích khi xây dựng các ứng dụng **Generative AI** có độ tin cậy cao trong môi trường thực tế.

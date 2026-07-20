@@ -1,59 +1,55 @@
 ---
 title: "Worklog Tuần 1"
-date: 2024-01-01
+date: 2026-07-03
 weight: 1
 chapter: false
 pre: " <b> 1.1. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
 
 
 ### Mục tiêu tuần 1:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Làm quen với chương trình First Cloud Journey Bootcamp.
+* Hiểu tổng quan về điện toán đám mây (Cloud Computing) và hệ sinh thái AWS.
+* Tìm hiểu cách tạo và quản lý tài khoản AWS.
+* Làm quen với AWS Management Console và các dịch vụ nền tảng.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                          |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | --------------------------------------- |
+| 2   | - Giới thiệu chương trình First Cloud Journey Bootcamp <br> - Tìm hiểu lộ trình học tập và các Module của khóa học <br> - Làm quen với AWS Cloud và các khái niệm cơ bản về Cloud Computing | 20/04/2026   | 20/04/2026      | https://cloudjourney.awsstudygroup.com/ |
+| 3   | - Tìm hiểu AWS Global Infrastructure <br> + Region <br> + Availability Zone <br> + Edge Location <br> - Tìm hiểu các nhóm dịch vụ chính trên AWS                                            | 21/04/2026   | 21/04/2026      | https://cloudjourney.awsstudygroup.com/ |
+| 4   | - Tìm hiểu AWS Account <br> - AWS Free Tier <br> - Billing Dashboard <br> - AWS Budgets <br> - Thực hành tạo tài khoản AWS và cấu hình bảo mật ban đầu                                      | 22/04/2026   | 22/04/2026      | https://cloudjourney.awsstudygroup.com/ |
+| 5   | - Tìm hiểu AWS Management Console <br> - Điều hướng và tìm kiếm dịch vụ <br> - Quản lý Resource theo Region <br> - Làm quen với giao diện quản trị AWS                                      | 23/04/2026   | 23/04/2026      | https://cloudjourney.awsstudygroup.com/ |
+| 6   | - Tìm hiểu IAM cơ bản <br> + Users <br> + Groups <br> + Roles <br> + Policies <br> - Thực hành tạo IAM User và phân quyền cơ bản                                                            | 24/04/2026   | 24/04/2026      | https://cloudjourney.awsstudygroup.com/ |
 
 ### Kết quả đạt được tuần 1:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu tổng quan về điện toán đám mây và các lợi ích khi triển khai hệ thống trên AWS.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Nắm được kiến trúc hạ tầng toàn cầu của AWS bao gồm:
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+  * Region
+  * Availability Zone
+  * Edge Location
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Hiểu cách hoạt động của tài khoản AWS và chương trình AWS Free Tier.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Biết cách theo dõi chi phí sử dụng dịch vụ thông qua Billing Dashboard và AWS Budgets.
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Thành thạo các thao tác cơ bản trên AWS Management Console như:
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
+  * Tìm kiếm dịch vụ
+  * Chuyển đổi Region
+  * Quản lý tài nguyên
+  * Theo dõi trạng thái dịch vụ
 
+* Hiểu mô hình quản lý truy cập trên AWS với IAM.
 
+* Thực hành tạo IAM User, IAM Group và gán Policy phù hợp cho người dùng.
+
+* Có thể đăng nhập và sử dụng AWS Management Console với IAM User thay cho Root User theo các khuyến nghị bảo mật.
+
+* Hoàn thành các bài học và bài thực hành đầu tiên của chương trình First Cloud Journey Bootcamp.

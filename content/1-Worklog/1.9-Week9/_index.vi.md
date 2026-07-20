@@ -1,59 +1,46 @@
 ---
 title: "Worklog Tuần 9"
-date: 2024-01-01
-weight: 1
+date: 2026-07-03
+weight: 9
 chapter: false
 pre: " <b> 1.9. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
 
 
 ### Mục tiêu tuần 9:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Củng cố kiến thức về AWS Identity and Access Management (IAM).
+* Hiểu cách quản lý quyền truy cập thông qua Tags và IAM Policy.
+* Tìm hiểu các giải pháp tự động hóa quản trị bằng AWS Lambda.
+* Thực hành xây dựng mô hình phân quyền và quản lý tài nguyên trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu Resource Tags trên AWS <br> - Quy tắc đặt Tag <br> - Ứng dụng Tags trong quản lý và phân quyền tài nguyên <br> - Thực hành gán Tags cho EC2 và Amazon S3 | 15/06/2026 | 15/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | - Tìm hiểu AWS Lambda <br> - Xây dựng Lambda Function quản lý tài nguyên <br> - Thực hành tự động khởi động và dừng EC2 Instance theo Tag | 16/06/2026 | 16/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | - Tìm hiểu IAM Policy nâng cao <br>&emsp;+ Inline Policy <br>&emsp;+ Managed Policy <br>&emsp;+ Policy Evaluation Logic <br> - Thực hành kiểm tra quyền truy cập của người dùng | 17/06/2026 | 17/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - **Thực hành:** <br>&emsp;+ Xây dựng IAM Policy theo nguyên tắc Least Privilege <br>&emsp;+ Kiểm tra quyền truy cập với nhiều IAM User <br>&emsp;+ Phân tích kết quả và điều chỉnh Policy | 18/06/2026 | 18/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | - Ôn tập các nội dung đã học về IAM và AWS Security <br> - Tổng hợp Best Practices trong quản lý tài khoản và tài nguyên AWS <br> - Dọn dẹp các tài nguyên sau khi hoàn thành Lab | 19/06/2026 | 19/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 9:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu vai trò của Resource Tags trong việc tổ chức, quản lý và tự động hóa tài nguyên trên AWS.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Biết cách sử dụng AWS Lambda để xây dựng các tác vụ tự động phục vụ công tác quản trị hệ thống.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Nắm được cơ chế hoạt động của IAM Policy và quá trình đánh giá quyền truy cập của AWS.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Thực hành thành công:
+  * Gán Tags cho tài nguyên AWS.
+  * Xây dựng Lambda Function tự động quản lý EC2.
+  * Tạo và kiểm tra IAM Policy.
+  * Phân quyền cho nhiều IAM User theo từng vai trò.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Hiểu nguyên tắc **Least Privilege** và áp dụng trong việc thiết kế quyền truy cập cho người dùng.
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Có khả năng xây dựng mô hình quản lý tài nguyên AWS an toàn, dễ mở rộng và thuận tiện trong quá trình vận hành.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Hoàn thành các bài học và bài thực hành về **AWS Lambda**, **Resource Tags** và **IAM Policy** trong chương trình First Cloud Journey Bootcamp.

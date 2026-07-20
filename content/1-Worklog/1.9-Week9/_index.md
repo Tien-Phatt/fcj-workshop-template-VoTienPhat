@@ -1,57 +1,46 @@
 ---
-title: "Week 9 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Worklog Week 9"
+date: 2026-07-03
+weight: 9
 chapter: false
 pre: " <b> 1.9. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 9 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Strengthen knowledge of AWS Identity and Access Management (IAM).
+* Learn how to manage AWS resources using Resource Tags and IAM Policies.
+* Explore automation with AWS Lambda for infrastructure management.
+* Gain hands-on experience implementing secure access control and resource automation on AWS.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn about AWS Resource Tags <br>&emsp;+ Tagging strategies <br>&emsp;+ Resource organization <br>&emsp;+ Access control using Tags <br> - Practice tagging Amazon EC2 and Amazon S3 resources | 15/06/2026 | 15/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - Learn about AWS Lambda <br> - Develop a Lambda Function for resource management <br> - Practice automatically starting and stopping Amazon EC2 instances based on Resource Tags | 16/06/2026 | 16/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - Study advanced IAM Policies <br>&emsp;+ Inline Policies <br>&emsp;+ Managed Policies <br>&emsp;+ IAM Policy Evaluation Logic <br> - Practice validating user permissions | 17/06/2026 | 17/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - **Hands-on Lab:** <br>&emsp;+ Create IAM Policies following the Principle of Least Privilege <br>&emsp;+ Test access permissions for multiple IAM Users <br>&emsp;+ Analyze and refine IAM Policies | 18/06/2026 | 18/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - Review AWS IAM and Security concepts <br> - Summarize IAM best practices <br> - Clean up AWS resources after completing the labs | 19/06/2026 | 19/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 9 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Gained a solid understanding of how AWS Resource Tags can be used to organize, manage, and automate cloud resources.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned how to use AWS Lambda to automate infrastructure management tasks.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Understood the structure and evaluation process of AWS IAM Policies.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Successfully completed hands-on exercises involving:
+  * Tagging AWS resources.
+  * Developing AWS Lambda functions for EC2 automation.
+  * Creating and testing IAM Policies.
+  * Managing permissions for multiple IAM Users.
 
-* Used AWS CLI to perform basic operations such as:
+* Applied the **Principle of Least Privilege** to design secure and efficient access control policies.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Improved the ability to automate AWS operations while maintaining strong security and governance practices.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Successfully completed the lessons and hands-on labs covering **AWS Lambda**, **Resource Tags**, and **Advanced IAM Policy Management** in the First Cloud Journey Bootcamp.

@@ -1,22 +1,23 @@
 ---
-title: "Các bài blogs đã đăng"
-date: 2024-01-01
+title: "Các bài blog đã đăng"
+date: 2026-07-11
 weight: 3
 chapter: false
 pre: " <b> 3. </b> "
 ---
 
-{{% notice warning %}}  
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
-Tại đây sẽ là phần liệt kê, giới thiệu các blogs mà các bạn đã đăng trên [AWS Study Group](https://www.facebook.com/groups/awsstudygroupfcj). Ví dụ:
 
-###  [Blog 1 - SESSION POLICIES TRONG AMAZON EKS POD IDENTITY](3.1-Blog1/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Phần này tổng hợp các bài blog mình đã thực hiện và đăng tải trong quá trình tìm hiểu các dịch vụ AWS. Nội dung tập trung vào kiến trúc Cloud, Serverless, Generative AI và AI Agent, đồng thời chia sẻ các kiến thức, kinh nghiệm cũng như cách ứng dụng các dịch vụ AWS để giải quyết những bài toán thực tế.
 
-###  [Blog 2 - ...](3.2-Blog2/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+### [Blog 1 - Xây dựng kiến trúc Microservices với Amazon SQS, Amazon SNS và AWS Lambda](3.1-Blog1/)
 
-###  [Blog 3 - ...](3.3-Blog3/)
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Bài viết giới thiệu cách xây dựng kiến trúc Microservices theo mô hình giao tiếp bất đồng bộ (Asynchronous Communication) bằng cách kết hợp Amazon SQS, Amazon SNS và AWS Lambda. Nội dung tập trung phân tích bài toán thực tế, kiến trúc tổng thể, luồng hoạt động của hệ thống, vai trò của từng dịch vụ AWS cũng như những lợi ích của mô hình Event-Driven và Serverless trong việc giảm sự phụ thuộc giữa các dịch vụ, tăng khả năng mở rộng và nâng cao khả năng chịu lỗi.
+
+### [Blog 2 - Xây dựng AI AWS Architecture Reviewer – Tự động đánh giá kiến trúc AWS với Amazon Bedrock và Serverless](3.2-Blog2/)
+
+Bài viết chia sẻ quá trình thiết kế hệ thống AI AWS Architecture Reviewer – một ứng dụng Generative AI trên AWS có khả năng tự động phân tích sơ đồ kiến trúc, đánh giá theo AWS Well-Architected Framework, ước tính chi phí triển khai và tạo báo cáo PDF. Nội dung trình bày kiến trúc Serverless kết hợp Event-Driven, luồng xử lý của hệ thống, vai trò của các dịch vụ như Amazon Bedrock, AWS Lambda, Amazon EventBridge, AWS Step Functions, Amazon S3 và Amazon DynamoDB, đồng thời giải thích lý do lựa chọn kiến trúc này cho bài toán thực tế.
+
+### [Blog 3 - Amazon Bedrock AgentCore Web Search: Khi AI Agent không còn bị giới hạn bởi Knowledge Cutoff](3.3-Blog3/)
+
+Bài viết giới thiệu tính năng Web Search trên Amazon Bedrock AgentCore, giúp AI Agent truy xuất thông tin mới từ Internet để tạo ra các câu trả lời có căn cứ và được cập nhật theo thời gian thực. Nội dung phân tích những hạn chế của AI Agent khi chỉ dựa trên dữ liệu huấn luyện, kiến trúc hoạt động của Web Search, vai trò của AgentCore Gateway và Model Context Protocol (MCP), đồng thời trình bày các ứng dụng thực tế cũng như những lợi ích của việc tích hợp khả năng tìm kiếm web vào các hệ thống AI Agent trong môi trường doanh nghiệp.

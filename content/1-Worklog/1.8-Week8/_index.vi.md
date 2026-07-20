@@ -1,59 +1,55 @@
 ---
 title: "Worklog Tuần 8"
-date: 2024-01-01
-weight: 1
+date: 2026-07-03
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
 
 
 ### Mục tiêu tuần 8:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Hiểu các nguyên tắc bảo mật trong môi trường AWS Cloud.
+* Nắm được cơ chế quản lý danh tính và phân quyền truy cập thông qua AWS IAM.
+* Tìm hiểu các dịch vụ xác thực người dùng và quản lý khóa mã hóa.
+* Thực hành cấu hình các thành phần bảo mật cơ bản trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu mô hình bảo mật trên AWS <br> - AWS Shared Responsibility Model <br> - AWS Well-Architected Framework – Security Pillar <br> - Tổng quan về Identity & Access Management | 08/06/2026 | 08/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | - Tìm hiểu AWS Identity and Access Management (IAM) <br>&emsp;+ IAM Users <br>&emsp;+ IAM Groups <br>&emsp;+ IAM Roles <br>&emsp;+ IAM Policies | 09/06/2026 | 09/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | - Tìm hiểu AWS IAM Identity Center <br> - Multi-Factor Authentication (MFA) <br> - Password Policy <br> - Best Practices trong quản lý tài khoản AWS | 10/06/2026 | 10/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - Tìm hiểu AWS Key Management Service (AWS KMS) <br> - Customer Managed Key (CMK) <br> - Mã hóa dữ liệu trên Amazon S3 và Amazon EBS <br> - Giới thiệu AWS Secrets Manager | 11/06/2026 | 11/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | - **Thực hành:** <br>&emsp;+ Tạo IAM User và IAM Group <br>&emsp;+ Gán IAM Policy <br>&emsp;+ Bật MFA <br>&emsp;+ Tạo KMS Key và kiểm tra mã hóa dữ liệu | 12/06/2026 | 12/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 8:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu nguyên tắc bảo mật theo mô hình **Shared Responsibility Model** của AWS.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Nắm được cách quản lý danh tính và phân quyền người dùng bằng AWS IAM.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Hiểu chức năng của:
+  * IAM User
+  * IAM Group
+  * IAM Role
+  * IAM Policy
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Biết cách áp dụng các biện pháp tăng cường bảo mật tài khoản như:
+  * Multi-Factor Authentication (MFA)
+  * Password Policy
+  * Principle of Least Privilege
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Hiểu cơ chế mã hóa dữ liệu bằng AWS Key Management Service (KMS).
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Thực hành thành công việc:
+  * Tạo IAM User và IAM Group.
+  * Gán quyền truy cập thông qua IAM Policy.
+  * Kích hoạt MFA cho tài khoản.
+  * Tạo KMS Key và áp dụng mã hóa cho tài nguyên AWS.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
+* Nắm được các khuyến nghị bảo mật cơ bản khi triển khai và quản lý tài nguyên trên AWS.
 
-
+* Hoàn thành các bài học và bài thực hành đầu tiên của **Module 05 – Security** trong chương trình First Cloud Journey Bootcamp.

@@ -1,57 +1,50 @@
 ---
-title: "Week 3 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Worklog Week 3"
+date: 2026-07-03
+weight: 3
 chapter: false
 pre: " <b> 1.3. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 3 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Understand the networking options available for connecting multiple Amazon VPCs and on-premises environments to AWS.
+* Learn the fundamentals of Hybrid Networking on AWS.
+* Explore AWS networking services used for connectivity and DNS management.
+* Gain hands-on experience configuring common networking architectures on AWS.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn about Amazon VPC Peering <br> - Understand the requirements and limitations of VPC Peering <br> - Practice connecting two Amazon VPCs | 04/05/2026 | 04/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - Learn about AWS Transit Gateway <br> - Compare AWS Transit Gateway with VPC Peering <br> - Explore architectures for connecting multiple VPCs | 05/05/2026 | 05/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - Learn the fundamentals of Hybrid Networking <br>&emsp;+ AWS Site-to-Site VPN <br>&emsp;+ AWS Direct Connect <br>&emsp;+ Customer Gateway <br>&emsp;+ Virtual Private Gateway | 06/05/2026 | 06/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - Learn about Amazon Route 53 <br>&emsp;+ Hosted Zones <br>&emsp;+ DNS Records <br>&emsp;+ Routing Policies <br> - Explore AWS Global Accelerator | 07/05/2026 | 07/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - **Hands-on Lab:** <br>&emsp;+ Configure Amazon VPC Peering <br>&emsp;+ Verify connectivity between VPCs <br>&emsp;+ Configure Amazon Route 53 <br>&emsp;+ Clean up AWS resources after completing the lab | 08/05/2026 | 08/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 3 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Understood the networking options available for connecting multiple Amazon VPCs within the same AWS account or across different AWS accounts.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned the advantages and limitations of:
+  * Amazon VPC Peering
+  * AWS Transit Gateway
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Gained a solid understanding of Hybrid Networking between on-premises infrastructure and AWS Cloud.
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Understood the purpose and functionality of:
+  * AWS Site-to-Site VPN
+  * AWS Direct Connect
+  * Customer Gateway
+  * Virtual Private Gateway
 
-* Used AWS CLI to perform basic operations such as:
+* Learned how Amazon Route 53 provides DNS management and traffic routing for AWS applications.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Successfully configured Hosted Zones and DNS records to route traffic to AWS resources.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Completed hands-on exercises involving VPC connectivity and DNS configuration in AWS.
+
+* Successfully completed the advanced networking lessons and hands-on labs in the First Cloud Journey Bootcamp.

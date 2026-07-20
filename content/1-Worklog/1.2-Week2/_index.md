@@ -1,57 +1,54 @@
 ---
-title: "Week 2 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Worklog Week 2"
+date: 2026-07-03
+weight: 2
 chapter: false
 pre: " <b> 1.2. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 2 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Understand the architecture of AWS networking and the core components of Amazon VPC.
+* Learn how to design and configure a basic virtual network on AWS.
+* Understand how Internet connectivity and communication between AWS resources are established.
+* Gain hands-on experience deploying a basic networking infrastructure on AWS.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn the fundamentals of Amazon Virtual Private Cloud (Amazon VPC) <br> - Study AWS networking architecture <br> - Explore the core components of a VPC <br> - Understand CIDR Blocks and IP Addressing | 27/04/2026 | 27/04/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - Learn about Public Subnets and Private Subnets <br> - Study Route Tables <br> - Understand Internet Gateway (IGW) <br> - Learn how Elastic IP works | 28/04/2026 | 28/04/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - Learn about NAT Gateway <br> - Study Security Groups <br> - Explore Network ACLs <br> - Understand traffic flow within a VPC <br> - Compare Security Groups and Network ACLs | 29/04/2026 | 29/04/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - **Hands-on Lab:** <br>&emsp;+ Create an Amazon VPC <br>&emsp;+ Create Public and Private Subnets <br>&emsp;+ Configure an Internet Gateway <br>&emsp;+ Set up Route Tables | 30/04/2026 | 30/04/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - **Hands-on Lab:** <br>&emsp;+ Create Security Groups <br>&emsp;+ Configure Network ACLs <br>&emsp;+ Verify connectivity between Subnets <br>&emsp;+ Clean up AWS resources after completing the lab | 01/05/2026 | 01/05/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 2 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Gained a clear understanding of the role of Amazon VPC in building secure and scalable network infrastructures on AWS.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned how to design a virtual network using:
+  * Amazon VPC
+  * Public Subnets
+  * Private Subnets
+  * CIDR Blocks
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Understood the functions of:
+  * Route Tables
+  * Internet Gateway (IGW)
+  * NAT Gateway
+  * Elastic IP
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Learned the differences between:
+  * Security Groups
+  * Network ACLs
 
-* Used AWS CLI to perform basic operations such as:
+* Successfully deployed a complete basic networking environment on AWS.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Configured networking components to enable secure communication between AWS resources and Internet access where required.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Developed a solid understanding of the networking foundation required before deploying compute and storage services on AWS.
+
+* Successfully completed the networking lessons and hands-on labs on Amazon VPC in the First Cloud Journey Bootcamp.

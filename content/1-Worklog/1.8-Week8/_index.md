@@ -1,57 +1,55 @@
 ---
-title: "Week 8 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Worklog Week 8"
+date: 2026-07-03
+weight: 8
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 8 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Understand the core security principles of AWS Cloud.
+* Learn how to manage identities and permissions using AWS Identity and Access Management (IAM).
+* Explore authentication mechanisms and encryption services on AWS.
+* Gain hands-on experience configuring essential AWS security features.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn the fundamentals of AWS Security <br> - Study the AWS Shared Responsibility Model <br> - Explore the Security Pillar of the AWS Well-Architected Framework <br> - Introduction to Identity and Access Management (IAM) | 08/06/2026 | 08/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - Learn about AWS Identity and Access Management (IAM) <br>&emsp;+ IAM Users <br>&emsp;+ IAM Groups <br>&emsp;+ IAM Roles <br>&emsp;+ IAM Policies | 09/06/2026 | 09/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - Learn about AWS IAM Identity Center <br> - Configure Multi-Factor Authentication (MFA) <br> - Explore Password Policies <br> - Review AWS account security best practices | 10/06/2026 | 10/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - Learn about AWS Key Management Service (AWS KMS) <br> - Explore Customer Managed Keys (CMKs) <br> - Encrypt data stored in Amazon S3 and Amazon EBS <br> - Introduction to AWS Secrets Manager | 11/06/2026 | 11/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - **Hands-on Lab:** <br>&emsp;+ Create IAM Users and IAM Groups <br>&emsp;+ Assign IAM Policies <br>&emsp;+ Enable Multi-Factor Authentication (MFA) <br>&emsp;+ Create AWS KMS Keys and test data encryption | 12/06/2026 | 12/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 8 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Gained a solid understanding of the **AWS Shared Responsibility Model** and its role in securing cloud environments.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned how to manage identities and access permissions using AWS Identity and Access Management (IAM).
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Understood the purpose and functionality of:
+  * IAM Users
+  * IAM Groups
+  * IAM Roles
+  * IAM Policies
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Applied AWS security best practices by:
+  * Enabling Multi-Factor Authentication (MFA)
+  * Configuring Password Policies
+  * Following the Principle of Least Privilege
 
-* Used AWS CLI to perform basic operations such as:
+* Learned how AWS Key Management Service (AWS KMS) provides encryption and key management for AWS resources.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Successfully completed hands-on exercises involving:
+  * Creating IAM Users and IAM Groups.
+  * Assigning IAM Policies.
+  * Enabling MFA.
+  * Creating KMS keys and encrypting AWS resources.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Gained a strong foundation in identity management, access control, and data encryption for AWS environments.
+
+* Successfully completed the introductory lessons and hands-on labs of **Module 05 – Security** in the First Cloud Journey Bootcamp.

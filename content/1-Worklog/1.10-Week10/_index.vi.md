@@ -1,59 +1,49 @@
 ---
 title: "Worklog Tuần 10"
-date: 2024-01-01
-weight: 2
+date: 2026-07-03
+weight: 10
 chapter: false
 pre: " <b> 1.10. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
 
 
 ### Mục tiêu tuần 10:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Hiểu cơ chế ghi nhật ký và giám sát hoạt động trên AWS.
+* Tìm hiểu dịch vụ AWS CloudTrail và Amazon Athena trong việc theo dõi, phân tích sự kiện.
+* Nắm được quy trình kiểm tra và truy vấn nhật ký phục vụ kiểm toán, giám sát và bảo mật.
+* Thực hành xây dựng hệ thống lưu trữ và phân tích nhật ký trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu AWS CloudTrail <br>&emsp;+ Khái niệm và vai trò <br>&emsp;+ Event History <br>&emsp;+ Trail <br> - Thực hành tạo CloudTrail | 22/06/2026 | 22/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | - Tìm hiểu cơ chế lưu trữ nhật ký trên Amazon S3 <br> - Cấu hình CloudTrail ghi log vào S3 Bucket <br> - Kiểm tra và theo dõi các sự kiện phát sinh trong tài khoản AWS | 23/06/2026 | 23/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | - Tìm hiểu Amazon Athena <br>&emsp;+ Tạo Database <br>&emsp;+ Tạo Table <br>&emsp;+ Truy vấn dữ liệu nhật ký bằng SQL | 24/06/2026 | 24/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - **Thực hành:** <br>&emsp;+ Truy vấn CloudTrail Logs bằng Amazon Athena <br>&emsp;+ Phân tích các API Call <br>&emsp;+ Kiểm tra lịch sử hoạt động của tài nguyên AWS | 25/06/2026 | 25/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | - **Thực hành:** <br>&emsp;+ Chia sẻ dữ liệu đã mã hóa trên Amazon S3 <br>&emsp;+ Kiểm tra quyền truy cập dữ liệu <br>&emsp;+ Dọn dẹp tài nguyên sau khi hoàn thành Lab | 26/06/2026 | 26/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 10:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu vai trò của AWS CloudTrail trong việc ghi nhận và theo dõi toàn bộ hoạt động diễn ra trên tài khoản AWS.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Nắm được quy trình:
+  * Tạo CloudTrail.
+  * Cấu hình lưu trữ nhật ký trên Amazon S3.
+  * Theo dõi lịch sử hoạt động của tài nguyên AWS.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Hiểu cách sử dụng Amazon Athena để truy vấn dữ liệu nhật ký bằng ngôn ngữ SQL mà không cần triển khai hệ thống cơ sở dữ liệu riêng.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Thực hành thành công:
+  * Tạo CloudTrail.
+  * Cấu hình Logging vào Amazon S3.
+  * Tạo Database và Table trên Amazon Athena.
+  * Truy vấn và phân tích CloudTrail Logs.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Hiểu quy trình kiểm toán và giám sát hoạt động của hệ thống nhằm phục vụ công tác vận hành và bảo mật.
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Biết cách kết hợp CloudTrail, Amazon S3 và Amazon Athena để xây dựng giải pháp phân tích nhật ký tập trung trên AWS.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Hoàn thành các bài học và bài thực hành về Logging, Monitoring và Audit trong chương trình First Cloud Journey Bootcamp.

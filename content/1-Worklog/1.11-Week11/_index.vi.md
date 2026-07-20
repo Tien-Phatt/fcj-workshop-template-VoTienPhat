@@ -1,59 +1,51 @@
 ---
 title: "Worklog Tuần 11"
-date: 2024-01-01
-weight: 2
+date: 2026-07-03
+weight: 11
 chapter: false
 pre: " <b> 1.11. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
 
 
 ### Mục tiêu tuần 11:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Củng cố kiến thức về AWS Identity and Access Management (IAM).
+* Hiểu cơ chế phân quyền giữa User, Group và Role trong môi trường AWS.
+* Thực hành xây dựng mô hình phân quyền theo Best Practices.
+* Nâng cao kỹ năng quản lý tài khoản và quyền truy cập trên AWS.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu mô hình quản lý người dùng trên AWS <br> - Vai trò của IAM Group <br> - Các nguyên tắc phân quyền theo nhóm người dùng | 29/06/2026 | 29/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | - **Thực hành:** <br>&emsp;+ Tạo IAM Group <br>&emsp;+ Tạo nhiều IAM User <br>&emsp;+ Thêm User vào Group <br>&emsp;+ Kiểm tra quyền truy cập | 30/06/2026 | 30/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | - Tìm hiểu AWS IAM Role <br>&emsp;+ Khái niệm IAM Role <br>&emsp;+ Use Case của IAM Role <br>&emsp;+ Cross-Service Access <br> - Thực hành tạo IAM Role cho quản trị viên | 01/07/2026 | 01/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - **Thực hành:** <br>&emsp;+ Cấu hình Switch Role <br>&emsp;+ Chuyển đổi giữa nhiều IAM Role <br>&emsp;+ Kiểm tra quyền truy cập của từng Role | 02/07/2026 | 02/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | - Ôn tập toàn bộ Module Security <br> - Tổng hợp các Best Practices trong quản lý IAM <br> - Dọn dẹp tài nguyên sau khi hoàn thành các bài Lab | 03/07/2026 | 03/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 11:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu cách tổ chức và quản lý người dùng thông qua IAM Group nhằm đơn giản hóa việc phân quyền trong hệ thống.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Thực hành thành công:
+  * Tạo IAM Group.
+  * Tạo IAM User.
+  * Gán User vào Group.
+  * Kiểm tra quyền truy cập sau khi phân quyền.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Nắm được vai trò của IAM Role trong việc cấp quyền tạm thời cho người dùng hoặc dịch vụ AWS.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Hiểu sự khác nhau giữa:
+  * IAM User.
+  * IAM Group.
+  * IAM Role.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Thực hành cấu hình **Switch Role** để chuyển đổi giữa các quyền quản trị khác nhau mà không cần sử dụng nhiều tài khoản.
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Áp dụng được nguyên tắc **Least Privilege** trong việc thiết kế quyền truy cập, giúp tăng cường tính bảo mật và giảm thiểu rủi ro khi vận hành hệ thống.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
+* Củng cố toàn bộ kiến thức của **Module 05 – Security**, bao gồm quản lý danh tính, phân quyền, ghi nhật ký hoạt động và các giải pháp bảo mật trên AWS.
 
-
+* Hoàn thành toàn bộ các bài học và bài thực hành của giai đoạn đầu chương trình First Cloud Journey Bootcamp, tạo nền tảng cho các nội dung nâng cao ở các tuần tiếp theo.

@@ -1,58 +1,52 @@
 ---
 title: "Worklog Tuần 12"
-date: 2024-01-01
-weight: 2
+date: 2026-07-03
+weight: 12
 chapter: false
-pre: " <b> 1.12 </b> "
+pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
+
+
 
 ### Mục tiêu tuần 12:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Hoàn thiện các nội dung nâng cao về AWS Identity and Access Management (IAM).
+* Hiểu cách áp dụng Condition trong IAM Policy để tăng cường bảo mật.
+* Tìm hiểu cơ chế xác thực thông qua Access Key và IAM Role.
+* Thực hành triển khai môi trường AWS đáp ứng các yêu cầu bảo mật và quản lý truy cập.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
 
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu giới hạn quyền truy cập bằng IAM Condition <br>&emsp;+ Giới hạn Switch Role theo địa chỉ IP <br>&emsp;+ Giới hạn Switch Role theo thời gian <br> - Dọn dẹp tài nguyên sau Lab | 06/07/2026 | 06/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 3 | - **Thực hành:** <br>&emsp;+ Tạo Amazon EC2 Instance <br>&emsp;+ Tạo Amazon S3 Bucket <br> - Chuẩn bị môi trường cho các bài Lab về IAM và Access Key | 07/07/2026 | 07/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 4 | - Tạo IAM User <br> - Tạo Access Key <br> - Cấu hình AWS CLI sử dụng Access Key <br> - Kiểm tra quyền truy cập đến các dịch vụ AWS | 08/07/2026 | 08/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 5 | - Tìm hiểu IAM Role dành cho dịch vụ AWS <br> - Tạo IAM Role cho EC2 <br> - Gán Role cho EC2 Instance <br> - Kiểm tra quyền truy cập mà không sử dụng Access Key | 09/07/2026 | 09/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| 6 | - **Thực hành tổng hợp:** <br>&emsp;+ Kiểm tra truy cập Amazon S3 từ EC2 thông qua IAM Role <br>&emsp;+ So sánh Access Key và IAM Role <br>&emsp;+ Tổng kết và dọn dẹp tài nguyên sau Lab | 10/07/2026 | 10/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 12:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Hiểu cách sử dụng **IAM Condition** để tăng cường bảo mật cho quyền truy cập.
 
-* Đã tạo và cấu hình AWS Free Tier account thành công.
+* Thực hành thành công việc giới hạn quyền **Switch Role** dựa trên:
+  * Địa chỉ IP.
+  * Thời gian truy cập.
 
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
+* Nắm được quy trình tạo và sử dụng **IAM User** cùng **Access Key** để xác thực khi làm việc với AWS CLI.
 
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
+* Hiểu sự khác nhau giữa:
+  * IAM User + Access Key.
+  * IAM Role.
 
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
+* Thực hành triển khai thành công:
+  * Amazon EC2 Instance.
+  * Amazon S3 Bucket.
+  * IAM User.
+  * IAM Role.
 
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
+* Biết cách gán IAM Role cho EC2 Instance để truy cập các dịch vụ AWS mà không cần lưu trữ Access Key trên máy chủ.
 
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
+* Hiểu các khuyến nghị bảo mật của AWS trong việc quản lý thông tin xác thực và cấp quyền cho ứng dụng.
 
-
+* Hoàn thành các bài học và bài thực hành về **IAM nâng cao**, **Access Key** và **IAM Role** trong chương trình First Cloud Journey Bootcamp.

@@ -1,57 +1,54 @@
 ---
-title: "Week 7 Worklog"
-date: 2024-01-01
-weight: 1
+title: "Worklog Week 7"
+date: 2026-07-03
+weight: 7
 chapter: false
 pre: " <b> 1.7. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 7 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Understand AWS file storage services and their use cases.
+* Learn how to deploy shared file systems for Linux and Windows workloads.
+* Explore high-performance storage solutions for enterprise applications.
+* Gain hands-on experience with AWS file storage and data transfer services.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn about Amazon Elastic File System (Amazon EFS) <br>&emsp;+ Architecture and key concepts <br>&emsp;+ Mount Targets <br>&emsp;+ Common use cases <br> - Practice creating an Amazon EFS file system | 01/06/2026 | 01/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - Learn about Amazon FSx <br>&emsp;+ Amazon FSx for Windows File Server <br>&emsp;+ Amazon FSx for Lustre <br>&emsp;+ Deployment architectures and use cases | 02/06/2026 | 02/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - **Hands-on Lab:** <br>&emsp;+ Create an Amazon EFS file system <br>&emsp;+ Mount Amazon EFS on an EC2 instance <br>&emsp;+ Create an Amazon FSx file system <br>&emsp;+ Verify shared file access | 03/06/2026 | 03/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - Learn about AWS DataSync <br> - Explore AWS Transfer Family <br> - Understand secure data transfer between on-premises environments and AWS <br> - Review common migration scenarios | 04/06/2026 | 04/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - **Hands-on Lab:** <br>&emsp;+ Configure AWS DataSync <br>&emsp;+ Synchronize data between storage locations <br>&emsp;+ Validate transfer performance <br>&emsp;+ Clean up AWS resources after completing the lab | 05/06/2026 | 05/06/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 7 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Gained a solid understanding of AWS file storage services and their practical use cases.
 
-* Successfully created and configured an AWS Free Tier account.
+* Understood the architecture and functionality of:
+  * Amazon Elastic File System (Amazon EFS)
+  * Amazon FSx
+  * AWS DataSync
+  * AWS Transfer Family
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Learned how to choose the appropriate file storage solution for different workloads, including:
+  * Linux applications
+  * Windows File Server environments
+  * High Performance Computing (HPC)
+  * Shared storage across multiple EC2 instances
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Successfully completed hands-on exercises involving:
+  * Creating Amazon EFS file systems.
+  * Mounting Amazon EFS on EC2 instances.
+  * Deploying Amazon FSx.
+  * Synchronizing data using AWS DataSync.
 
-* Used AWS CLI to perform basic operations such as:
+* Understood how to securely transfer and synchronize data between on-premises infrastructure and AWS.
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Gained practical experience in managing centralized file storage for cloud-based applications.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Successfully completed the lessons and hands-on labs covering Amazon EFS, Amazon FSx, AWS DataSync, and AWS Transfer Family in the First Cloud Journey Bootcamp.

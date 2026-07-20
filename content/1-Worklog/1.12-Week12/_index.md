@@ -1,57 +1,49 @@
 ---
-title: "Week 12 Worklog"
-date: 2024-01-01
-weight: 2
+title: "Worklog Week 12"
+date: 2026-07-03
+weight: 12
 chapter: false
 pre: " <b> 1.12. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 12 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Strengthen advanced AWS IAM concepts by applying conditional access controls.
+* Learn secure authentication methods using IAM Users, Access Keys, and IAM Roles.
+* Understand the differences between long-term credentials and temporary credentials.
+* Gain hands-on experience implementing AWS security best practices for accessing cloud resources.
 
-### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+### Tasks to be completed this week:
 
+| Day | Tasks | Start Date | Completion Date | Reference |
+| --- | --- | --- | --- | --- |
+| Monday | - Learn advanced IAM Policy Conditions <br>&emsp;+ Restrict Switch Role by Source IP <br>&emsp;+ Restrict Switch Role by Time <br> - Review security recommendations for IAM policies | 06/07/2026 | 06/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Tuesday | - **Hands-on Lab:** <br>&emsp;+ Create an Amazon EC2 Instance <br>&emsp;+ Create an Amazon S3 Bucket <br>&emsp;+ Prepare the environment for IAM authentication labs | 07/07/2026 | 07/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Wednesday | - Create IAM Users <br> - Generate Access Keys <br> - Configure AWS CLI with Access Keys <br> - Verify access to AWS services using IAM credentials | 08/07/2026 | 08/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Thursday | - Learn about IAM Roles for AWS services <br> - Create an IAM Role for Amazon EC2 <br> - Attach the IAM Role to an EC2 Instance <br> - Access Amazon S3 without using Access Keys | 09/07/2026 | 09/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
+| Friday | - **Hands-on Lab:** <br>&emsp;+ Compare IAM Users with Access Keys and IAM Roles <br>&emsp;+ Test Amazon S3 access from EC2 using IAM Roles <br>&emsp;+ Review AWS security best practices <br>&emsp;+ Clean up AWS resources | 10/07/2026 | 10/07/2026 | <https://cloudjourney.awsstudygroup.com/> |
 
 ### Week 12 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Gained a deeper understanding of advanced IAM security features, including conditional access control based on IP addresses and time restrictions.
 
-* Successfully created and configured an AWS Free Tier account.
+* Successfully implemented IAM Policy Conditions to improve access security and reduce unauthorized access risks.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
+* Learned how to create and manage:
+  * IAM Users
+  * Access Keys
+  * IAM Roles
 
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
+* Successfully configured AWS CLI authentication using IAM Access Keys.
 
-* Used AWS CLI to perform basic operations such as:
+* Understood the differences between:
+  * Long-term credentials (IAM User + Access Key)
+  * Temporary credentials (IAM Role)
 
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
+* Successfully attached an IAM Role to an Amazon EC2 instance and securely accessed Amazon S3 without storing Access Keys on the server.
 
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Applied AWS security best practices by using IAM Roles instead of long-term credentials whenever possible.
+
+* Successfully completed the advanced IAM authentication and authorization lessons and hands-on labs in the First Cloud Journey Bootcamp, further strengthening practical AWS security and identity management skills.
