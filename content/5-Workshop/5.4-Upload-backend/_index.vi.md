@@ -53,7 +53,7 @@ Ví dụ:
 uploads/REV-C6A0D048/architecture-2.jpg
 ```
 
-![S3 Input](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
+![S3 Input](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
 
 #### Bước 2: Tạo DynamoDB Review Table
 
@@ -86,7 +86,7 @@ Review status
 Architecture type
 ```
 
-![DynamoDB](/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews.png)
+![DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews.png)
 
 #### Bước 3: Tạo Lambda Execution Role
 
@@ -102,9 +102,9 @@ Amazon CloudWatch Logs
 
 Lambda function cần quyền để upload file lên S3, ghi review metadata vào DynamoDB và ghi logs vào CloudWatch.
 
-![Lambda Execution Role](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role.png)
+![Lambda Execution Role](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role.png)
 
-![Lambda Execution Inline Policy](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role-inline-policy.png)
+![Lambda Execution Inline Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role-inline-policy.png)
 
 #### Bước 4: Tạo Lambda Upload Service
 
@@ -127,7 +127,7 @@ Lưu review metadata vào DynamoDB.
 Trả upload response về frontend.
 ```
 
-![Lambda](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service.png)
+![Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service.png)
 
 #### Bước 5: Cấu hình Lambda Environment Variables
 
@@ -144,7 +144,7 @@ ALLOWED_ORIGINS = http://localhost:5173,https://d9353ayez9zar.cloudfront.net
 
 Các environment variables này cho phép Lambda function xác định input bucket, DynamoDB table, giới hạn dung lượng upload và các frontend origins được phép gọi API.
 
-![Lambda](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-env.png)
+![Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-env.png)
 
 #### Bước 6: Triển khai logic xử lý upload
 
@@ -194,7 +194,7 @@ POST /upload
 
 Route này nhận upload requests từ React frontend và chuyển tiếp request đến Lambda Upload Service.
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api.png)
 
 #### Bước 8: Cấu hình CORS
 
@@ -223,7 +223,7 @@ authorization
 
 Phương thức `OPTIONS` là cần thiết vì trình duyệt sẽ gửi preflight requests trước một số cross-origin API calls.
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api-cors.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api-cors.png)
 
 #### Bước 9: Kiểm thử upload file bằng PowerShell
 
@@ -254,7 +254,7 @@ Nếu upload thành công, API sẽ trả về response tương tự như sau:
 }
 ```
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-test-files.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-test-files.png)
 
 #### Bước 10: Kiểm tra file đã upload trong S3
 
@@ -272,7 +272,7 @@ Ví dụ:
 uploads/REV-C29F2778/architecture-1.png
 ```
 
-![S3](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
+![S3](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
 
 #### Bước 11: Kiểm tra metadata trong DynamoDB
 
@@ -292,4 +292,4 @@ uploadDate
 updatedAt
 ```
 
-![DynamoDB](/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews-verify.png)
+![DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews-verify.png)

@@ -36,7 +36,7 @@ Một số khó khăn thường gặp gồm:
 
 ## 2. Kiến trúc tổng thể
 
-![AI AWS Architecture Reviewer Architecture](/images/3-BlogsPosted/Blog2.jpg)
+![AI AWS Architecture Reviewer Architecture](/fcj-workshop-template-VoTienPhat/images/3-BlogsPosted/Blog2.jpg)
 
 Hệ thống được xây dựng theo mô hình **Serverless** kết hợp **Event-Driven Architecture**, tận dụng các dịch vụ được quản lý hoàn toàn trên AWS.
 

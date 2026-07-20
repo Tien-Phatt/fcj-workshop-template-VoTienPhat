@@ -40,7 +40,7 @@ Next, the architecture JSON and cost estimation result are sent back to Amazon B
 
 After the final AI review is completed, AWS Lambda PDF Generator creates a PDF report from the analysis result. The report is stored in the Amazon S3 Report Bucket. Lambda PDF Generator also updates the review history, review status, and report information in Amazon DynamoDB. Amazon SNS is not used to send an email when each review is completed. Instead, Amazon SNS is integrated with Amazon CloudWatch Alarm to send operational alert emails when the system encounters errors, such as Step Functions failed executions, Lambda errors, API Gateway 5XX errors, DynamoDB throttling, or EventBridge failed invocations.
 
-![AI AWS Architecture Reviewer Workshop](/images/5-Workshop/ai-aws-architecture-reviewer.png)
+![AI AWS Architecture Reviewer Workshop](/fcj-workshop-template-VoTienPhat/images/5-Workshop/ai-aws-architecture-reviewer.png)
 
 ---
 

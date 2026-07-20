@@ -77,7 +77,7 @@ The key point is not simply that AI can search the web. More importantly, it per
 
 ## 3. Basic Architecture
 
-![Amazon Bedrock AgentCore Web Search Architecture](/images/3-BlogsPosted/Blog3.jpg)
+![Amazon Bedrock AgentCore Web Search Architecture](/fcj-workshop-template-VoTienPhat/images/3-BlogsPosted/Blog3.jpg)
 
 A simplified architecture of the solution can be illustrated as follows:
 

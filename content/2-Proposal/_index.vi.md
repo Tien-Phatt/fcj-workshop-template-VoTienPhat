@@ -108,7 +108,7 @@ Kiến trúc bao gồm các bước chính sau:
 16. Amazon CloudWatch ghi logs, metrics và hỗ trợ troubleshooting cho Lambda, Step Functions, API Gateway và workflow execution.
 17. AWS IAM áp dụng least privilege access giữa các services.
 
-![AI AWS Architecture Reviewer Architecture](/images/2-Proposal/ai-aws-architecture-reviewer-proposal.jpg)
+![AI AWS Architecture Reviewer Architecture](/fcj-workshop-template-VoTienPhat/images/2-Proposal/ai-aws-architecture-reviewer-proposal.jpg)
 
 ### Các dịch vụ AWS sử dụng
 

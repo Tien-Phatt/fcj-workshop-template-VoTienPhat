@@ -78,7 +78,7 @@ Grounded Answer
 
 ## 3. Kiến trúc hoạt động cơ bản
 
-![Amazon Bedrock AgentCore Web Search Architecture](/images/3-BlogsPosted/Blog3.jpg)
+![Amazon Bedrock AgentCore Web Search Architecture](/fcj-workshop-template-VoTienPhat/images/3-BlogsPosted/Blog3.jpg)
 
 Một kiến trúc đơn giản của hệ thống có thể mô tả như sau:
 

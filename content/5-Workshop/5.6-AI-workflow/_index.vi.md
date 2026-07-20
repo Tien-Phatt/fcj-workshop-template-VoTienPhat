@@ -105,7 +105,7 @@ Thực hiện cấu hình trên AWS Console:
 
 Sau khi bật tùy chọn này, các sự kiện tạo object mới trong bucket sẽ có thể được định tuyến sang EventBridge.
 
-![S3 EventBridge](/images/5-Workshop/5.6-AI-workflow/s3-input-bucket-eventbridge.png)
+![S3 EventBridge](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-input-bucket-eventbridge.png)
 
 </details>
 
@@ -179,7 +179,7 @@ Sau khi cấu hình xong, chọn:
 Next
 ```
 
-![EventBridge Rule](/images/5-Workshop/5.6-AI-workflow/eventbridge-rule.png)
+![EventBridge Rule](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-rule.png)
 
 </details>
 
@@ -241,7 +241,7 @@ Ví dụ input mà Step Functions nhận được:
 
 Input này giúp AI Analyzer Lambda xác định đúng bucket và object key để đọc sơ đồ kiến trúc đã upload từ S3.
 
-![EventBridge Target](/images/5-Workshop/5.6-AI-workflow/eventbridge-target-step-functions.png)
+![EventBridge Target](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-target-step-functions.png)
 
 </details>
 
@@ -296,7 +296,7 @@ Tạo báo cáo đánh giá cuối cùng, lưu báo cáo vào S3 và cập nhậ
 
 Trong workflow có thêm Choice state `HasDetectedServices`. Nếu AI Analyzer không phát hiện dịch vụ AWS nào, workflow sẽ bỏ qua bước tính chi phí và chuyển thẳng sang tạo report với cost bằng 0.
 
-![Step Functions](/images/5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
+![Step Functions](/fcj-workshop-template-VoTienPhat5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
 
 </details>
 
@@ -411,7 +411,7 @@ EstimateCost
 GenerateReport
 ```
 
-![Step Functions Definition](/images/5-Workshop/5.6-AI-workflow/step-functions-definition.png)
+![Step Functions Definition](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-definition.png)
 
 </details>
 
@@ -500,7 +500,7 @@ Có thể test Lambda bằng event mẫu:
 }
 ```
 
-![AI Analyzer Lambda](/images/5-Workshop/5.6-AI-workflow/aws-reviewer-ai-analyzer.png)
+![AI Analyzer Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-ai-analyzer.png)
 
 </details>
 
@@ -604,7 +604,7 @@ Assumption sử dụng mặc định
 Đề xuất tối ưu chi phí
 ```
 
-![Cost Tool Lambda](/images/5-Workshop/5.6-AI-workflow/aws-reviewer-cost-tool.png)
+![Cost Tool Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-cost-tool.png)
 
 </details>
 
@@ -664,7 +664,7 @@ report.pdf:
 Lưu báo cáo PDF cuối cùng để tải xuống hoặc nộp báo cáo.
 ```
 
-![S3 Report Bucket](/images/5-Workshop/5.6-AI-workflow/s3-report-bucket.png)
+![S3 Report Bucket](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-report-bucket.png)
 
 </details>
 
@@ -780,7 +780,7 @@ Có thể test Lambda bằng event mẫu:
 
 PDF Generator Lambda là state cuối cùng của AI Workflow.
 
-![PDF Generator Lambda](/images/5-Workshop/5.6-AI-workflow/aws-reviewer-pdf-generator.png)
+![PDF Generator Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-pdf-generator.png)
 
 </details>
 
@@ -966,7 +966,7 @@ Sau đó chọn:
 Create
 ```
 
-![ReportLab Layer](/images/5-Workshop/5.6-AI-workflow/reportlab-layer.png)
+![ReportLab Layer](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/reportlab-layer.png)
 
 ##### 10.7. Gắn layer vào PDF Generator Lambda
 
@@ -1153,7 +1153,7 @@ Thực hiện kiểm tra trong DynamoDB:
 
 Việc cập nhật này giúp React frontend hiển thị được lịch sử review và kết quả phân tích đã hoàn thành.
 
-![DynamoDB Updated Review](/images/5-Workshop/5.6-AI-workflow/dynamodb-review-completed.png)
+![DynamoDB Updated Review](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-review-completed.png)
 
 </details>
 
@@ -1363,7 +1363,7 @@ EventBridge cần quyền start execution của Step Functions state machine.
 }
 ```
 
-![IAM Roles](/images/5-Workshop/5.6-AI-workflow/ai-workflow-iam-roles.png)
+![IAM Roles](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/ai-workflow-iam-roles.png)
 
 </details>
 
@@ -1421,7 +1421,7 @@ GenerateReport
 
 Nếu một state bị lỗi, mở tab `Input` và `Output` của state đó để xem dữ liệu truyền vào và lỗi trả ra.
 
-![Step Functions Success](/images/5-Workshop/5.6-AI-workflow/step-functions-execution-success.png)
+![Step Functions Success](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-execution-success.png)
 
 </details>
 
@@ -1476,7 +1476,7 @@ report.pdf:
 Lưu báo cáo PDF cuối cùng, có thể tải xuống hoặc đưa vào phần kết quả demo.
 ```
 
-![Generated Reports](/images/5-Workshop/5.6-AI-workflow/s3-generated-reports.png)
+![Generated Reports](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-generated-reports.png)
 
 </details>
 
@@ -1537,7 +1537,7 @@ updatedAt
 
 Nếu item vẫn ở trạng thái `uploaded`, cần kiểm tra CloudWatch Logs của PDF Generator Lambda. Lỗi thường gặp là thiếu biến môi trường `TABLE_NAME` hoặc thiếu quyền `dynamodb:UpdateItem`.
 
-![DynamoDB Completed Review](/images/5-Workshop/5.6-AI-workflow/dynamodb-completed-review.png)
+![DynamoDB Completed Review](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-completed-review.png)
 
 </details>
 
@@ -1590,7 +1590,7 @@ Upload Backend → S3 Input Bucket → EventBridge → Step Functions
 → S3 Report Bucket → DynamoDB → Frontend Review History
 ```
 
-![Frontend Review History](/images/5-Workshop/5.6-AI-workflow/frontend-review-history.png)
+![Frontend Review History](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/frontend-review-history.png)
 
 </details>
 

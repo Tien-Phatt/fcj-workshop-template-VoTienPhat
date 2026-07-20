@@ -71,7 +71,7 @@ aws sns get-topic-attributes `
   --region ap-southeast-1
 ```
 
-![SNS Topic](/images/5-Workshop/5.7-Monitoring-security/sns-topic.png)
+![SNS Topic](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/sns-topic.png)
 
 ---
 
@@ -97,7 +97,7 @@ PendingConfirmation
 
 Email ở trạng thái này sẽ chưa nhận được cảnh báo.
 
-![Confirm subscription](/images/5-Workshop/5.7-Monitoring-security/confirm-subscription.png)
+![Confirm subscription](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/confirm-subscription.png)
 
 ---
 
@@ -137,7 +137,7 @@ aws sns publish `
 
 Nếu Gmail nhận được email test, SNS Topic đã hoạt động đúng.
 
-![Test](/images/5-Workshop/5.7-Monitoring-security/test.png)
+![Test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/test.png)
 
 ---
 
@@ -163,7 +163,7 @@ Các metric giám sát:
 
 Khi workflow bị failed, timed out hoặc aborted, CloudWatch Alarm sẽ gửi cảnh báo đến SNS Topic.
 
-![Architecture-review-workflow](/images/5-Workshop/5.7-Monitoring-security/Architecture-review-workflow.png)
+![Architecture-review-workflow](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Architecture-review-workflow.png)
 
 ---
 
@@ -202,7 +202,7 @@ Errors >= 1 trong 5 phút
 Throttles >= 1 trong 5 phút
 Duration >= 80% timeout của Lambda
 ```
-![Errors-Alarm](/images/5-Workshop/5.7-Monitoring-security/Errors-Alarm.png)
+![Errors-Alarm](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Errors-Alarm.png)
 
 ---
 
@@ -236,7 +236,7 @@ S3
 
 Khi log có lỗi quan trọng, Metric Filter tạo custom metric và CloudWatch Alarm có thể gửi cảnh báo qua SNS.
 
-![Log Metric Filter](/images/5-Workshop/5.7-Monitoring-security/Log-Metric-Filter.png)
+![Log Metric Filter](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Log-Metric-Filter.png)
 
 ---
 
@@ -262,7 +262,7 @@ Cấu hình đề xuất:
 
 Không nên đặt ngưỡng `4XXError >= 1`, vì người dùng gửi request sai cũng có thể tạo ra lỗi 4XX.
 
-![AIArchitectureReviewer-APIGateway](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-APIGateway.png)
+![AIArchitectureReviewer-APIGateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-APIGateway.png)
 
 ---
 
@@ -290,7 +290,7 @@ Các metric giám sát:
 
 Nếu DynamoDB lỗi, workflow có thể không cập nhật được review status hoặc frontend không đọc được dữ liệu review.
 
-![AIArchitectureReviews-DynamoDB](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviews-DynamoDB.png)
+![AIArchitectureReviews-DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviews-DynamoDB.png)
 
 ---
 
@@ -318,7 +318,7 @@ FailedInvocations >= 1 trong 5 phút
 
 Nếu EventBridge failed invocation, file có thể đã upload vào S3 nhưng workflow không được kích hoạt.
 
-![AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm.png)
+![AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm.png)
 
 ---
 
@@ -397,23 +397,23 @@ Email cảnh báo thường bao gồm:
 Các IAM Role cần được kiểm tra theo nguyên tắc **least privilege access**. Mỗi Lambda chỉ nên có quyền cần thiết cho nhiệm vụ của nó.
 
 **Lambda Upload Service** cần quyền:
-![Lambda-Upload-Service](/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service.png)
-![Lambda-Upload-Service-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service-Policy.png)
+![Lambda-Upload-Service](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service.png)
+![Lambda-Upload-Service-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service-Policy.png)
 
 **Lambda AI Analyzer** cần quyền:
 
-![Lambda-AI-Analyzer](/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer.png)
-![Lambda-AI-Analyzer-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer-Policy.png)
+![Lambda-AI-Analyzer](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer.png)
+![Lambda-AI-Analyzer-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer-Policy.png)
 
 **Lambda Cost Tool** cần quyền:
 
-![Lambda-Cost-Tool](/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool.png)
-![Lambda-Cost-Tool-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool-Policy.png)
+![Lambda-Cost-Tool](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool.png)
+![Lambda-Cost-Tool-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool-Policy.png)
 
 **Lambda PDF Generator** cần quyền:
 
-![Lambda-PDF-Generator](/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator.png)
-![Lambda-PDF-Generator-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator-Policy.png)
+![Lambda-PDF-Generator](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator.png)
+![Lambda-PDF-Generator-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator-Policy.png)
 
 ---
 

@@ -90,7 +90,7 @@ uploaded
 ```
 This API is used by the Review Progress page.
 
-![Review API](/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api.png)
+![Review API](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api.png)
 
 #### Step 4: Configure CORS for review APIs
 
@@ -114,7 +114,7 @@ authorization
 ```
 The OPTIONS method is required for browser preflight requests.
 
-![Review API CORS](/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api-cors.png)
+![Review API CORS](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api-cors.png)
 
 #### Step 5: Test GET /reviews API
 
@@ -125,7 +125,7 @@ curl.exe -i "https://031hqksomd.execute-api.ap-southeast-1.amazonaws.com/reviews
 
 If the API works correctly, it returns a list of review records from DynamoDB.
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-reviews.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-reviews.png)
 
 #### Step 6: Test GET /reviews/{reviewId} API
 
@@ -144,7 +144,7 @@ Example response:
   "status": "uploaded"
 }
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-review-detail.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-review-detail.png)
 
 #### Step 7: Test GET /reviews/{reviewId}/status API
 
@@ -164,7 +164,7 @@ Example response:
 }
 ```
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-review-detail-status.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-review-detail-status.png)
 
 #### Step 8: Connect Review History page
 
@@ -185,7 +185,7 @@ Status
 Architecture type
 ```
 
-![Review History page](/images/5-Workshop/5.5-Review-api/Review-history-page.png)
+![Review History page](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/Review-history-page.png)
 
 #### Step 9: Connect Review Detail page
 
@@ -221,4 +221,4 @@ uploaded
 ```
 In the next phase, this status will be updated by the AI review workflow.
 
-![Review Detail and process page](/images/5-Workshop/5.5-Review-api/Review-detail-and-process-page.png)
+![Review Detail and process page](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/Review-detail-and-process-page.png)

@@ -32,4 +32,4 @@ Trong workshop này, hệ thống **AI AWS Architecture Reviewer** sẽ được
 
 Kiến trúc bên dưới thể hiện workflow tổng thể của hệ thống AI AWS Architecture Reviewer, từ bước người dùng truy cập website, upload diagram, xử lý AI analysis, ước tính chi phí, tạo report, lưu review history cho đến gửi email notification.
 
-![Tổng quan AI AWS Architecture Reviewer](/images/5-Workshop/5.1-Workshop-overview/ai-aws-architecture-reviewer-overview.jpg)
+![Tổng quan AI AWS Architecture Reviewer](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.1-Workshop-overview/ai-aws-architecture-reviewer-overview.jpg)

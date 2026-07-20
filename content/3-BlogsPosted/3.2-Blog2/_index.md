@@ -36,7 +36,7 @@ Our idea was to build an AI-powered system that can automate this process, allow
 
 ## 2. Overall Architecture
 
-![AI AWS Architecture Reviewer Architecture](/images/3-BlogsPosted/Blog2.jpg)
+![AI AWS Architecture Reviewer Architecture](/fcj-workshop-template-VoTienPhat/images/3-BlogsPosted/Blog2.jpg)
 
 The system is built using a **Serverless Architecture** combined with an **Event-Driven Architecture**, leveraging fully managed AWS services.
 

@@ -43,7 +43,7 @@ Example:
 ```text
 uploads/REV-C6A0D048/architecture-2.jpg
 ```
-![S3 Input](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
+![S3 Input](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
 
 #### Step 2: Create the DynamoDB review table
 
@@ -70,7 +70,7 @@ Review status
 Architecture type
 ```
 
-![DynamoDB](/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews.png)
+![DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews.png)
 
 #### Step 3: Create the Lambda execution role
 
@@ -84,9 +84,9 @@ Amazon CloudWatch Logs
 ```
 The Lambda function needs permission to upload files to S3, write review metadata to DynamoDB, and write logs to CloudWatch.
 
-![Lambda Execution Role](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role.png)
+![Lambda Execution Role](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role.png)
 
-![Lambda Execution Inline Policy](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role-inline-policy.png)
+![Lambda Execution Inline Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-lambda-role-inline-policy.png)
 
 #### Step 4: Create the Lambda Upload Service
 Create an AWS Lambda function to handle upload requests.
@@ -103,7 +103,7 @@ Uploading the diagram file to Amazon S3.
 Saving review metadata to DynamoDB.
 Returning upload response to the frontend.
 ```
-![Lambda](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service.png)
+![Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service.png)
 
 #### Step 5: Configure Lambda environment variables
 
@@ -118,7 +118,7 @@ ALLOWED_ORIGINS = http://localhost:5173,https://d9353ayez9zar.cloudfront.net
 ```
 These environment variables allow the Lambda function to identify the input bucket, DynamoDB table, upload size limit, and allowed frontend origins.
 
-![Lambda](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-env.png)
+![Lambda](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-env.png)
 
 #### Step 6: Implement upload processing logic
 
@@ -159,7 +159,7 @@ POST /upload
 ```
 This route receives upload requests from the React frontend and forwards them to the Lambda Upload Service.
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api.png)
 
 #### Step 8: Configure CORS
 
@@ -182,7 +182,7 @@ authorization
 ```
 The OPTIONS method is required because browsers send preflight requests before certain cross-origin API calls.
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api-cors.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-api-cors.png)
 
 #### Step 9: Test file upload using PowerShell
 
@@ -208,7 +208,7 @@ If the upload is successful, the API returns a response similar to:
 }
 ```
 
-![API Gateway](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-test-files.png)
+![API Gateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-upload-service-test-files.png)
 
 #### Step 10: Verify uploaded file in S3
 
@@ -223,7 +223,7 @@ Example:
 uploads/REV-C29F2778/architecture-1.png
 ```
 
-![S3](/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
+![S3](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/ai-aws-reviewer-input-bucket-tiersteam.png)
 
 #### Step 11: Verify metadata in DynamoDB
 
@@ -241,4 +241,4 @@ status
 uploadDate
 updatedAt
 ```
-![DynamoDB](/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews-verify.png)
+![DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.4-Upload-backend/AIArchitectureReviews-verify.png)

@@ -54,7 +54,7 @@ Cách tiếp cận này giúp các thành phần hoạt động độc lập và
 ## 3. Kiến trúc tổng thể
 
 
-![Kiến trúc Microservices](/images/3-BlogsPosted/Blog1.jpg)
+![Kiến trúc Microservices](/fcj-workshop-template-VoTienPhat/images/3-BlogsPosted/Blog1.jpg)
 
 Hệ thống được xây dựng với các thành phần chính:
 

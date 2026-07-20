@@ -56,7 +56,7 @@ image assets
 other static frontend files
 ```
 
-![S3 React App](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam.png)
+![S3 React App](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam.png)
 
 #### Step 3: Upload frontend build files to S3
 
@@ -83,7 +83,7 @@ CloudFront distribution ID:
 E2JHD76RIC6AML
 ```
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront.png)
 
 #### Step 5: Configure Origin Access Control
 
@@ -91,7 +91,7 @@ The S3 frontend bucket is kept private. To allow CloudFront to read files from t
 
 This setup improves security because users cannot directly access the S3 bucket. They must access the website through CloudFront.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-2.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-2.png)
 
 #### Step 6: Configure S3 bucket policy
 
@@ -99,7 +99,7 @@ After configuring Origin Access Control, update the S3 bucket policy to allow th
 
 The bucket policy allows CloudFront to perform s3:GetObject on frontend files.
 
-![S3 React App Policy](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam-policy.png)
+![S3 React App Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam-policy.png)
 
 #### Step 7: Configure default root object
 
@@ -125,7 +125,7 @@ To fix this, custom error responses are configured in CloudFront:
 ```
 This allows React Router to handle frontend routes correctly.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-3.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-3.png)
 
 #### Step 9: Create CloudFront invalidation
 
@@ -139,7 +139,7 @@ aws cloudfront create-invalidation --distribution-id E2JHD76RIC6AML --paths "/*"
 
 Wait until the invalidation status becomes **Completed**.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-4.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-4.png)
 
 #### Step 10: Test the deployed website
 
@@ -151,4 +151,4 @@ https://d9353ayez9zar.cloudfront.net
 
 The React frontend should load successfully.
 
-![React App](/images/5-Workshop/5.3-Frontend-hosting/Website-project.png)
+![React App](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/Website-project.png)

@@ -66,7 +66,7 @@ Các tài nguyên hình ảnh
 Các tệp frontend tĩnh khác
 ```
 
-![S3 React App](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam.png)
+![S3 React App](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam.png)
 
 #### Bước 3: Tải các tệp build frontend lên S3
 
@@ -98,7 +98,7 @@ CloudFront distribution ID:
 E2JHD76RIC6AML
 ```
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront.png)
 
 #### Bước 5: Cấu hình Origin Access Control
 
@@ -106,7 +106,7 @@ S3 frontend bucket được giữ ở chế độ private. Để cho phép Cloud
 
 Cấu hình này giúp cải thiện tính bảo mật vì người dùng không thể truy cập trực tiếp vào S3 bucket. Họ phải truy cập website thông qua CloudFront.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-2.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-2.png)
 
 #### Bước 6: Cấu hình S3 bucket policy
 
@@ -114,7 +114,7 @@ Sau khi cấu hình Origin Access Control, cập nhật S3 bucket policy để c
 
 Bucket policy cho phép CloudFront thực hiện hành động `s3:GetObject` trên các tệp frontend.
 
-![S3 React App Policy](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam-policy.png)
+![S3 React App Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-frontend-tiersteam-policy.png)
 
 #### Bước 7: Cấu hình default root object
 
@@ -145,7 +145,7 @@ Vì frontend là một ứng dụng React Single Page Application, việc truy c
 
 Điều này cho phép React Router xử lý chính xác các route của frontend.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-3.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-3.png)
 
 #### Bước 9: Tạo CloudFront invalidation
 
@@ -159,7 +159,7 @@ aws cloudfront create-invalidation --distribution-id E2JHD76RIC6AML --paths "/*"
 
 Chờ cho đến khi trạng thái invalidation chuyển thành **Completed**.
 
-![CloudFront](/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-4.png)
+![CloudFront](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/ai-aws-reviewer-cloudfront-4.png)
 
 #### Bước 10: Kiểm tra website đã triển khai
 
@@ -171,4 +171,4 @@ https://d9353ayez9zar.cloudfront.net
 
 React frontend sẽ được tải thành công.
 
-![React App](/images/5-Workshop/5.3-Frontend-hosting/Website-project.png)
+![React App](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.3-Frontend-hosting/Website-project.png)

@@ -32,4 +32,4 @@ In this workshop, the **AI AWS Architecture Reviewer** system will be built and 
 
 The architecture below shows the overall workflow of the AI AWS Architecture Reviewer system, from the user accessing the website, uploading a diagram, processing AI analysis, estimating cost, generating a report, storing review history, to sending an email notification.
 
-![AI AWS Architecture Reviewer Overview](/images/5-Workshop/5.1-Workshop-overview/ai-aws-architecture-reviewer-overview.jpg)
+![AI AWS Architecture Reviewer Overview](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.1-Workshop-overview/ai-aws-architecture-reviewer-overview.jpg)

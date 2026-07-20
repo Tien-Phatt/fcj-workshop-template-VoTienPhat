@@ -71,7 +71,7 @@ aws sns get-topic-attributes `
   --region ap-southeast-1
 ```
 
-![SNS Topic](/images/5-Workshop/5.7-Monitoring-security/sns-topic.png)
+![SNS Topic](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/sns-topic.png)
 
 ---
 
@@ -97,7 +97,7 @@ PendingConfirmation
 
 An email subscription in this state will not receive alerts.
 
-![Confirm subscription](/images/5-Workshop/5.7-Monitoring-security/confirm-subscription.png)
+![Confirm subscription](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/confirm-subscription.png)
 
 ---
 
@@ -137,7 +137,7 @@ aws sns publish `
 
 If Gmail receives the test email, the SNS Topic is working correctly.
 
-![Test](/images/5-Workshop/5.7-Monitoring-security/test.png)
+![Test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/test.png)
 
 ---
 
@@ -163,7 +163,7 @@ The monitored metrics are:
 
 When the workflow fails, times out, or is aborted, CloudWatch Alarm sends an alert to the SNS Topic.
 
-![Architecture-review-workflow](/images/5-Workshop/5.7-Monitoring-security/Architecture-review-workflow.png)
+![Architecture-review-workflow](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Architecture-review-workflow.png)
 
 ---
 
@@ -203,7 +203,7 @@ Throttles >= 1 within 5 minutes
 Duration >= 80% of the Lambda timeout
 ```
 
-![Errors-Alarm](/images/5-Workshop/5.7-Monitoring-security/Errors-Alarm.png)
+![Errors-Alarm](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Errors-Alarm.png)
 
 ---
 
@@ -237,7 +237,7 @@ S3
 
 When an important error appears in the logs, the Metric Filter creates a custom metric, and CloudWatch Alarm can send an alert through SNS.
 
-![Log Metric Filter](/images/5-Workshop/5.7-Monitoring-security/Log-Metric-Filter.png)
+![Log Metric Filter](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Log-Metric-Filter.png)
 
 ---
 
@@ -263,7 +263,7 @@ Recommended configuration:
 
 The threshold `4XXError >= 1` should not be used because invalid user requests may also generate 4XX errors.
 
-![AIArchitectureReviewer-APIGateway](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-APIGateway.png)
+![AIArchitectureReviewer-APIGateway](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-APIGateway.png)
 
 ---
 
@@ -291,7 +291,7 @@ The monitored metrics are:
 
 If DynamoDB has issues, the workflow may fail to update the review status, or the frontend may not be able to read review data.
 
-![AIArchitectureReviews-DynamoDB](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviews-DynamoDB.png)
+![AIArchitectureReviews-DynamoDB](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviews-DynamoDB.png)
 
 ---
 
@@ -319,7 +319,7 @@ FailedInvocations >= 1 within 5 minutes
 
 If EventBridge failed invocation occurs, the file may already be uploaded to S3, but the workflow may not be triggered.
 
-![AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm](/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm.png)
+![AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/AIArchitectureReviewer-EventBridge-FailedInvocations-Alarm.png)
 
 ---
 
@@ -399,27 +399,27 @@ IAM roles need to be reviewed based on the principle of **least privilege access
 
 **Lambda Upload Service** requires the following permissions:
 
-![Lambda-Upload-Service](/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service.png)
+![Lambda-Upload-Service](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service.png)
 
-![Lambda-Upload-Service-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service-Policy.png)
+![Lambda-Upload-Service-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Upload-Service-Policy.png)
 
 **Lambda AI Analyzer** requires the following permissions:
 
-![Lambda-AI-Analyzer](/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer.png)
+![Lambda-AI-Analyzer](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer.png)
 
-![Lambda-AI-Analyzer-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer-Policy.png)
+![Lambda-AI-Analyzer-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-AI-Analyzer-Policy.png)
 
 **Lambda Cost Tool** requires the following permissions:
 
-![Lambda-Cost-Tool](/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool.png)
+![Lambda-Cost-Tool](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool.png)
 
-![Lambda-Cost-Tool-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool-Policy.png)
+![Lambda-Cost-Tool-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-Cost-Tool-Policy.png)
 
 **Lambda PDF Generator** requires the following permissions:
 
-![Lambda-PDF-Generator](/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator.png)
+![Lambda-PDF-Generator](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator.png)
 
-![Lambda-PDF-Generator-Policy](/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator-Policy.png)
+![Lambda-PDF-Generator-Policy](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.7-Monitoring-security/Lambda-PDF-Generator-Policy.png)
 
 ---
 

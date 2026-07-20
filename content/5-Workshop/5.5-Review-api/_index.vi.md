@@ -106,7 +106,7 @@ uploaded
 
 API này được sử dụng bởi trang Review Progress.
 
-![Review API](/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api.png)
+![Review API](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api.png)
 
 #### Bước 4: Cấu hình CORS cho Review APIs
 
@@ -136,7 +136,7 @@ authorization
 
 Phương thức `OPTIONS` là cần thiết cho browser preflight requests.
 
-![Review API CORS](/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api-cors.png)
+![Review API CORS](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/ai-aws-reviewer-api-cors.png)
 
 #### Bước 5: Kiểm thử API GET /reviews
 
@@ -148,7 +148,7 @@ curl.exe -i "https://031hqksomd.execute-api.ap-southeast-1.amazonaws.com/reviews
 
 Nếu API hoạt động chính xác, nó sẽ trả về danh sách các review records từ DynamoDB.
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-reviews.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-reviews.png)
 
 #### Bước 6: Kiểm thử API GET /reviews/{reviewId}
 
@@ -171,7 +171,7 @@ Response ví dụ:
 }
 ```
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-review-detail.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-review-detail.png)
 
 #### Bước 7: Kiểm thử API GET /reviews/{reviewId}/status
 
@@ -194,7 +194,7 @@ Response ví dụ:
 }
 ```
 
-![Review API test](/images/5-Workshop/5.5-Review-api/test-review-detail-status.png)
+![Review API test](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/test-review-detail-status.png)
 
 #### Bước 8: Kết nối trang Review History
 
@@ -216,7 +216,7 @@ Status
 Architecture type
 ```
 
-![Review History page](/images/5-Workshop/5.5-Review-api/Review-history-page.png)
+![Review History page](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/Review-history-page.png)
 
 #### Bước 9: Kết nối trang Review Detail
 
@@ -257,4 +257,4 @@ uploaded
 
 Ở giai đoạn tiếp theo, trạng thái này sẽ được cập nhật bởi AI review workflow.
 
-![Review Detail and Progress page](/images/5-Workshop/5.5-Review-api/Review-detail-and-process-page.png)
+![Review Detail and Progress page](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.5-Review-api/Review-detail-and-process-page.png)
