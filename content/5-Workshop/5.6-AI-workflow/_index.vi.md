@@ -296,7 +296,7 @@ Tạo báo cáo đánh giá cuối cùng, lưu báo cáo vào S3 và cập nhậ
 
 Trong workflow có thêm Choice state `HasDetectedServices`. Nếu AI Analyzer không phát hiện dịch vụ AWS nào, workflow sẽ bỏ qua bước tính chi phí và chuyển thẳng sang tạo report với cost bằng 0.
 
-![Step Functions](/fcj-workshop-template-VoTienPhat5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
+![Step Functions](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
 
 </details>
 

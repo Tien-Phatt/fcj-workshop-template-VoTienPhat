@@ -1,6 +1,6 @@
 ---
 title: "Monitoring với CloudWatch, SNS Alert và IAM Least Privilege"
-date: 2026-07-03
+date: 2026-07-09
 weight: 7
 chapter: false
 pre: " <b> 5.7. </b> "
@@ -28,7 +28,7 @@ SNS Topic được sử dụng:
 Topic name: ai-aws-reviewer-notification-topic
 Region: ap-southeast-1
 Topic ARN: arn:aws:sns:ap-southeast-1:675492141438:ai-aws-reviewer-notification-topic
-Email nhận cảnh báo: totrungkiet261023@gmail.com
+Email nhận cảnh báo: VoTienPhat261023@gmail.com
 ```
 
 ---
@@ -83,7 +83,7 @@ Thêm email nhận cảnh báo vào SNS Topic:
 aws sns subscribe `
   --topic-arn arn:aws:sns:ap-southeast-1:675492141438:ai-aws-reviewer-notification-topic `
   --protocol email `
-  --notification-endpoint totrungkiet261023@gmail.com `
+  --notification-endpoint VoTienPhat261023@gmail.com `
   --region ap-southeast-1
 ```
 
@@ -115,7 +115,7 @@ Kết quả hợp lệ cần có:
 
 ```text
 Protocol: email
-Endpoint: totrungkiet261023@gmail.com
+Endpoint: VoTienPhat261023@gmail.com
 SubscriptionArn: arn:aws:sns:...
 ```
 
@@ -422,7 +422,7 @@ Các IAM Role cần được kiểm tra theo nguyên tắc **least privilege acc
 Sau khi hoàn thành phần này, hệ thống đạt được các kết quả sau:
 
 - SNS Topic được cấu hình để nhận cảnh báo từ CloudWatch Alarm.
-- Email `totrungkiet261023@gmail.com` đã subscribe và confirmed.
+- Email `VoTienPhat261023@gmail.com` đã subscribe và confirmed.
 - SNS publish test gửi email thành công.
 - CloudWatch Alarm được tạo cho Step Functions.
 - CloudWatch Alarm được tạo cho các Lambda functions.

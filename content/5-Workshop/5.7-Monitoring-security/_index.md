@@ -1,6 +1,6 @@
 ---
 title: "Monitoring with CloudWatch, SNS Alert and IAM Least Privilege"
-date: 2026-07-03
+date: 2026-07-09
 weight: 7
 chapter: false
 pre: " <b> 5.7. </b> "
@@ -28,7 +28,7 @@ The SNS Topic used in this project:
 Topic name: ai-aws-reviewer-notification-topic
 Region: ap-southeast-1
 Topic ARN: arn:aws:sns:ap-southeast-1:675492141438:ai-aws-reviewer-notification-topic
-Alert recipient email: totrungkiet261023@gmail.com
+Alert recipient email: VoTienPhat261023@gmail.com
 ```
 
 ---
@@ -83,7 +83,7 @@ Add the alert recipient email to the SNS Topic:
 aws sns subscribe `
   --topic-arn arn:aws:sns:ap-southeast-1:675492141438:ai-aws-reviewer-notification-topic `
   --protocol email `
-  --notification-endpoint totrungkiet261023@gmail.com `
+  --notification-endpoint VoTienPhat261023@gmail.com `
   --region ap-southeast-1
 ```
 
@@ -115,7 +115,7 @@ A valid result should include:
 
 ```text
 Protocol: email
-Endpoint: totrungkiet261023@gmail.com
+Endpoint: VoTienPhat261023@gmail.com
 SubscriptionArn: arn:aws:sns:...
 ```
 
@@ -428,7 +428,7 @@ IAM roles need to be reviewed based on the principle of **least privilege access
 After completing this section, the system achieves the following results:
 
 - The SNS Topic is configured to receive alerts from CloudWatch Alarm.
-- The email `totrungkiet261023@gmail.com` has been subscribed and confirmed.
+- The email `VoTienPhat261023@gmail.com` has been subscribed and confirmed.
 - The SNS publish test sends an email successfully.
 - CloudWatch Alarms are created for Step Functions.
 - CloudWatch Alarms are created for the Lambda functions.

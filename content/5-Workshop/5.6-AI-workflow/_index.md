@@ -296,7 +296,7 @@ Generate the final review report, store the report in S3, and update the review 
 
 The workflow also includes a Choice state named `HasDetectedServices`. If the AI Analyzer does not detect any AWS service, the workflow skips the cost estimation step and moves directly to report generation with cost set to 0.
 
-![Step Functions](/fcj-workshop-template-VoTienPhat5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
+![Step Functions](/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/architecture-review-workflow.png)
 
 </details>
 
