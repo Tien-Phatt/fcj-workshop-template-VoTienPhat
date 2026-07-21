@@ -62,6 +62,7 @@ The system is built using the following main components:
 - Amazon CloudWatch monitors the entire system.
 
 This architecture enables the system to operate based on the Event-Driven model and makes it easier to scale as the number of users increases.
+
 ---
 
 ## 4. Workflow

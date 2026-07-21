@@ -73,6 +73,7 @@ Grounded Answer
 ```
 
 The key point is not simply that AI can search the web. More importantly, it performs that search within an AWS-managed architecture, significantly reducing the effort required to build and maintain a custom search infrastructure from scratch.
+
 ---
 
 ## 3. Basic Architecture
@@ -157,6 +158,7 @@ For example:
 - In enterprise environments, an Agent can combine internal business data with current web information to generate more comprehensive responses.
 
 The common characteristic of these use cases is that the underlying information changes continuously over time. Therefore, an AI Agent that relies only on static knowledge will struggle to provide accurate responses. Web Search adds a dynamic knowledge layer that allows the Agent to stay current.
+
 ---
 
 ## Personal Perspective

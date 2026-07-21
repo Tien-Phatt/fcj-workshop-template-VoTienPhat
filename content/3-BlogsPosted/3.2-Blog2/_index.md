@@ -69,6 +69,7 @@ The processing workflow consists of the following steps:
 8. Finally, Amazon DynamoDB stores the evaluation history, while Amazon SNS sends a notification after the process is completed.
 
 The entire workflow is fully automated, significantly reducing the amount of manual work required from users.
+
 ---
 
 ## 4. Key AWS Services
@@ -136,6 +137,7 @@ The system provides several notable benefits:
 - The Serverless architecture makes the system easier to scale while optimizing operational costs.
 
 Although this project was developed as an academic project, the architecture can be further developed into a practical tool to support development teams and Cloud engineers in real-world scenarios.
+
 ---
 
 ## Personal Perspective
