@@ -109,7 +109,7 @@ The architecture includes the following main steps:
 16. Amazon CloudWatch records logs and metrics and supports troubleshooting for Lambda, Step Functions, API Gateway, and workflow execution.
 17. AWS IAM applies least privilege access between services.
 
-![AI AWS Architecture Reviewer Architecture](/images/2-Proposal/ai-aws-architecture-reviewer-proposal.jpg)
+![AI AWS Architecture Reviewer Architecture](fcj-workshop-template-VoTienPhat/images/2-Proposal/ai-aws-architecture-reviewer-proposal.jpg)
 
 ### AWS Services Used
 
