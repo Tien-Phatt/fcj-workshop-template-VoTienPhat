@@ -1,0 +1,792 @@
+<!doctype html><html lang=vi class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/fcj-workshop-template-VoTienPhat/images/favicon.png type=image/png><title>Xây dựng AI Workflow với EventBridge, Step Functions, Bedrock và PDF Generator :: Báo cáo thực tập</title>
+<link href=/fcj-workshop-template-VoTienPhat/css/nucleus.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/fontawesome-all.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/hybrid.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/featherlight.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/perfect-scrollbar.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/auto-complete.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/atom-one-dark-reasonable.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/theme.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/hugo-theme.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/theme-workshop.css?1784651547 rel=stylesheet><script src=/fcj-workshop-template-VoTienPhat/js/jquery-3.3.1.min.js?1784651547></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.6-ai-workflow/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/lunr.min.js?1784651547></script><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/auto-complete.js?1784651547></script><script type=text/javascript>var baseurl="https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat//vi"</script><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/search.js?1784651547></script></div><div class=highlightable><ul class=topics><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/ title="Nhật ký công việc" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/><b>1. </b>Nhật ký công việc
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.1-week1/ title="Worklog Tuần 1" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.1-week1/><b>1.1. </b>Worklog Tuần 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.2-week2/ title="Worklog Tuần 2" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.2-week2/><b>1.2. </b>Worklog Tuần 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.3-week3/ title="Worklog Tuần 3" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.3-week3/><b>1.3. </b>Worklog Tuần 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.4-week4/ title="Worklog Tuần 4" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.4-week4/><b>1.4. </b>Worklog Tuần 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.5-week5/ title="Worklog Tuần 5" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.5-week5/><b>1.5. </b>Worklog Tuần 5
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.6-week6/ title="Worklog Tuần 6" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.6-week6/><b>1.6. </b>Worklog Tuần 6
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.7-week7/ title="Worklog Tuần 7" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.7-week7/><b>1.7. </b>Worklog Tuần 7
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.8-week8/ title="Worklog Tuần 8" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.8-week8/><b>1.8. </b>Worklog Tuần 8
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.9-week9/ title="Worklog Tuần 9" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.9-week9/><b>1.9. </b>Worklog Tuần 9
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.10-week10/ title="Worklog Tuần 10" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.10-week10/><b>1.10. </b>Worklog Tuần 10
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.11-week11/ title="Worklog Tuần 11" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.11-week11/><b>1.11. </b>Worklog Tuần 11
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.12-week12/ title="Worklog Tuần 12" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/1-worklog/1.12-week12/><b>1.12. </b>Worklog Tuần 12
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/2-proposal/ title="Bản đề xuất" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/2-proposal/><b>2. </b>Bản đề xuất
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/ title="Các bài blog đã đăng" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/><b>3. </b>Các bài blog đã đăng
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.1-blog1/ title="[Cloud Architecture] Xây dựng kiến trúc Microservices với Amazon SQS, Amazon SNS và AWS Lambda" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.1-blog1/><b>3.1.</b>[Cloud Architecture] Xây dựng kiến trúc Microservices với Amazon SQS, Amazon SNS và AWS Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.2-blog2/ title="[Generative AI on AWS] Xây dựng AI AWS Architecture Reviewer – Tự động đánh giá kiến trúc AWS với Amazon Bedrock và Serverless" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.2-blog2/><b>3.2.</b>[Generative AI on AWS] Xây dựng AI AWS Architecture Reviewer – Tự động đánh giá kiến trúc AWS với Amazon Bedrock và Serverless
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.3-blog3/ title="[Amazon Bedrock AgentCore] Web Search: Khi AI Agent không còn bị giới hạn bởi Knowledge Cutoff" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/3-blogsposted/3.3-blog3/><b>3.3.</b>[Amazon Bedrock AgentCore] Web Search: Khi AI Agent không còn bị giới hạn bởi Knowledge Cutoff
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/ title="Các events đã tham gia" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/><b>4. </b>Các events đã tham gia
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.1-workshop-overview/ title="Tổng quan Workshop" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.1-workshop-overview/><b>5.1. </b>Tổng quan Workshop
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.2-prerequisite/ title="Điều kiện chuẩn bị" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.2-prerequisite/><b>5.2. </b>Điều kiện chuẩn bị
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.3-frontend-hosting/ title="Triển khai React Frontend với S3, CloudFront và AWS WAF" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.3-frontend-hosting/><b>5.3. </b>Triển khai React Frontend với S3, CloudFront và AWS WAF
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.4-upload-backend/ title="Xây dựng Upload Backend với API Gateway, Lambda, S3 và DynamoDB" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.4-upload-backend/><b>5.4. </b>Xây dựng Upload Backend với API Gateway, Lambda, S3 và DynamoDB
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.5-review-api/ title="Tích hợp Review APIs và Frontend Pages" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.5-review-api/><b>5.5. </b>Tích hợp Review APIs và Frontend Pages
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.6-ai-workflow/ title="Xây dựng AI Workflow với EventBridge, Step Functions, Bedrock và PDF Generator" class="dd-item
+active"><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.6-ai-workflow/><b>5.6. </b>Xây dựng AI Workflow với EventBridge, Step Functions, Bedrock và PDF Generator
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.7-monitoring-security/ title="Monitoring với CloudWatch, SNS Alert và IAM Least Privilege" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.7-monitoring-security/><b>5.7. </b>Monitoring với CloudWatch, SNS Alert và IAM Least Privilege
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/6-self-evaluation/ title="Tự đánh giá" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/6-self-evaluation/><b>6. </b>Tự đánh giá
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/vi/7-feedback/ title="Chia sẻ, đóng góp ý kiến" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/vi/7-feedback/><b>7. </b>Chia sẻ, đóng góp ý kiến
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=http://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - Nhóm FB</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat/5-workshop/5.6-ai-workflow/>English</option><option id=vi value=https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.6-ai-workflow/ selected>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>21-07-2026</font>
+</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/fcj-workshop-template-VoTienPhat/vi/>Báo cáo thực tập</a> > <a href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/>Workshop</a> > Xây dựng AI Workflow với EventBridge, Step Functions, Bedrock và PDF Generator</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Xây dựng AI Workflow với EventBridge, Step Functions, Bedrock và PDF Generator</h1><h4 id=tổng-quan-ai-workflow>Tổng quan AI Workflow</h4><p>Trong phần này, <strong>AI Workflow</strong> của dự án <strong>AI AWS Architecture Reviewer</strong> được xây dựng bằng <strong>Amazon EventBridge</strong>, <strong>AWS Step Functions</strong>, <strong>AWS Lambda</strong>, <strong>Amazon Bedrock</strong>, <strong>AWS Price List API</strong>, <strong>Amazon S3</strong>, <strong>Amazon DynamoDB</strong>, <strong>Amazon CloudWatch</strong> và <strong>AWS IAM</strong>.</p><p>Sau khi người dùng upload sơ đồ kiến trúc AWS thông qua upload backend, file sẽ được lưu vào <strong>S3 Input Bucket</strong>. Sự kiện tạo object mới trong S3 được gửi sang <strong>Amazon EventBridge</strong>. EventBridge sau đó tự động kích hoạt <strong>AWS Step Functions</strong> để bắt đầu quy trình phân tích kiến trúc.</p><p>AI Workflow chịu trách nhiệm phân tích ảnh kiến trúc đã upload, nhận diện các dịch vụ AWS, ước tính chi phí hằng tháng, tạo báo cáo đánh giá cuối cùng, lưu báo cáo vào S3 và cập nhật lịch sử review trong DynamoDB.</p><p>Luồng hoạt động của AI Workflow là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>S3 Input Bucket → EventBridge → Step Functions
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              AI Analyzer Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              Cost Tool Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              PDF Generator Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                         S3 Report Bucket + DynamoDB
+</span></span></code></pre></div><p>Các tài nguyên AWS chính được sử dụng trong phần này gồm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Amazon S3 Input Bucket
+</span></span><span style=display:flex><span>Amazon EventBridge
+</span></span><span style=display:flex><span>AWS Step Functions
+</span></span><span style=display:flex><span>AWS Lambda AI Analyzer
+</span></span><span style=display:flex><span>AWS Lambda Cost Tool
+</span></span><span style=display:flex><span>AWS Lambda PDF Generator
+</span></span><span style=display:flex><span>Amazon Bedrock
+</span></span><span style=display:flex><span>AWS Price List API
+</span></span><span style=display:flex><span>Amazon S3 Report Bucket
+</span></span><span style=display:flex><span>Amazon DynamoDB
+</span></span><span style=display:flex><span>Amazon CloudWatch
+</span></span><span style=display:flex><span>AWS IAM
+</span></span><span style=display:flex><span>Lambda Layer
+</span></span></code></pre></div><p>Trong phần này, các cấu hình ngắn như <strong>environment variables</strong>, <strong>EventBridge pattern</strong>, <strong>Step Functions definition</strong>, <strong>IAM permissions</strong> và <strong>lệnh kiểm thử</strong> được ghi trực tiếp trong bài. Source code dài của các Lambda function được lưu riêng trong thư mục README để trang workshop gọn hơn.</p><details><summary><strong>Cấu trúc thư mục README dùng để lưu source code Lambda</strong></summary><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/
+</span></span><span style=display:flex><span>└── ai-workflow/
+</span></span><span style=display:flex><span>    └── lambdas/
+</span></span><span style=display:flex><span>        ├── ai-analyzer/
+</span></span><span style=display:flex><span>        │   └── lambda_function.py
+</span></span><span style=display:flex><span>        ├── cost-tool/
+</span></span><span style=display:flex><span>        │   └── lambda_function.py
+</span></span><span style=display:flex><span>        └── pdf-generator/
+</span></span><span style=display:flex><span>            └── lambda_function.py
+</span></span></code></pre></div></details><hr><details><summary><strong>Bước 1: Bật EventBridge notification cho S3 Input Bucket</strong></summary><p>AI Workflow bắt đầu khi một sơ đồ kiến trúc mới được upload vào S3 Input Bucket. Upload backend đã lưu file vào bucket input theo cấu trúc key có chứa <code>reviewId</code>, vì vậy các bước phía sau có thể dùng <code>reviewId</code> để theo dõi toàn bộ quá trình phân tích.</p><p>S3 Input Bucket được sử dụng trong dự án là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-input-bucket-tiersteam
+</span></span></code></pre></div><p>Các file kiến trúc sau khi upload được lưu theo cấu trúc key sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploads/{reviewId}/{fileName}
+</span></span></code></pre></div><p>Ví dụ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploads/REV-0491BC4A/architecture-diagram.jpg
+</span></span></code></pre></div><p>Thực hiện cấu hình trên AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Chọn region ap-southeast-1.
+</span></span><span style=display:flex><span>2. Vào Amazon S3.
+</span></span><span style=display:flex><span>3. Mở bucket ai-aws-reviewer-input-bucket-tiersteam.
+</span></span><span style=display:flex><span>4. Chọn tab Properties.
+</span></span><span style=display:flex><span>5. Tìm mục Amazon EventBridge.
+</span></span><span style=display:flex><span>6. Chọn Edit.
+</span></span><span style=display:flex><span>7. Bật Send notifications to Amazon EventBridge for all events in this bucket.
+</span></span><span style=display:flex><span>8. Chọn Save changes.
+</span></span></code></pre></div><p>Sau khi bật tùy chọn này, các sự kiện tạo object mới trong bucket sẽ có thể được định tuyến sang EventBridge.</p><p><img alt="S3 EventBridge" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-input-bucket-eventbridge.png></p></details><hr><details><summary><strong>Bước 2: Tạo EventBridge rule cho sự kiện S3 Object Created</strong></summary><p>EventBridge rule được dùng để bắt sự kiện file mới được upload vào S3 Input Bucket. Khi có object mới, rule sẽ kích hoạt Step Functions để bắt đầu AI Workflow.</p><p>Thực hiện cấu hình trên AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào Amazon EventBridge.
+</span></span><span style=display:flex><span>2. Chọn Rules.
+</span></span><span style=display:flex><span>3. Chọn Create rule.
+</span></span><span style=display:flex><span>4. Nhập tên rule.
+</span></span><span style=display:flex><span>5. Event bus chọn default.
+</span></span><span style=display:flex><span>6. Rule type chọn Rule with an event pattern.
+</span></span><span style=display:flex><span>7. Chọn Next.
+</span></span></code></pre></div><p>Tên rule sử dụng trong project:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-s3-object-created-rule
+</span></span></code></pre></div><p>Ở phần Event source, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AWS events or EventBridge partner events
+</span></span></code></pre></div><p>Ở phần Creation method, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Custom pattern JSON editor
+</span></span></code></pre></div><p>Dán event pattern sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;source&#34;</span>: [<span style=color:#e6db74>&#34;aws.s3&#34;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detail-type&#34;</span>: [<span style=color:#e6db74>&#34;Object Created&#34;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detail&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;bucket&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: [<span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Ý nghĩa của pattern:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>source = aws.s3:
+</span></span><span style=display:flex><span>Chỉ nhận sự kiện đến từ Amazon S3.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>detail-type = Object Created:
+</span></span><span style=display:flex><span>Chỉ nhận sự kiện khi có object mới được tạo.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>bucket.name:
+</span></span><span style=display:flex><span>Chỉ nhận sự kiện từ bucket input của project.
+</span></span></code></pre></div><p>Sau khi cấu hình xong, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Next
+</span></span></code></pre></div><p><img alt="EventBridge Rule" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-rule.png></p></details><hr><details><summary><strong>Bước 3: Cấu hình EventBridge target là Step Functions</strong></summary><p>Target của EventBridge rule là Step Functions state machine. Khi file mới được upload lên S3, EventBridge sẽ gọi <code>StartExecution</code> để chạy state machine.</p><p>Step Functions workflow được sử dụng trong dự án là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Architecture-review-workflow
+</span></span></code></pre></div><p>Thực hiện cấu hình target:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Ở bước Select target của EventBridge rule, chọn Target type là AWS service.
+</span></span><span style=display:flex><span>2. Ở Select a target, chọn Step Functions state machine.
+</span></span><span style=display:flex><span>3. Chọn state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>4. Phần Execution role chọn tạo role mới hoặc chọn role đã có quyền states:StartExecution.
+</span></span><span style=display:flex><span>5. Mở phần Additional settings.
+</span></span><span style=display:flex><span>6. Chọn Configure target input.
+</span></span><span style=display:flex><span>7. Chọn Input transformer.
+</span></span></code></pre></div><p>Input transformer dùng để lấy bucket name và object key từ event S3, sau đó truyền sang Step Functions dưới dạng JSON gọn hơn.</p><p>Input paths:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;$.detail.bucket.name&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;$.detail.object.key&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Input template:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;&lt;bucket&gt;&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;&lt;key&gt;&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Ví dụ input mà Step Functions nhận được:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;uploads/REV-0491BC4A/architecture-diagram.jpg&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Input này giúp AI Analyzer Lambda xác định đúng bucket và object key để đọc sơ đồ kiến trúc đã upload từ S3.</p><p><img alt="EventBridge Target" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-target-step-functions.png></p></details><hr><details><summary><strong>Bước 4: Tạo Step Functions AI Workflow</strong></summary><p>Step Functions được dùng để điều phối toàn bộ quy trình phân tích kiến trúc. Thay vì gọi từng Lambda thủ công, Step Functions giúp workflow chạy theo đúng thứ tự và dễ quan sát trạng thái từng bước.</p><p>Tên workflow là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Architecture-review-workflow
+</span></span></code></pre></div><p>Thực hiện tạo state machine:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào AWS Step Functions.
+</span></span><span style=display:flex><span>2. Chọn State machines.
+</span></span><span style=display:flex><span>3. Chọn Create state machine.
+</span></span><span style=display:flex><span>4. Chọn Write your workflow in code.
+</span></span><span style=display:flex><span>5. Type chọn Standard.
+</span></span><span style=display:flex><span>6. Definition language chọn JSON.
+</span></span><span style=display:flex><span>7. Đặt tên state machine là Architecture-review-workflow.
+</span></span><span style=display:flex><span>8. Chọn hoặc tạo IAM role cho Step Functions.
+</span></span><span style=display:flex><span>9. Bật logging nếu cần theo dõi execution trong CloudWatch.
+</span></span><span style=display:flex><span>10. Chọn Create state machine.
+</span></span></code></pre></div><p>Workflow gồm ba giai đoạn xử lý chính:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p>Vai trò của từng state:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI:
+</span></span><span style=display:flex><span>Đọc sơ đồ kiến trúc từ S3 và sử dụng Amazon Bedrock để phân tích kiến trúc.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>EstimateCost:
+</span></span><span style=display:flex><span>Sử dụng danh sách dịch vụ AWS đã phát hiện để ước tính chi phí bằng AWS Price List API.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>GenerateReport:
+</span></span><span style=display:flex><span>Tạo báo cáo đánh giá cuối cùng, lưu báo cáo vào S3 và cập nhật lịch sử review trong DynamoDB.
+</span></span></code></pre></div><p>Trong workflow có thêm Choice state <code>HasDetectedServices</code>. Nếu AI Analyzer không phát hiện dịch vụ AWS nào, workflow sẽ bỏ qua bước tính chi phí và chuyển thẳng sang tạo report với cost bằng 0.</p><p><img alt="Step Functions" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/architecture-review-workflow.png></p></details><hr><details><summary><strong>Bước 5: Cấu hình Step Functions definition</strong></summary><p>Sau khi tạo state machine, dán Amazon States Language definition vào phần code editor của Step Functions.</p><p>Thực hiện trong AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Mở state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>2. Chọn Edit.
+</span></span><span style=display:flex><span>3. Chọn Definition.
+</span></span><span style=display:flex><span>4. Xóa definition mẫu nếu có.
+</span></span><span style=display:flex><span>5. Dán JSON definition bên dưới.
+</span></span><span style=display:flex><span>6. Kiểm tra lại ARN của ba Lambda function.
+</span></span><span style=display:flex><span>7. Chọn Save.
+</span></span></code></pre></div><p>Workflow definition sử dụng trong project:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Comment&#34;</span>: <span style=color:#e6db74>&#34;AI AWS Architecture Reviewer Workflow&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;StartAt&#34;</span>: <span style=color:#e6db74>&#34;AnalyzeArchitectureWithAI&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;States&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;AnalyzeArchitectureWithAI&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-ai-analyzer&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload.$&#34;</span>: <span style=color:#e6db74>&#34;$&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;analysis.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;HasDetectedServices&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;HasDetectedServices&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Choice&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Choices&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;Variable&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.status&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;StringEquals&#34;</span>: <span style=color:#e6db74>&#34;NO_SERVICES_DETECTED&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SetEmptyCost&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Default&#34;</span>: <span style=color:#e6db74>&#34;EstimateCost&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;SetEmptyCost&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Result&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;cost&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;SKIPPED&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;message&#34;</span>: <span style=color:#e6db74>&#34;No AWS services were detected for cost estimation.&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;estimated_monthly_cost&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;currency&#34;</span>: <span style=color:#e6db74>&#34;USD&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;breakdown&#34;</span>: []
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;GenerateReport&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;EstimateCost&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-cost-tool&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;review_id.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.review_id&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;region.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.source.region&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;services.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.architecture_json.services&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;cost.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;GenerateReport&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;GenerateReport&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-pdf-generator&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;analysis.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;cost.$&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result.cost&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;report.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.report_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;End&#34;</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Sau khi lưu, kiểm tra lại graph view. Graph đúng cần có các state sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>HasDetectedServices
+</span></span><span style=display:flex><span>SetEmptyCost
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p><img alt="Step Functions Definition" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-definition.png></p></details><hr><details><summary><strong>Bước 6: Tạo AI Analyzer Lambda</strong></summary><p>AI Analyzer Lambda là bước đầu tiên trong Step Functions. Lambda này nhận thông tin bucket và object key từ EventBridge, đọc ảnh kiến trúc trong S3 rồi gửi ảnh sang Amazon Bedrock để phân tích.</p><p>Tên Lambda function là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-ai-analyzer
+</span></span></code></pre></div><p>Thực hiện tạo Lambda:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào AWS Lambda.
+</span></span><span style=display:flex><span>2. Chọn Create function.
+</span></span><span style=display:flex><span>3. Chọn Author from scratch.
+</span></span><span style=display:flex><span>4. Function name nhập aws-reviewer-ai-analyzer.
+</span></span><span style=display:flex><span>5. Runtime chọn Python 3.14 hoặc runtime đang dùng trong project.
+</span></span><span style=display:flex><span>6. Architecture chọn x86_64.
+</span></span><span style=display:flex><span>7. Execution role chọn role có quyền S3 GetObject, Bedrock InvokeModel và CloudWatch Logs.
+</span></span><span style=display:flex><span>8. Chọn Create function.
+</span></span></code></pre></div><p>Sau khi tạo function, cấu hình general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 120 seconds
+</span></span></code></pre></div><p>Cấu hình environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span></code></pre></div><p>Source code dài của Lambda được lưu trong thư mục:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/ai-analyzer/lambda_function.py
+</span></span></code></pre></div><p>Sau khi copy code vào Lambda, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>Function này chịu trách nhiệm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Nhận S3 bucket và object key từ Step Functions.
+</span></span><span style=display:flex><span>Đọc sơ đồ kiến trúc đã upload từ S3.
+</span></span><span style=display:flex><span>Gửi ảnh kiến trúc sang Amazon Bedrock.
+</span></span><span style=display:flex><span>Phát hiện các dịch vụ AWS và kết nối trong sơ đồ.
+</span></span><span style=display:flex><span>Tạo kết quả đánh giá ban đầu theo AWS Well-Architected Framework.
+</span></span><span style=display:flex><span>Trả về dữ liệu JSON có cấu trúc cho Step Functions.
+</span></span></code></pre></div><p>Output chính của Lambda này bao gồm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Review ID
+</span></span><span style=display:flex><span>Source bucket
+</span></span><span style=display:flex><span>Source object key
+</span></span><span style=display:flex><span>Danh sách dịch vụ AWS phát hiện được
+</span></span><span style=display:flex><span>Các kết nối giữa dịch vụ
+</span></span><span style=display:flex><span>Kết quả đánh giá Well-Architected
+</span></span><span style=display:flex><span>Các giới hạn của quá trình phân tích
+</span></span></code></pre></div><p>Có thể test Lambda bằng event mẫu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;uploads/REV-0491BC4A/architecture-diagram.jpg&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><img alt="AI Analyzer Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-ai-analyzer.png></p></details><hr><details><summary><strong>Bước 7: Tạo Cost Tool Lambda</strong></summary><p>Cost Tool Lambda là bước thứ hai trong workflow. Lambda này nhận danh sách dịch vụ AWS đã được AI Analyzer phát hiện, sau đó tính chi phí ước tính hằng tháng.</p><p>Tên Lambda function là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-cost-tool
+</span></span></code></pre></div><p>Thực hiện tạo Lambda:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào AWS Lambda.
+</span></span><span style=display:flex><span>2. Chọn Create function.
+</span></span><span style=display:flex><span>3. Chọn Author from scratch.
+</span></span><span style=display:flex><span>4. Function name nhập aws-reviewer-cost-tool.
+</span></span><span style=display:flex><span>5. Runtime chọn Python 3.14 hoặc runtime đang dùng trong project.
+</span></span><span style=display:flex><span>6. Architecture chọn x86_64.
+</span></span><span style=display:flex><span>7. Execution role chọn role có quyền Pricing API, Bedrock InvokeModel và CloudWatch Logs.
+</span></span><span style=display:flex><span>8. Chọn Create function.
+</span></span></code></pre></div><p>Cấu hình general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 120 seconds
+</span></span></code></pre></div><p>Cấu hình environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span><span style=display:flex><span>DEFAULT_REGION = ap-southeast-1
+</span></span></code></pre></div><p>Source code dài của Lambda được lưu trong thư mục:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/cost-tool/lambda_function.py
+</span></span></code></pre></div><p>Sau khi copy code vào Lambda, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>Function này chịu trách nhiệm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Nhận danh sách dịch vụ đã phát hiện từ AI Analyzer Lambda.
+</span></span><span style=display:flex><span>Ánh xạ các dịch vụ đã phát hiện sang sản phẩm tương ứng trong AWS Pricing.
+</span></span><span style=display:flex><span>Gọi AWS Price List API để lấy thông tin giá.
+</span></span><span style=display:flex><span>Tính toán chi phí ước tính hằng tháng dựa trên assumption mặc định.
+</span></span><span style=display:flex><span>Sử dụng Amazon Bedrock để tạo phân tích chi phí và đề xuất tối ưu.
+</span></span><span style=display:flex><span>Trả kết quả chi phí về cho Step Functions.
+</span></span></code></pre></div><p>Cost Tool không cho AI tự tạo ra giá. Giá trị chi phí được tính từ dữ liệu AWS Price List API, còn Amazon Bedrock chỉ được dùng để giải thích kết quả chi phí và đưa ra đề xuất tối ưu.</p><p>Có thể test Lambda bằng event mẫu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;services&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon EC2&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Compute&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.95</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon S3&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Storage&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.93</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Output chính của Lambda này bao gồm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Chi phí ước tính hằng tháng
+</span></span><span style=display:flex><span>Đơn vị tiền tệ
+</span></span><span style=display:flex><span>Bảng phân tích chi phí theo dịch vụ
+</span></span><span style=display:flex><span>Nguồn dữ liệu giá
+</span></span><span style=display:flex><span>Assumption sử dụng mặc định
+</span></span><span style=display:flex><span>Đề xuất tối ưu chi phí
+</span></span></code></pre></div><p><img alt="Cost Tool Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-cost-tool.png></p></details><hr><details><summary><strong>Bước 8: Tạo S3 Report Bucket</strong></summary><p>S3 Report Bucket được dùng để lưu các file báo cáo sau khi AI Workflow hoàn tất. PDF Generator Lambda sẽ upload <code>report-data.json</code>, <code>report.html</code> và <code>report.pdf</code> vào bucket này.</p><p>S3 Report Bucket được sử dụng trong dự án là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-report-bucket-tiersteam
+</span></span></code></pre></div><p>Thực hiện tạo bucket:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào Amazon S3.
+</span></span><span style=display:flex><span>2. Chọn Create bucket.
+</span></span><span style=display:flex><span>3. Region chọn ap-southeast-1.
+</span></span><span style=display:flex><span>4. Bucket name nhập ai-aws-reviewer-report-bucket-tiersteam.
+</span></span><span style=display:flex><span>5. Object Ownership để mặc định ACLs disabled.
+</span></span><span style=display:flex><span>6. Block Public Access giữ nguyên bật toàn bộ nếu chỉ truy cập report qua backend hoặc presigned URL.
+</span></span><span style=display:flex><span>7. Bật Bucket Versioning nếu muốn lưu nhiều phiên bản report.
+</span></span><span style=display:flex><span>8. Encryption chọn Server-side encryption with Amazon S3 managed keys (SSE-S3).
+</span></span><span style=display:flex><span>9. Chọn Create bucket.
+</span></span></code></pre></div><p>Các báo cáo được lưu theo cấu trúc key sau:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/report-data.json
+</span></span><span style=display:flex><span>reports/{reviewId}/report.html
+</span></span><span style=display:flex><span>reports/{reviewId}/report.pdf
+</span></span></code></pre></div><p>Ví dụ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/REV-0491BC4A/report-data.json
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.html
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.pdf
+</span></span></code></pre></div><p>Ý nghĩa từng file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>report-data.json:
+</span></span><span style=display:flex><span>Lưu dữ liệu review dạng JSON có cấu trúc.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.html:
+</span></span><span style=display:flex><span>Lưu báo cáo HTML, dễ mở bằng trình duyệt.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.pdf:
+</span></span><span style=display:flex><span>Lưu báo cáo PDF cuối cùng để tải xuống hoặc nộp báo cáo.
+</span></span></code></pre></div><p><img alt="S3 Report Bucket" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-report-bucket.png></p></details><hr><details><summary><strong>Bước 9: Tạo PDF Generator Lambda</strong></summary><p>PDF Generator Lambda là bước cuối cùng trong AI Workflow. Lambda này nhận kết quả phân tích kiến trúc và kết quả chi phí từ Step Functions, sau đó tạo báo cáo cuối cùng và cập nhật lịch sử review trong DynamoDB.</p><p>Tên Lambda function là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-pdf-generator
+</span></span></code></pre></div><p>Thực hiện tạo Lambda:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào AWS Lambda.
+</span></span><span style=display:flex><span>2. Chọn Create function.
+</span></span><span style=display:flex><span>3. Chọn Author from scratch.
+</span></span><span style=display:flex><span>4. Function name nhập aws-reviewer-pdf-generator.
+</span></span><span style=display:flex><span>5. Runtime chọn Python 3.14.
+</span></span><span style=display:flex><span>6. Architecture chọn x86_64.
+</span></span><span style=display:flex><span>7. Execution role chọn role có quyền S3 PutObject, DynamoDB UpdateItem, Bedrock InvokeModel và CloudWatch Logs.
+</span></span><span style=display:flex><span>8. Chọn Create function.
+</span></span></code></pre></div><p>Cấu hình general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 180 seconds
+</span></span></code></pre></div><p>Cấu hình environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>REPORT_BUCKET = ai-aws-reviewer-report-bucket-tiersteam
+</span></span><span style=display:flex><span>TABLE_NAME = AIArchitectureReviews
+</span></span><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span></code></pre></div><p>Source code dài của Lambda được lưu trong thư mục:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/pdf-generator/lambda_function.py
+</span></span></code></pre></div><p>Sau khi copy code vào Lambda, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>Function này chịu trách nhiệm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Nhận kết quả phân tích kiến trúc và kết quả chi phí từ Step Functions.
+</span></span><span style=display:flex><span>Sử dụng Amazon Bedrock để tạo nội dung đánh giá cuối cùng.
+</span></span><span style=display:flex><span>Tạo file report-data.json.
+</span></span><span style=display:flex><span>Tạo file report.html.
+</span></span><span style=display:flex><span>Tạo file report.pdf bằng ReportLab.
+</span></span><span style=display:flex><span>Upload các file báo cáo vào S3 Report Bucket.
+</span></span><span style=display:flex><span>Cập nhật lịch sử review trong DynamoDB.
+</span></span><span style=display:flex><span>Trả về vị trí các file báo cáo cho Step Functions.
+</span></span></code></pre></div><p>Có thể test Lambda bằng event mẫu:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;analysis&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;ANALYZED&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-TEST-PDF&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;source&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;architecture_json&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;services&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon S3&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Storage&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.95</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;connections&#34;</span>: []
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;well_architected_review&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;overall_score&#34;</span>: <span style=color:#ae81ff>80</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;pillar_scores&#34;</span>: {},
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;findings&#34;</span>: []
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;cost&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;COST_ESTIMATED&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-TEST-PDF&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;currency&#34;</span>: <span style=color:#e6db74>&#34;USD&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;estimated_monthly_cost&#34;</span>: <span style=color:#ae81ff>1.25</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;breakdown&#34;</span>: [],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;cost_ai_review&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;summary&#34;</span>: <span style=color:#e6db74>&#34;Estimated demo cost is low.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;cost_level&#34;</span>: <span style=color:#e6db74>&#34;Low&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;main_cost_drivers&#34;</span>: [],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;optimization_recommendations&#34;</span>: []
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>PDF Generator Lambda là state cuối cùng của AI Workflow.</p><p><img alt="PDF Generator Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-pdf-generator.png></p></details><hr><details><summary><strong>Bước 10: Cấu hình ReportLab Layer để tạo PDF</strong></summary><p>Để tạo file PDF bên trong Lambda, hệ thống sử dụng <strong>Lambda Layer</strong> để cung cấp thư viện <strong>ReportLab</strong>, <strong>Pillow</strong> và font hỗ trợ tiếng Việt. Layer này được gắn vào Lambda <code>aws-reviewer-pdf-generator</code> để function có thể import ReportLab và xuất file <code>report.pdf</code>.</p><p>Trong dự án này, PDF Generator Lambda sử dụng:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Region: ap-southeast-1
+</span></span><span style=display:flex><span>Runtime: Python 3.14
+</span></span><span style=display:flex><span>Architecture: x86_64
+</span></span><span style=display:flex><span>Layer name: reportlab-layer-py314-vn
+</span></span></code></pre></div><h5 id=101-mở-cloudshell-đúng-region>10.1. Mở CloudShell đúng region</h5><p>Trên AWS Console, chọn region:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ap-southeast-1
+</span></span></code></pre></div><p>Sau đó mở:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>CloudShell
+</span></span></code></pre></div><p>CloudShell được dùng để cài thư viện ReportLab, Pillow và đóng gói chúng thành file <code>.zip</code> theo đúng cấu trúc Lambda Layer.</p><h5 id=102-tạo-thư-mục-layer-và-cài-reportlab>10.2. Tạo thư mục layer và cài ReportLab</h5><p>Chạy các lệnh sau trong CloudShell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p reportlab-layer-py314/python
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>python3 -m pip install --upgrade pip
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>python3 -m pip install <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --platform manylinux2014_x86_64 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --implementation cp <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --python-version 3.14 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --abi cp314 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --only-binary<span style=color:#f92672>=</span>:all: <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --target reportlab-layer-py314/python <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  reportlab pillow
+</span></span></code></pre></div><p>Ý nghĩa chính của lệnh trên:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>--platform manylinux2014_x86_64 : build package phù hợp với môi trường Linux x86_64 của Lambda
+</span></span><span style=display:flex><span>--python-version 3.14          : build đúng với runtime Python 3.14
+</span></span><span style=display:flex><span>--abi cp314                    : dùng ABI tương ứng Python 3.14
+</span></span><span style=display:flex><span>--target                       : cài thư viện vào thư mục python/ của Lambda Layer
+</span></span></code></pre></div><p>Sau khi cài xong, di chuyển vào thư mục layer:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd reportlab-layer-py314
+</span></span></code></pre></div><h5 id=103-tạo-thư-mục-fonts-và-thêm-font-tiếng-việt>10.3. Tạo thư mục fonts và thêm font tiếng Việt</h5><p>ReportLab mặc định không hiển thị tốt tiếng Việt nếu chỉ dùng font mặc định. Vì vậy, layer cần thêm font Unicode như <strong>DejaVuSans</strong>.</p><p>Tạo thư mục <code>fonts</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p fonts
+</span></span></code></pre></div><p>Copy font DejaVuSans vào thư mục <code>fonts</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cp /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf fonts/
+</span></span><span style=display:flex><span>cp /usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf fonts/
+</span></span></code></pre></div><p>Sau khi copy xong, kiểm tra lại thư mục font:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ls -l fonts
+</span></span></code></pre></div><p>Kết quả mong muốn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>DejaVuSans.ttf
+</span></span><span style=display:flex><span>DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>Nếu CloudShell không tìm thấy đường dẫn font ở trên, có thể tìm lại bằng lệnh:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>find /usr/share/fonts -iname <span style=color:#e6db74>&#34;DejaVuSans*.ttf&#34;</span>
+</span></span></code></pre></div><p>Sau đó dùng đúng đường dẫn mà lệnh <code>find</code> trả về để copy font vào thư mục <code>fonts</code>.</p><h5 id=104-đóng-gói-lambda-layer>10.4. Đóng gói Lambda Layer</h5><p>Sau khi thư mục <code>python</code> và <code>fonts</code> đã sẵn sàng, tạo file zip:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>zip -r reportlab-layer-py314-vn.zip python fonts
+</span></span></code></pre></div><p>Cấu trúc file zip sau khi đóng gói sẽ có dạng:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>python/
+</span></span><span style=display:flex><span>  reportlab/
+</span></span><span style=display:flex><span>  PIL/
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>fonts/
+</span></span><span style=display:flex><span>  DejaVuSans.ttf
+</span></span><span style=display:flex><span>  DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>Khi Lambda gắn layer này, các file font sẽ nằm tại:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>/opt/fonts/DejaVuSans.ttf
+</span></span><span style=display:flex><span>/opt/fonts/DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>PDF Generator Lambda sẽ dùng các đường dẫn này để đăng ký font tiếng Việt trong ReportLab.</p><h5 id=105-download-file-layer-từ-cloudshell>10.5. Download file layer từ CloudShell</h5><p>Trong CloudShell, chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Actions → Download file
+</span></span></code></pre></div><p>Nhập file path:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reportlab-layer-py314/reportlab-layer-py314-vn.zip
+</span></span></code></pre></div><p>Sau đó chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Download
+</span></span></code></pre></div><p>File cần tải về là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reportlab-layer-py314-vn.zip
+</span></span></code></pre></div><h5 id=106-tạo-lambda-layer-mới>10.6. Tạo Lambda Layer mới</h5><p>Vào AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Lambda → Layers → Create layer
+</span></span></code></pre></div><p>Điền thông tin layer:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Name: reportlab-layer-py314-vn
+</span></span><span style=display:flex><span>Upload: reportlab-layer-py314-vn.zip
+</span></span><span style=display:flex><span>Compatible runtime: Python 3.14
+</span></span><span style=display:flex><span>Compatible architecture: x86_64
+</span></span></code></pre></div><p>Sau đó chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Create
+</span></span></code></pre></div><p><img alt="ReportLab Layer" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/reportlab-layer.png></p><h5 id=107-gắn-layer-vào-pdf-generator-lambda>10.7. Gắn layer vào PDF Generator Lambda</h5><p>Vào Lambda PDF Generator:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Lambda → aws-reviewer-pdf-generator → Code → Layers
+</span></span></code></pre></div><p>Chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Add a layer
+</span></span></code></pre></div><p>Sau đó chọn:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Custom layers → reportlab-layer-py314-vn → Version mới nhất → Add
+</span></span></code></pre></div><p>Sau khi gắn layer, lưu lại cấu hình Lambda.</p><h5 id=108-cấu-hình-code-sử-dụng-font-tiếng-việt>10.8. Cấu hình code sử dụng font tiếng Việt</h5><p>Trong Lambda <code>aws-reviewer-pdf-generator</code>, ReportLab cần đăng ký font trước khi build PDF.</p><p>Đường dẫn font trong Lambda là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>/opt/fonts/DejaVuSans.ttf
+</span></span><span style=display:flex><span>/opt/fonts/DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>Ví dụ đoạn code đăng ký font:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>register_vietnamese_fonts</span>():
+</span></span><span style=display:flex><span>    regular_font_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/opt/fonts/DejaVuSans.ttf&#34;</span>
+</span></span><span style=display:flex><span>    bold_font_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/opt/fonts/DejaVuSans-Bold.ttf&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    pdfmetrics<span style=color:#f92672>.</span>registerFont(TTFont(<span style=color:#e6db74>&#34;DejaVuSans&#34;</span>, regular_font_path))
+</span></span><span style=display:flex><span>    pdfmetrics<span style=color:#f92672>.</span>registerFont(TTFont(<span style=color:#e6db74>&#34;DejaVuSans-Bold&#34;</span>, bold_font_path))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;regular&#34;</span>: <span style=color:#e6db74>&#34;DejaVuSans&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bold&#34;</span>: <span style=color:#e6db74>&#34;DejaVuSans-Bold&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p>Các style trong ReportLab cần sử dụng font này thay vì font mặc định:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>styles<span style=color:#f92672>.</span>add(ParagraphStyle(
+</span></span><span style=display:flex><span>    name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;VNBody&#34;</span>,
+</span></span><span style=display:flex><span>    parent<span style=color:#f92672>=</span>styles[<span style=color:#e6db74>&#34;BodyText&#34;</span>],
+</span></span><span style=display:flex><span>    fontName<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;DejaVuSans&#34;</span>,
+</span></span><span style=display:flex><span>    fontSize<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>,
+</span></span><span style=display:flex><span>    leading<span style=color:#f92672>=</span><span style=color:#ae81ff>14</span>
+</span></span><span style=display:flex><span>))
+</span></span></code></pre></div><h5 id=109-kiểm-tra-pdf-sau-khi-gắn-layer>10.9. Kiểm tra PDF sau khi gắn layer</h5><p>Sau khi gắn layer và deploy code, test lại Lambda <code>aws-reviewer-pdf-generator</code>.</p><p>Kết quả mong muốn trong output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reportlab_available&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;pdf_status&#34;</span>: <span style=color:#e6db74>&#34;PDF_GENERATED&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;pdf_report_s3_uri&#34;</span>: <span style=color:#e6db74>&#34;s3://ai-aws-reviewer-report-bucket-tiersteam/reports/REV-TEST-PDF/report.pdf&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Sau đó mở S3 Report Bucket và kiểm tra file PDF:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/report.pdf
+</span></span></code></pre></div><p>Nếu PDF hiển thị được các ký tự như <code>đ</code>, <code>ư</code>, <code>ế</code>, <code>ệ</code>, <code>ộ</code>, nghĩa là font tiếng Việt đã được cấu hình thành công.</p></details><hr><details><summary><strong>Bước 11: Cập nhật lịch sử review trong DynamoDB</strong></summary><p>Sau khi báo cáo được tạo thành công, PDF Generator Lambda cập nhật review item trong DynamoDB. Việc cập nhật này giúp frontend hiển thị được kết quả review thay vì chỉ thấy trạng thái <code>uploaded</code>.</p><p>DynamoDB table được sử dụng trong dự án là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AIArchitectureReviews
+</span></span></code></pre></div><p>Partition key là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reviewId
+</span></span></code></pre></div><p>Quy trình cập nhật trong DynamoDB:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Upload Lambda tạo item mới với status = uploaded.
+</span></span><span style=display:flex><span>2. EventBridge kích hoạt Step Functions.
+</span></span><span style=display:flex><span>3. Step Functions chạy AI Analyzer, Cost Tool và PDF Generator.
+</span></span><span style=display:flex><span>4. PDF Generator tạo report thành công.
+</span></span><span style=display:flex><span>5. PDF Generator gọi DynamoDB UpdateItem.
+</span></span><span style=display:flex><span>6. Item được cập nhật status = completed.
+</span></span></code></pre></div><p>Khi upload backend tạo review item mới, trạng thái ban đầu là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploaded
+</span></span></code></pre></div><p>Sau khi AI Workflow hoàn tất, PDF Generator Lambda cập nhật trạng thái thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>completed
+</span></span></code></pre></div><p>Các field được cập nhật sau khi hoàn thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>status
+</span></span><span style=display:flex><span>completedDate
+</span></span><span style=display:flex><span>updatedAt
+</span></span><span style=display:flex><span>score
+</span></span><span style=display:flex><span>architectureType
+</span></span><span style=display:flex><span>detectedServices
+</span></span><span style=display:flex><span>wellArchitectedResult
+</span></span><span style=display:flex><span>costResult
+</span></span><span style=display:flex><span>recommendations
+</span></span><span style=display:flex><span>risks
+</span></span><span style=display:flex><span>bestPractices
+</span></span><span style=display:flex><span>reportFiles
+</span></span><span style=display:flex><span>htmlReportS3Key
+</span></span><span style=display:flex><span>pdfReportS3Key
+</span></span><span style=display:flex><span>finalReview
+</span></span><span style=display:flex><span>analysisStatus
+</span></span></code></pre></div><p>Ví dụ DynamoDB item sau khi hoàn thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reviewId&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;completed&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;score&#34;</span>: <span style=color:#ae81ff>82</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;architectureType&#34;</span>: <span style=color:#e6db74>&#34;Serverless Architecture&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;completedDate&#34;</span>: <span style=color:#e6db74>&#34;2026-07-08T03:49:31.000000&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detectedServices&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;recommendations&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;risks&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bestPractices&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;costResult&#34;</span>: {},
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reportFiles&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;jsonReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report-data.json&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;htmlReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report.html&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;pdfReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report.pdf&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;pdfStatus&#34;</span>: <span style=color:#e6db74>&#34;PDF_GENERATED&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Thực hiện kiểm tra trong DynamoDB:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào Amazon DynamoDB.
+</span></span><span style=display:flex><span>2. Chọn Tables.
+</span></span><span style=display:flex><span>3. Mở bảng AIArchitectureReviews.
+</span></span><span style=display:flex><span>4. Chọn Explore table items.
+</span></span><span style=display:flex><span>5. Tìm reviewId tương ứng, ví dụ REV-0491BC4A.
+</span></span><span style=display:flex><span>6. Kiểm tra status đã chuyển thành completed.
+</span></span><span style=display:flex><span>7. Kiểm tra các field reportFiles, score, costResult và recommendations.
+</span></span></code></pre></div><p>Việc cập nhật này giúp React frontend hiển thị được lịch sử review và kết quả phân tích đã hoàn thành.</p><p><img alt="DynamoDB Updated Review" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-review-completed.png></p></details><hr><details><summary><strong>Bước 12: Cấu hình IAM permissions</strong></summary><p>Mỗi Lambda function, Step Functions workflow và EventBridge target cần có IAM role với các quyền phù hợp. IAM là phần quan trọng vì nếu thiếu quyền, workflow có thể chạy tới một bước rồi bị lỗi <code>AccessDenied</code>.</p><p>Cách thêm inline policy cho từng role:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào IAM.
+</span></span><span style=display:flex><span>2. Chọn Roles.
+</span></span><span style=display:flex><span>3. Mở role cần cấu hình.
+</span></span><span style=display:flex><span>4. Chọn Add permissions.
+</span></span><span style=display:flex><span>5. Chọn Create inline policy.
+</span></span><span style=display:flex><span>6. Chọn tab JSON.
+</span></span><span style=display:flex><span>7. Dán policy tương ứng.
+</span></span><span style=display:flex><span>8. Chọn Next.
+</span></span><span style=display:flex><span>9. Đặt tên policy.
+</span></span><span style=display:flex><span>10. Chọn Create policy.
+</span></span></code></pre></div><h5 id=121-iam-policy-cho-ai-analyzer-lambda>12.1. IAM policy cho AI Analyzer Lambda</h5><p>AI Analyzer Lambda cần quyền đọc file từ S3 Input Bucket, gọi Amazon Bedrock và ghi log vào CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;ReadInputBucket&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;s3:GetObject&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:s3:::ai-aws-reviewer-input-bucket-tiersteam/*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=122-iam-policy-cho-cost-tool-lambda>12.2. IAM policy cho Cost Tool Lambda</h5><p>Cost Tool Lambda cần quyền gọi AWS Price List API, gọi Amazon Bedrock và ghi log vào CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;AllowPricingApi&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:GetProducts&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:DescribeServices&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:GetAttributeValues&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=123-iam-policy-cho-pdf-generator-lambda>12.3. IAM policy cho PDF Generator Lambda</h5><p>PDF Generator Lambda cần quyền ghi report vào S3 Report Bucket, cập nhật DynamoDB, gọi Amazon Bedrock và ghi log vào CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteReportBucket&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;s3:PutObject&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:s3:::ai-aws-reviewer-report-bucket-tiersteam/*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;UpdateReviewHistory&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;dynamodb:GetItem&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;dynamodb:UpdateItem&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:dynamodb:ap-southeast-1:675492141438:table/AIArchitectureReviews&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=124-iam-policy-cho-step-functions-role>12.4. IAM policy cho Step Functions role</h5><p>Step Functions role cần quyền invoke ba Lambda function trong AI Workflow.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeWorkflowLambdas&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;lambda:InvokeFunction&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-ai-analyzer&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-cost-tool&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-pdf-generator&#34;</span>
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteStepFunctionsLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:GetLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:UpdateLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DeleteLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:ListLogDeliveries&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutResourcePolicy&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DescribeResourcePolicies&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DescribeLogGroups&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=125-iam-policy-cho-eventbridge-target-role>12.5. IAM policy cho EventBridge target role</h5><p>EventBridge cần quyền start execution của Step Functions state machine.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;StartAIWorkflowExecution&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;states:StartExecution&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:ap-southeast-1:675492141438:stateMachine:Architecture-review-workflow&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><img alt="IAM Roles" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/ai-workflow-iam-roles.png></p></details><hr><details><summary><strong>Bước 13: Kiểm thử AI Workflow</strong></summary><p>Để kiểm thử toàn bộ AI Workflow, upload một sơ đồ kiến trúc từ frontend hoặc sử dụng upload API. Khi upload thành công, S3 sẽ phát sinh sự kiện Object Created, EventBridge sẽ bắt sự kiện đó và tự động khởi chạy Step Functions.</p><p>Chuẩn bị file ảnh kiến trúc trên máy:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>D:\Learning\AWS\test-files\architecture-1.png
+</span></span></code></pre></div><p>Lệnh kiểm thử upload bằng PowerShell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>curl.exe -X POST <span style=color:#e6db74>&#34;https://031hqksomd.execute-api.ap-southeast-1.amazonaws.com/upload&#34;</span> <span style=color:#f92672>-F</span> <span style=color:#e6db74>&#34;file=@D:\Learning\AWS\test-files\architecture-1.png&#34;</span>
+</span></span></code></pre></div><p>Nếu upload thành công, API sẽ trả về review ID:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reviewId&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;uploaded&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileName&#34;</span>: <span style=color:#e6db74>&#34;architecture-1.png&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileType&#34;</span>: <span style=color:#e6db74>&#34;image/png&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileSize&#34;</span>: <span style=color:#ae81ff>17755</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;message&#34;</span>: <span style=color:#e6db74>&#34;Upload successful&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Sau khi có review ID, kiểm tra theo thứ tự:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào S3 Input Bucket.
+</span></span><span style=display:flex><span>2. Kiểm tra file nằm trong uploads/{reviewId}/.
+</span></span><span style=display:flex><span>3. Vào EventBridge rule để kiểm tra metric Matched events.
+</span></span><span style=display:flex><span>4. Vào Step Functions.
+</span></span><span style=display:flex><span>5. Mở state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>6. Chọn execution mới nhất.
+</span></span><span style=display:flex><span>7. Kiểm tra Graph view.
+</span></span></code></pre></div><p>Các state cần chạy thành công:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p>Nếu một state bị lỗi, mở tab <code>Input</code> và <code>Output</code> của state đó để xem dữ liệu truyền vào và lỗi trả ra.</p><p><img alt="Step Functions Success" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-execution-success.png></p></details><hr><details><summary><strong>Bước 14: Kiểm tra báo cáo được tạo trong S3</strong></summary><p>Sau khi Step Functions execution hoàn tất, PDF Generator Lambda sẽ lưu các file báo cáo vào S3 Report Bucket.</p><p>Mở S3 Report Bucket:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-report-bucket-tiersteam
+</span></span></code></pre></div><p>Các file báo cáo sẽ được lưu dưới prefix:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/
+</span></span></code></pre></div><p>Ví dụ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/REV-0491BC4A/report-data.json
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.html
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.pdf
+</span></span></code></pre></div><p>Thực hiện kiểm tra:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào Amazon S3.
+</span></span><span style=display:flex><span>2. Mở bucket ai-aws-reviewer-report-bucket-tiersteam.
+</span></span><span style=display:flex><span>3. Mở thư mục reports.
+</span></span><span style=display:flex><span>4. Mở thư mục theo reviewId, ví dụ REV-0491BC4A.
+</span></span><span style=display:flex><span>5. Kiểm tra có đủ report-data.json, report.html và report.pdf.
+</span></span><span style=display:flex><span>6. Mở hoặc download report.pdf để kiểm tra nội dung báo cáo.
+</span></span></code></pre></div><p>Ý nghĩa từng file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>report-data.json:
+</span></span><span style=display:flex><span>Lưu dữ liệu review có cấu trúc, phù hợp để frontend hoặc backend đọc lại.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.html:
+</span></span><span style=display:flex><span>Lưu báo cáo dạng HTML, hiển thị tốt trên trình duyệt.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.pdf:
+</span></span><span style=display:flex><span>Lưu báo cáo PDF cuối cùng, có thể tải xuống hoặc đưa vào phần kết quả demo.
+</span></span></code></pre></div><p><img alt="Generated Reports" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-generated-reports.png></p></details><hr><details><summary><strong>Bước 15: Kiểm tra review đã hoàn thành trong DynamoDB</strong></summary><p>DynamoDB lưu lịch sử review và trạng thái xử lý. Sau khi workflow hoàn tất, PDF Generator Lambda phải cập nhật item tương ứng với <code>reviewId</code>.</p><p>Mở DynamoDB table:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AIArchitectureReviews
+</span></span></code></pre></div><p>Thực hiện kiểm tra:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Vào Amazon DynamoDB.
+</span></span><span style=display:flex><span>2. Chọn Tables.
+</span></span><span style=display:flex><span>3. Mở bảng AIArchitectureReviews.
+</span></span><span style=display:flex><span>4. Chọn Explore table items.
+</span></span><span style=display:flex><span>5. Tìm reviewId vừa upload, ví dụ REV-0491BC4A.
+</span></span><span style=display:flex><span>6. Kiểm tra field status.
+</span></span><span style=display:flex><span>7. Kiểm tra field completedDate và updatedAt.
+</span></span><span style=display:flex><span>8. Kiểm tra reportFiles, costResult, detectedServices và recommendations.
+</span></span></code></pre></div><p>Trạng thái review sẽ được đổi từ:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploaded
+</span></span></code></pre></div><p>thành:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>completed
+</span></span></code></pre></div><p>Các field quan trọng cần có:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>status = completed
+</span></span><span style=display:flex><span>score
+</span></span><span style=display:flex><span>architectureType
+</span></span><span style=display:flex><span>detectedServices
+</span></span><span style=display:flex><span>wellArchitectedResult
+</span></span><span style=display:flex><span>costResult
+</span></span><span style=display:flex><span>recommendations
+</span></span><span style=display:flex><span>risks
+</span></span><span style=display:flex><span>bestPractices
+</span></span><span style=display:flex><span>reportFiles
+</span></span><span style=display:flex><span>completedDate
+</span></span><span style=display:flex><span>updatedAt
+</span></span></code></pre></div><p>Nếu item vẫn ở trạng thái <code>uploaded</code>, cần kiểm tra CloudWatch Logs của PDF Generator Lambda. Lỗi thường gặp là thiếu biến môi trường <code>TABLE_NAME</code> hoặc thiếu quyền <code>dynamodb:UpdateItem</code>.</p><p><img alt="DynamoDB Completed Review" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-completed-review.png></p></details><hr><details><summary><strong>Bước 16: Kiểm tra lịch sử review trên frontend</strong></summary><p>React frontend đọc lịch sử review từ upload backend API. Sau khi PDF Generator cập nhật DynamoDB, frontend có thể hiển thị trạng thái và kết quả phân tích đã hoàn thành.</p><p>Các API route dùng cho lịch sử review là:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>GET /reviews
+</span></span><span style=display:flex><span>GET /reviews/{reviewId}
+</span></span><span style=display:flex><span>GET /reviews/{reviewId}/status
+</span></span></code></pre></div><p>Thực hiện kiểm tra trên frontend:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Mở React frontend.
+</span></span><span style=display:flex><span>2. Upload một sơ đồ kiến trúc mới.
+</span></span><span style=display:flex><span>3. Ghi lại reviewId trả về từ API.
+</span></span><span style=display:flex><span>4. Chờ AI Workflow chạy xong trong Step Functions.
+</span></span><span style=display:flex><span>5. Refresh trang lịch sử review.
+</span></span><span style=display:flex><span>6. Kiểm tra review đã chuyển sang completed.
+</span></span><span style=display:flex><span>7. Mở chi tiết review để xem score, detected services, recommendations và report links.
+</span></span></code></pre></div><p>Sau khi AI Workflow hoàn tất, frontend có thể hiển thị:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Review ID
+</span></span><span style=display:flex><span>Tên file
+</span></span><span style=display:flex><span>Ngày upload
+</span></span><span style=display:flex><span>Trạng thái review
+</span></span><span style=display:flex><span>Điểm đánh giá kiến trúc
+</span></span><span style=display:flex><span>Các dịch vụ phát hiện được
+</span></span><span style=display:flex><span>Khuyến nghị
+</span></span><span style=display:flex><span>Rủi ro
+</span></span><span style=display:flex><span>Link báo cáo
+</span></span></code></pre></div><p>Bước này hoàn tất toàn bộ quy trình upload và AI review.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Upload Backend → S3 Input Bucket → EventBridge → Step Functions
+</span></span><span style=display:flex><span>→ AI Analyzer → Cost Tool → PDF Generator
+</span></span><span style=display:flex><span>→ S3 Report Bucket → DynamoDB → Frontend Review History
+</span></span></code></pre></div><p><img alt="Frontend Review History" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/frontend-review-history.png></p></details><hr><h4 id=kết-quả-ai-workflow>Kết quả AI Workflow</h4><p>Sau khi hoàn thành phần này, hệ thống có thể tự động xử lý một sơ đồ kiến trúc AWS đã upload và tạo báo cáo đánh giá hoàn chỉnh.</p><p>Kết quả cuối cùng bao gồm:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Phân tích kiến trúc bằng AI
+</span></span><span style=display:flex><span>Danh sách dịch vụ AWS phát hiện được
+</span></span><span style=display:flex><span>Đánh giá theo AWS Well-Architected Framework
+</span></span><span style=display:flex><span>Chi phí ước tính hằng tháng
+</span></span><span style=display:flex><span>Đề xuất tối ưu chi phí
+</span></span><span style=display:flex><span>Báo cáo HTML
+</span></span><span style=display:flex><span>Báo cáo PDF
+</span></span><span style=display:flex><span>Lịch sử review đã được cập nhật
+</span></span></code></pre></div><p>AI Workflow giúp hệ thống tự động hóa toàn bộ quy trình sau khi upload. Người dùng chỉ cần upload sơ đồ kiến trúc, backend sẽ tự động thực hiện phân tích, ước tính chi phí, tạo báo cáo và cập nhật lịch sử review.</p><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.5-review-api/ title="Tích hợp Review APIs và Frontend Pages"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.7-monitoring-security/ title="Monitoring với CloudWatch, SNS Alert và IAM Least Privilege" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/fcj-workshop-template-VoTienPhat/js/clipboard.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/perfect-scrollbar.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/perfect-scrollbar.jquery.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/jquery.sticky.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/featherlight.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/highlight.pack.js?1784651547></script><script>hljs.initHighlightingOnLoad()</script><script src=/fcj-workshop-template-VoTienPhat/js/modernizr.custom-3.6.0.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/learn.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/hugo-learn.js?1784651547></script><link href=/fcj-workshop-template-VoTienPhat/mermaid/mermaid.css?1784651547 rel=stylesheet><script src=/fcj-workshop-template-VoTienPhat/mermaid/mermaid.js?1784651547></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>

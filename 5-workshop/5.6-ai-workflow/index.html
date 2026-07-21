@@ -1,0 +1,792 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=/fcj-workshop-template-VoTienPhat/images/favicon.png type=image/png><title>Build AI Workflow with EventBridge, Step Functions, Bedrock, and PDF Generator :: Internship Report</title>
+<link href=/fcj-workshop-template-VoTienPhat/css/nucleus.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/fontawesome-all.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/hybrid.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/featherlight.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/perfect-scrollbar.min.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/auto-complete.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/atom-one-dark-reasonable.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/theme.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/hugo-theme.css?1784651547 rel=stylesheet><link href=/fcj-workshop-template-VoTienPhat/css/theme-workshop.css?1784651547 rel=stylesheet><script src=/fcj-workshop-template-VoTienPhat/js/jquery-3.3.1.min.js?1784651547></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=/fcj-workshop-template-VoTienPhat/5-workshop/5.6-ai-workflow/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/lunr.min.js?1784651547></script><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/auto-complete.js?1784651547></script><script type=text/javascript>var baseurl="https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat/"</script><script type=text/javascript src=/fcj-workshop-template-VoTienPhat/js/search.js?1784651547></script></div><div class=highlightable><ul class=topics><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/ title=Worklog class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/><b>1. </b>Worklog
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.1-week1/ title="Worklog Week 1" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.1-week1/><b>1.1. </b>Worklog Week 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.2-week2/ title="Worklog Week 2" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.2-week2/><b>1.2. </b>Worklog Week 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.3-week3/ title="Worklog Week 3" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.3-week3/><b>1.3. </b>Worklog Week 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.4-week4/ title="Worklog Week 4" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.4-week4/><b>1.4. </b>Worklog Week 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.5-week5/ title="Worklog Week 5" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.5-week5/><b>1.5. </b>Worklog Week 5
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.6-week6/ title="Worklog Week 6" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.6-week6/><b>1.6. </b>Worklog Week 6
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.7-week7/ title="Worklog Week 7" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.7-week7/><b>1.7. </b>Worklog Week 7
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.8-week8/ title="Worklog Week 8" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.8-week8/><b>1.8. </b>Worklog Week 8
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.9-week9/ title="Worklog Week 9" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.9-week9/><b>1.9. </b>Worklog Week 9
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.10-week10/ title="Worklog Week 10" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.10-week10/><b>1.10. </b>Worklog Week 10
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.11-week11/ title="Worklog Week 11" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.11-week11/><b>1.11. </b>Worklog Week 11
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/1-worklog/1.12-week12/ title="Worklog Week 12" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/1-worklog/1.12-week12/><b>1.12. </b>Worklog Week 12
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/2-proposal/ title=Proposal class=dd-item><a href=/fcj-workshop-template-VoTienPhat/2-proposal/><b>2. </b>Proposal
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/3-blogsposted/ title="Blogs Posted" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/3-blogsposted/><b>3. </b>Blogs Posted
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.1-blog1/ title="[Cloud Architecture] Building a Microservices Architecture with Amazon SQS, Amazon SNS, and AWS Lambda" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.1-blog1/><b>3.1.</b>[Cloud Architecture] Building a Microservices Architecture with Amazon SQS, Amazon SNS, and AWS Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.2-blog2/ title="[Generative AI on AWS] Building AI AWS Architecture Reviewer – Automatically Reviewing AWS Architectures with Amazon Bedrock and Serverless" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.2-blog2/><b>3.2.</b>[Generative AI on AWS] Building AI AWS Architecture Reviewer – Automatically Reviewing AWS Architectures with Amazon Bedrock and Serverless
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.3-blog3/ title="[Amazon Bedrock AgentCore] Web Search: When AI Agents Are No Longer Limited by Knowledge Cutoff" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/3-blogsposted/3.3-blog3/><b>3.3.</b>[Amazon Bedrock AgentCore] Web Search: When AI Agents Are No Longer Limited by Knowledge Cutoff
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/4-eventparticipated/ title="Events Participated" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/4-eventparticipated/><b>4. </b>Events Participated
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/ title=Workshop class="dd-item
+parent"><a href=/fcj-workshop-template-VoTienPhat/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.1-workshop-overview/ title="Workshop Overview" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.1-workshop-overview/><b>5.1. </b>Workshop Overview
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.2-prerequisite/ title=Prerequisite class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisite
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.3-frontend-hosting/ title="Deploy React Frontend with S3, CloudFront and AWS WAF" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.3-frontend-hosting/><b>5.3. </b>Deploy React Frontend with S3, CloudFront and AWS WAF
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.4-upload-backend/ title="Build Upload Backend with API Gateway, Lambda, S3, and DynamoDB" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.4-upload-backend/><b>5.4. </b>Build Upload Backend with API Gateway, Lambda, S3, and DynamoDB
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.5-review-api/ title="Integrate Review APIs and Frontend Pages" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.5-review-api/><b>5.5. </b>Integrate Review APIs and Frontend Pages
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.6-ai-workflow/ title="Build AI Workflow with EventBridge, Step Functions, Bedrock, and PDF Generator" class="dd-item
+active"><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.6-ai-workflow/><b>5.6. </b>Build AI Workflow with EventBridge, Step Functions, Bedrock, and PDF Generator
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/5-workshop/5.7-monitoring-security/ title="Monitoring with CloudWatch, SNS Alert and IAM Least Privilege" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/5-workshop/5.7-monitoring-security/><b>5.7. </b>Monitoring with CloudWatch, SNS Alert and IAM Least Privilege
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=/fcj-workshop-template-VoTienPhat/6-self-evaluation/><b>6. </b>Self-Assessment
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/fcj-workshop-template-VoTienPhat/7-feedback/ title="Sharing and Feedback" class=dd-item><a href=/fcj-workshop-template-VoTienPhat/7-feedback/><b>7. </b>Sharing and Feedback
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat/5-workshop/5.6-ai-workflow/ selected>English</option><option id=vi value=https://tien-phatt.github.io/fcj-workshop-template-VoTienPhat/vi/5-workshop/5.6-ai-workflow/>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>21-07-2026</font>
+</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=/fcj-workshop-template-VoTienPhat/>Internship Report</a> > <a href=/fcj-workshop-template-VoTienPhat/5-workshop/>Workshop</a> > Build AI Workflow with EventBridge, Step Functions, Bedrock, and PDF Generator</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Build AI Workflow with EventBridge, Step Functions, Bedrock, and PDF Generator</h1><h4 id=ai-workflow-overview>AI Workflow overview</h4><p>In this section, the <strong>AI Workflow</strong> of the <strong>AI AWS Architecture Reviewer</strong> project is built using <strong>Amazon EventBridge</strong>, <strong>AWS Step Functions</strong>, <strong>AWS Lambda</strong>, <strong>Amazon Bedrock</strong>, <strong>AWS Price List API</strong>, <strong>Amazon S3</strong>, <strong>Amazon DynamoDB</strong>, <strong>Amazon CloudWatch</strong>, and <strong>AWS IAM</strong>.</p><p>After the user uploads an AWS architecture diagram through the upload backend, the file is stored in the <strong>S3 Input Bucket</strong>. The S3 object creation event is sent to <strong>Amazon EventBridge</strong>. EventBridge then automatically triggers <strong>AWS Step Functions</strong> to start the architecture analysis process.</p><p>The AI Workflow is responsible for analyzing the uploaded architecture image, detecting AWS services, estimating monthly cost, generating the final review report, storing the report in S3, and updating the review history in DynamoDB.</p><p>The AI Workflow flow is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>S3 Input Bucket → EventBridge → Step Functions
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              AI Analyzer Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              Cost Tool Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                              PDF Generator Lambda
+</span></span><span style=display:flex><span>                                      ↓
+</span></span><span style=display:flex><span>                         S3 Report Bucket + DynamoDB
+</span></span></code></pre></div><p>The main AWS resources used in this section are:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Amazon S3 Input Bucket
+</span></span><span style=display:flex><span>Amazon EventBridge
+</span></span><span style=display:flex><span>AWS Step Functions
+</span></span><span style=display:flex><span>AWS Lambda AI Analyzer
+</span></span><span style=display:flex><span>AWS Lambda Cost Tool
+</span></span><span style=display:flex><span>AWS Lambda PDF Generator
+</span></span><span style=display:flex><span>Amazon Bedrock
+</span></span><span style=display:flex><span>AWS Price List API
+</span></span><span style=display:flex><span>Amazon S3 Report Bucket
+</span></span><span style=display:flex><span>Amazon DynamoDB
+</span></span><span style=display:flex><span>Amazon CloudWatch
+</span></span><span style=display:flex><span>AWS IAM
+</span></span><span style=display:flex><span>Lambda Layer
+</span></span></code></pre></div><p>In this section, short configurations such as <strong>environment variables</strong>, <strong>EventBridge pattern</strong>, <strong>Step Functions definition</strong>, <strong>IAM permissions</strong>, and <strong>test commands</strong> are written directly in the workshop page. The long source code of the Lambda functions is stored separately in the README folder to keep the workshop page clean.</p><details><summary><strong>README folder structure for Lambda source code</strong></summary><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/
+</span></span><span style=display:flex><span>└── ai-workflow/
+</span></span><span style=display:flex><span>    └── lambdas/
+</span></span><span style=display:flex><span>        ├── ai-analyzer/
+</span></span><span style=display:flex><span>        │   └── lambda_function.py
+</span></span><span style=display:flex><span>        ├── cost-tool/
+</span></span><span style=display:flex><span>        │   └── lambda_function.py
+</span></span><span style=display:flex><span>        └── pdf-generator/
+</span></span><span style=display:flex><span>            └── lambda_function.py
+</span></span></code></pre></div></details><hr><details><summary><strong>Step 1: Enable EventBridge notification for the S3 Input Bucket</strong></summary><p>The AI Workflow starts when a new architecture diagram is uploaded to the S3 Input Bucket. The upload backend stores the file in the input bucket using an object key that includes the <code>reviewId</code>, so the later steps can use this <code>reviewId</code> to track the entire analysis process.</p><p>The S3 Input Bucket used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-input-bucket-tiersteam
+</span></span></code></pre></div><p>Uploaded architecture files are stored using the following key structure:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploads/{reviewId}/{fileName}
+</span></span></code></pre></div><p>Example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploads/REV-0491BC4A/architecture-diagram.jpg
+</span></span></code></pre></div><p>Configure this in the AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Select the ap-southeast-1 region.
+</span></span><span style=display:flex><span>2. Go to Amazon S3.
+</span></span><span style=display:flex><span>3. Open the bucket ai-aws-reviewer-input-bucket-tiersteam.
+</span></span><span style=display:flex><span>4. Select the Properties tab.
+</span></span><span style=display:flex><span>5. Find the Amazon EventBridge section.
+</span></span><span style=display:flex><span>6. Choose Edit.
+</span></span><span style=display:flex><span>7. Enable Send notifications to Amazon EventBridge for all events in this bucket.
+</span></span><span style=display:flex><span>8. Choose Save changes.
+</span></span></code></pre></div><p>After enabling this option, new object creation events in the bucket can be routed to EventBridge.</p><p><img alt="S3 EventBridge" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-input-bucket-eventbridge.png></p></details><hr><details><summary><strong>Step 2: Create an EventBridge rule for the S3 Object Created event</strong></summary><p>The EventBridge rule is used to capture the event when a new file is uploaded to the S3 Input Bucket. When a new object is created, the rule triggers Step Functions to start the AI Workflow.</p><p>Configure this in the AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to Amazon EventBridge.
+</span></span><span style=display:flex><span>2. Select Rules.
+</span></span><span style=display:flex><span>3. Choose Create rule.
+</span></span><span style=display:flex><span>4. Enter the rule name.
+</span></span><span style=display:flex><span>5. Select default as the event bus.
+</span></span><span style=display:flex><span>6. Select Rule with an event pattern as the rule type.
+</span></span><span style=display:flex><span>7. Choose Next.
+</span></span></code></pre></div><p>The rule name used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-s3-object-created-rule
+</span></span></code></pre></div><p>In the Event source section, select:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AWS events or EventBridge partner events
+</span></span></code></pre></div><p>In the Creation method section, select:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Custom pattern JSON editor
+</span></span></code></pre></div><p>Paste the following event pattern:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;source&#34;</span>: [<span style=color:#e6db74>&#34;aws.s3&#34;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detail-type&#34;</span>: [<span style=color:#e6db74>&#34;Object Created&#34;</span>],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detail&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;bucket&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: [<span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Meaning of the pattern:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>source = aws.s3:
+</span></span><span style=display:flex><span>Only receive events from Amazon S3.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>detail-type = Object Created:
+</span></span><span style=display:flex><span>Only receive events when a new object is created.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>bucket.name:
+</span></span><span style=display:flex><span>Only receive events from the project input bucket.
+</span></span></code></pre></div><p>After completing the configuration, choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Next
+</span></span></code></pre></div><p><img alt="EventBridge Rule" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-rule.png></p></details><hr><details><summary><strong>Step 3: Configure the EventBridge target as Step Functions</strong></summary><p>The target of the EventBridge rule is the Step Functions state machine. When a new file is uploaded to S3, EventBridge calls <code>StartExecution</code> to run the state machine.</p><p>The Step Functions workflow used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Architecture-review-workflow
+</span></span></code></pre></div><p>Configure the target:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. In the Select target step of the EventBridge rule, set Target type to AWS service.
+</span></span><span style=display:flex><span>2. In Select a target, choose Step Functions state machine.
+</span></span><span style=display:flex><span>3. Select the state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>4. In Execution role, create a new role or select an existing role with states:StartExecution permission.
+</span></span><span style=display:flex><span>5. Open Additional settings.
+</span></span><span style=display:flex><span>6. Select Configure target input.
+</span></span><span style=display:flex><span>7. Select Input transformer.
+</span></span></code></pre></div><p>The input transformer extracts the bucket name and object key from the S3 event, then passes a cleaner JSON input to Step Functions.</p><p>Input paths:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;$.detail.bucket.name&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;$.detail.object.key&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Input template:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;&lt;bucket&gt;&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;&lt;key&gt;&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Example input received by Step Functions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;uploads/REV-0491BC4A/architecture-diagram.jpg&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This input allows the AI Analyzer Lambda to identify the correct bucket and object key to read the uploaded architecture diagram from S3.</p><p><img alt="EventBridge Target" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/eventbridge-target-step-functions.png></p></details><hr><details><summary><strong>Step 4: Create the Step Functions AI Workflow</strong></summary><p>Step Functions is used to orchestrate the entire architecture analysis process. Instead of manually invoking each Lambda function, Step Functions allows the workflow to run in the correct order and makes it easier to monitor the status of each step.</p><p>The workflow name is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Architecture-review-workflow
+</span></span></code></pre></div><p>Create the state machine:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to AWS Step Functions.
+</span></span><span style=display:flex><span>2. Select State machines.
+</span></span><span style=display:flex><span>3. Choose Create state machine.
+</span></span><span style=display:flex><span>4. Select Write your workflow in code.
+</span></span><span style=display:flex><span>5. Set Type to Standard.
+</span></span><span style=display:flex><span>6. Set Definition language to JSON.
+</span></span><span style=display:flex><span>7. Name the state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>8. Select or create an IAM role for Step Functions.
+</span></span><span style=display:flex><span>9. Enable logging if you want to monitor executions in CloudWatch.
+</span></span><span style=display:flex><span>10. Choose Create state machine.
+</span></span></code></pre></div><p>The workflow contains three main processing stages:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p>The role of each state:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI:
+</span></span><span style=display:flex><span>Read the architecture diagram from S3 and use Amazon Bedrock to analyze the architecture.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>EstimateCost:
+</span></span><span style=display:flex><span>Use the detected AWS services to estimate cost with AWS Price List API.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>GenerateReport:
+</span></span><span style=display:flex><span>Generate the final review report, store the report in S3, and update the review history in DynamoDB.
+</span></span></code></pre></div><p>The workflow also includes a Choice state named <code>HasDetectedServices</code>. If the AI Analyzer does not detect any AWS service, the workflow skips the cost estimation step and moves directly to report generation with cost set to 0.</p><p><img alt="Step Functions" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/architecture-review-workflow.png></p></details><hr><details><summary><strong>Step 5: Configure the Step Functions definition</strong></summary><p>After creating the state machine, paste the Amazon States Language definition into the Step Functions code editor.</p><p>Configure this in the AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Open the state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>2. Choose Edit.
+</span></span><span style=display:flex><span>3. Select Definition.
+</span></span><span style=display:flex><span>4. Remove the sample definition if it exists.
+</span></span><span style=display:flex><span>5. Paste the JSON definition below.
+</span></span><span style=display:flex><span>6. Check the ARNs of the three Lambda functions.
+</span></span><span style=display:flex><span>7. Choose Save.
+</span></span></code></pre></div><p>The workflow definition used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Comment&#34;</span>: <span style=color:#e6db74>&#34;AI AWS Architecture Reviewer Workflow&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;StartAt&#34;</span>: <span style=color:#e6db74>&#34;AnalyzeArchitectureWithAI&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;States&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;AnalyzeArchitectureWithAI&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-ai-analyzer&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload.$&#34;</span>: <span style=color:#e6db74>&#34;$&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;analysis.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;HasDetectedServices&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;HasDetectedServices&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Choice&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Choices&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;Variable&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.status&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;StringEquals&#34;</span>: <span style=color:#e6db74>&#34;NO_SERVICES_DETECTED&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SetEmptyCost&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Default&#34;</span>: <span style=color:#e6db74>&#34;EstimateCost&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;SetEmptyCost&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Result&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;cost&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;SKIPPED&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;message&#34;</span>: <span style=color:#e6db74>&#34;No AWS services were detected for cost estimation.&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;estimated_monthly_cost&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;currency&#34;</span>: <span style=color:#e6db74>&#34;USD&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;breakdown&#34;</span>: []
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;GenerateReport&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;EstimateCost&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-cost-tool&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;review_id.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.review_id&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;region.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.source.region&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;services.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis.architecture_json.services&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;cost.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;GenerateReport&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;GenerateReport&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-pdf-generator&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;analysis.$&#34;</span>: <span style=color:#e6db74>&#34;$.analysis_result.analysis&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;cost.$&#34;</span>: <span style=color:#e6db74>&#34;$.cost_result.cost&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;report.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.report_result&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;End&#34;</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>After saving, check the graph view. A correct graph should include the following states:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>HasDetectedServices
+</span></span><span style=display:flex><span>SetEmptyCost
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p><img alt="Step Functions Definition" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-definition.png></p></details><hr><details><summary><strong>Step 6: Create the AI Analyzer Lambda</strong></summary><p>The AI Analyzer Lambda is the first step in Step Functions. This Lambda receives the bucket and object key from EventBridge, reads the architecture image in S3, and sends the image to Amazon Bedrock for analysis.</p><p>The Lambda function name is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-ai-analyzer
+</span></span></code></pre></div><p>Create the Lambda function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to AWS Lambda.
+</span></span><span style=display:flex><span>2. Choose Create function.
+</span></span><span style=display:flex><span>3. Select Author from scratch.
+</span></span><span style=display:flex><span>4. Enter aws-reviewer-ai-analyzer as the function name.
+</span></span><span style=display:flex><span>5. Select Python 3.14 or the runtime used in the project.
+</span></span><span style=display:flex><span>6. Select x86_64 as the architecture.
+</span></span><span style=display:flex><span>7. Select an execution role with S3 GetObject, Bedrock InvokeModel, and CloudWatch Logs permissions.
+</span></span><span style=display:flex><span>8. Choose Create function.
+</span></span></code></pre></div><p>After creating the function, configure general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 120 seconds
+</span></span></code></pre></div><p>Configure environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span></code></pre></div><p>The long Lambda source code is stored in:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/ai-analyzer/lambda_function.py
+</span></span></code></pre></div><p>After copying the code into Lambda, choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>This function is responsible for:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Receiving the S3 bucket and object key from Step Functions.
+</span></span><span style=display:flex><span>Reading the uploaded architecture diagram from S3.
+</span></span><span style=display:flex><span>Sending the architecture image to Amazon Bedrock.
+</span></span><span style=display:flex><span>Detecting AWS services and connections in the diagram.
+</span></span><span style=display:flex><span>Creating an initial AWS Well-Architected Framework assessment.
+</span></span><span style=display:flex><span>Returning structured JSON data to Step Functions.
+</span></span></code></pre></div><p>The main output of this Lambda includes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Review ID
+</span></span><span style=display:flex><span>Source bucket
+</span></span><span style=display:flex><span>Source object key
+</span></span><span style=display:flex><span>Detected AWS services
+</span></span><span style=display:flex><span>Service connections
+</span></span><span style=display:flex><span>Well-Architected assessment result
+</span></span><span style=display:flex><span>Analysis limitations
+</span></span></code></pre></div><p>You can test the Lambda with this sample event:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bucket&#34;</span>: <span style=color:#e6db74>&#34;ai-aws-reviewer-input-bucket-tiersteam&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;key&#34;</span>: <span style=color:#e6db74>&#34;uploads/REV-0491BC4A/architecture-diagram.jpg&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><img alt="AI Analyzer Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-ai-analyzer.png></p></details><hr><details><summary><strong>Step 7: Create the Cost Tool Lambda</strong></summary><p>The Cost Tool Lambda is the second step in the workflow. This Lambda receives the list of AWS services detected by the AI Analyzer and calculates the estimated monthly cost.</p><p>The Lambda function name is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-cost-tool
+</span></span></code></pre></div><p>Create the Lambda function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to AWS Lambda.
+</span></span><span style=display:flex><span>2. Choose Create function.
+</span></span><span style=display:flex><span>3. Select Author from scratch.
+</span></span><span style=display:flex><span>4. Enter aws-reviewer-cost-tool as the function name.
+</span></span><span style=display:flex><span>5. Select Python 3.14 or the runtime used in the project.
+</span></span><span style=display:flex><span>6. Select x86_64 as the architecture.
+</span></span><span style=display:flex><span>7. Select an execution role with Pricing API, Bedrock InvokeModel, and CloudWatch Logs permissions.
+</span></span><span style=display:flex><span>8. Choose Create function.
+</span></span></code></pre></div><p>Configure general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 120 seconds
+</span></span></code></pre></div><p>Configure environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span><span style=display:flex><span>DEFAULT_REGION = ap-southeast-1
+</span></span></code></pre></div><p>The long Lambda source code is stored in:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/cost-tool/lambda_function.py
+</span></span></code></pre></div><p>After copying the code into Lambda, choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>This function is responsible for:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Receiving the detected services from the AI Analyzer Lambda.
+</span></span><span style=display:flex><span>Mapping detected services to corresponding AWS Pricing products.
+</span></span><span style=display:flex><span>Calling AWS Price List API to retrieve pricing information.
+</span></span><span style=display:flex><span>Calculating estimated monthly cost based on default assumptions.
+</span></span><span style=display:flex><span>Using Amazon Bedrock to generate cost analysis and optimization recommendations.
+</span></span><span style=display:flex><span>Returning the cost result to Step Functions.
+</span></span></code></pre></div><p>The Cost Tool does not allow AI to invent pricing values. The numeric cost is calculated from AWS Price List API data, while Amazon Bedrock is only used to explain the cost result and provide optimization recommendations.</p><p>You can test the Lambda with this sample event:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;services&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon EC2&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Compute&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.95</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon S3&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Storage&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.93</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The main output of this Lambda includes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Estimated monthly cost
+</span></span><span style=display:flex><span>Currency
+</span></span><span style=display:flex><span>Cost breakdown by service
+</span></span><span style=display:flex><span>Pricing data source
+</span></span><span style=display:flex><span>Default usage assumptions
+</span></span><span style=display:flex><span>Cost optimization recommendations
+</span></span></code></pre></div><p><img alt="Cost Tool Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-cost-tool.png></p></details><hr><details><summary><strong>Step 8: Create the S3 Report Bucket</strong></summary><p>The S3 Report Bucket is used to store the report files after the AI Workflow is completed. The PDF Generator Lambda uploads <code>report-data.json</code>, <code>report.html</code>, and <code>report.pdf</code> to this bucket.</p><p>The S3 Report Bucket used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-report-bucket-tiersteam
+</span></span></code></pre></div><p>Create the bucket:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to Amazon S3.
+</span></span><span style=display:flex><span>2. Choose Create bucket.
+</span></span><span style=display:flex><span>3. Select ap-southeast-1 as the region.
+</span></span><span style=display:flex><span>4. Enter ai-aws-reviewer-report-bucket-tiersteam as the bucket name.
+</span></span><span style=display:flex><span>5. Keep Object Ownership as ACLs disabled.
+</span></span><span style=display:flex><span>6. Keep Block Public Access enabled if reports are accessed only through the backend or presigned URLs.
+</span></span><span style=display:flex><span>7. Enable Bucket Versioning if you want to keep multiple report versions.
+</span></span><span style=display:flex><span>8. Set Encryption to Server-side encryption with Amazon S3 managed keys (SSE-S3).
+</span></span><span style=display:flex><span>9. Choose Create bucket.
+</span></span></code></pre></div><p>Reports are stored using this key structure:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/report-data.json
+</span></span><span style=display:flex><span>reports/{reviewId}/report.html
+</span></span><span style=display:flex><span>reports/{reviewId}/report.pdf
+</span></span></code></pre></div><p>Example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/REV-0491BC4A/report-data.json
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.html
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.pdf
+</span></span></code></pre></div><p>Meaning of each file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>report-data.json:
+</span></span><span style=display:flex><span>Stores structured review data in JSON format.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.html:
+</span></span><span style=display:flex><span>Stores the HTML report, which is easy to open in a browser.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.pdf:
+</span></span><span style=display:flex><span>Stores the final PDF report for download or submission.
+</span></span></code></pre></div><p><img alt="S3 Report Bucket" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-report-bucket.png></p></details><hr><details><summary><strong>Step 9: Create the PDF Generator Lambda</strong></summary><p>The PDF Generator Lambda is the final step in the AI Workflow. This Lambda receives the architecture analysis result and cost result from Step Functions, then generates the final report and updates the review history in DynamoDB.</p><p>The Lambda function name is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>aws-reviewer-pdf-generator
+</span></span></code></pre></div><p>Create the Lambda function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to AWS Lambda.
+</span></span><span style=display:flex><span>2. Choose Create function.
+</span></span><span style=display:flex><span>3. Select Author from scratch.
+</span></span><span style=display:flex><span>4. Enter aws-reviewer-pdf-generator as the function name.
+</span></span><span style=display:flex><span>5. Select Python 3.14 as the runtime.
+</span></span><span style=display:flex><span>6. Select x86_64 as the architecture.
+</span></span><span style=display:flex><span>7. Select an execution role with S3 PutObject, DynamoDB UpdateItem, Bedrock InvokeModel, and CloudWatch Logs permissions.
+</span></span><span style=display:flex><span>8. Choose Create function.
+</span></span></code></pre></div><p>Configure general settings:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Memory: 1024 MB
+</span></span><span style=display:flex><span>Timeout: 180 seconds
+</span></span></code></pre></div><p>Configure environment variables:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>REPORT_BUCKET = ai-aws-reviewer-report-bucket-tiersteam
+</span></span><span style=display:flex><span>TABLE_NAME = AIArchitectureReviews
+</span></span><span style=display:flex><span>MODEL_ID = global.amazon.nova-2-lite-v1:0
+</span></span><span style=display:flex><span>BEDROCK_REGION = ap-southeast-1
+</span></span></code></pre></div><p>The long Lambda source code is stored in:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>README/ai-workflow/lambdas/pdf-generator/lambda_function.py
+</span></span></code></pre></div><p>After copying the code into Lambda, choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Deploy
+</span></span></code></pre></div><p>This function is responsible for:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Receiving the architecture analysis result and cost result from Step Functions.
+</span></span><span style=display:flex><span>Using Amazon Bedrock to generate the final review content.
+</span></span><span style=display:flex><span>Creating report-data.json.
+</span></span><span style=display:flex><span>Creating report.html.
+</span></span><span style=display:flex><span>Creating report.pdf with ReportLab.
+</span></span><span style=display:flex><span>Uploading the report files to the S3 Report Bucket.
+</span></span><span style=display:flex><span>Updating the review history in DynamoDB.
+</span></span><span style=display:flex><span>Returning the report file locations to Step Functions.
+</span></span></code></pre></div><p>You can test the Lambda with this sample event:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;analysis&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;ANALYZED&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-TEST-PDF&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;source&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;region&#34;</span>: <span style=color:#e6db74>&#34;ap-southeast-1&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;architecture_json&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;services&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;Amazon S3&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;category&#34;</span>: <span style=color:#e6db74>&#34;Storage&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;confidence&#34;</span>: <span style=color:#ae81ff>0.95</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;evidence&#34;</span>: <span style=color:#e6db74>&#34;Detected from architecture diagram&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;connections&#34;</span>: []
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;well_architected_review&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;overall_score&#34;</span>: <span style=color:#ae81ff>80</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;pillar_scores&#34;</span>: {},
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;findings&#34;</span>: []
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;cost&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;COST_ESTIMATED&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;review_id&#34;</span>: <span style=color:#e6db74>&#34;REV-TEST-PDF&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;currency&#34;</span>: <span style=color:#e6db74>&#34;USD&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;estimated_monthly_cost&#34;</span>: <span style=color:#ae81ff>1.25</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;breakdown&#34;</span>: [],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;cost_ai_review&#34;</span>: {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;summary&#34;</span>: <span style=color:#e6db74>&#34;Estimated demo cost is low.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;cost_level&#34;</span>: <span style=color:#e6db74>&#34;Low&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;main_cost_drivers&#34;</span>: [],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;optimization_recommendations&#34;</span>: []
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The PDF Generator Lambda is the final state of the AI Workflow.</p><p><img alt="PDF Generator Lambda" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/aws-reviewer-pdf-generator.png></p></details><hr><details><summary><strong>Step 10: Configure the ReportLab Layer for PDF generation</strong></summary><p>To generate PDF files inside Lambda, the system uses a <strong>Lambda Layer</strong> to provide <strong>ReportLab</strong>, <strong>Pillow</strong>, and Vietnamese-supported fonts. This layer is attached to the <code>aws-reviewer-pdf-generator</code> Lambda so the function can import ReportLab and generate the <code>report.pdf</code> file.</p><p>In this project, the PDF Generator Lambda uses:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Region: ap-southeast-1
+</span></span><span style=display:flex><span>Runtime: Python 3.14
+</span></span><span style=display:flex><span>Architecture: x86_64
+</span></span><span style=display:flex><span>Layer name: reportlab-layer-py314-vn
+</span></span></code></pre></div><h5 id=101-open-cloudshell-in-the-correct-region>10.1. Open CloudShell in the correct region</h5><p>In the AWS Console, select the region:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ap-southeast-1
+</span></span></code></pre></div><p>Then open:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>CloudShell
+</span></span></code></pre></div><p>CloudShell is used to install ReportLab, Pillow, and package them into a <code>.zip</code> file using the correct Lambda Layer structure.</p><h5 id=102-create-the-layer-folder-and-install-reportlab>10.2. Create the layer folder and install ReportLab</h5><p>Run the following commands in CloudShell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p reportlab-layer-py314/python
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>python3 -m pip install --upgrade pip
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>python3 -m pip install <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --platform manylinux2014_x86_64 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --implementation cp <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --python-version 3.14 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --abi cp314 <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --only-binary<span style=color:#f92672>=</span>:all: <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  --target reportlab-layer-py314/python <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span><span style=color:#ae81ff></span>  reportlab pillow
+</span></span></code></pre></div><p>Meaning of the main options:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>--platform manylinux2014_x86_64 : builds packages for the Lambda Linux x86_64 environment
+</span></span><span style=display:flex><span>--python-version 3.14          : builds for the Python 3.14 runtime
+</span></span><span style=display:flex><span>--abi cp314                    : uses the ABI that matches Python 3.14
+</span></span><span style=display:flex><span>--target                       : installs the libraries into the python/ folder of the Lambda Layer
+</span></span></code></pre></div><p>After the installation is completed, move into the layer folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd reportlab-layer-py314
+</span></span></code></pre></div><h5 id=103-create-the-fonts-folder-and-add-vietnamese-fonts>10.3. Create the fonts folder and add Vietnamese fonts</h5><p>ReportLab does not display Vietnamese text correctly when using only the default fonts. Therefore, the layer needs a Unicode font such as <strong>DejaVuSans</strong>.</p><p>Create the <code>fonts</code> folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>mkdir -p fonts
+</span></span></code></pre></div><p>Copy DejaVuSans fonts into the <code>fonts</code> folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cp /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf fonts/
+</span></span><span style=display:flex><span>cp /usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf fonts/
+</span></span></code></pre></div><p>After copying the fonts, check the folder:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>ls -l fonts
+</span></span></code></pre></div><p>Expected result:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>DejaVuSans.ttf
+</span></span><span style=display:flex><span>DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>If CloudShell cannot find the font path above, search for the fonts again:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>find /usr/share/fonts -iname <span style=color:#e6db74>&#34;DejaVuSans*.ttf&#34;</span>
+</span></span></code></pre></div><p>Then use the correct path returned by the <code>find</code> command to copy the fonts into the <code>fonts</code> folder.</p><h5 id=104-package-the-lambda-layer>10.4. Package the Lambda Layer</h5><p>After the <code>python</code> and <code>fonts</code> folders are ready, create the zip file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>zip -r reportlab-layer-py314-vn.zip python fonts
+</span></span></code></pre></div><p>The zip file structure should look like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>python/
+</span></span><span style=display:flex><span>  reportlab/
+</span></span><span style=display:flex><span>  PIL/
+</span></span><span style=display:flex><span>  ...
+</span></span><span style=display:flex><span>fonts/
+</span></span><span style=display:flex><span>  DejaVuSans.ttf
+</span></span><span style=display:flex><span>  DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>When Lambda attaches this layer, the font files will be available at:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>/opt/fonts/DejaVuSans.ttf
+</span></span><span style=display:flex><span>/opt/fonts/DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>The PDF Generator Lambda uses these paths to register Vietnamese fonts in ReportLab.</p><h5 id=105-download-the-layer-file-from-cloudshell>10.5. Download the layer file from CloudShell</h5><p>In CloudShell, choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Actions → Download file
+</span></span></code></pre></div><p>Enter the file path:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reportlab-layer-py314/reportlab-layer-py314-vn.zip
+</span></span></code></pre></div><p>Then choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Download
+</span></span></code></pre></div><p>The file to download is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reportlab-layer-py314-vn.zip
+</span></span></code></pre></div><h5 id=106-create-a-new-lambda-layer>10.6. Create a new Lambda Layer</h5><p>Go to the AWS Console:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Lambda → Layers → Create layer
+</span></span></code></pre></div><p>Enter the layer information:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Name: reportlab-layer-py314-vn
+</span></span><span style=display:flex><span>Upload: reportlab-layer-py314-vn.zip
+</span></span><span style=display:flex><span>Compatible runtime: Python 3.14
+</span></span><span style=display:flex><span>Compatible architecture: x86_64
+</span></span></code></pre></div><p>Then choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Create
+</span></span></code></pre></div><p><img alt="ReportLab Layer" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/reportlab-layer.png></p><h5 id=107-attach-the-layer-to-the-pdf-generator-lambda>10.7. Attach the layer to the PDF Generator Lambda</h5><p>Open the PDF Generator Lambda:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Lambda → aws-reviewer-pdf-generator → Code → Layers
+</span></span></code></pre></div><p>Choose:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Add a layer
+</span></span></code></pre></div><p>Then select:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Custom layers → reportlab-layer-py314-vn → Latest version → Add
+</span></span></code></pre></div><p>After attaching the layer, save the Lambda configuration.</p><h5 id=108-configure-the-code-to-use-vietnamese-fonts>10.8. Configure the code to use Vietnamese fonts</h5><p>In the <code>aws-reviewer-pdf-generator</code> Lambda, ReportLab must register the font before building the PDF.</p><p>The font paths in Lambda are:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>/opt/fonts/DejaVuSans.ttf
+</span></span><span style=display:flex><span>/opt/fonts/DejaVuSans-Bold.ttf
+</span></span></code></pre></div><p>Example code to register the fonts:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>register_vietnamese_fonts</span>():
+</span></span><span style=display:flex><span>    regular_font_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/opt/fonts/DejaVuSans.ttf&#34;</span>
+</span></span><span style=display:flex><span>    bold_font_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/opt/fonts/DejaVuSans-Bold.ttf&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    pdfmetrics<span style=color:#f92672>.</span>registerFont(TTFont(<span style=color:#e6db74>&#34;DejaVuSans&#34;</span>, regular_font_path))
+</span></span><span style=display:flex><span>    pdfmetrics<span style=color:#f92672>.</span>registerFont(TTFont(<span style=color:#e6db74>&#34;DejaVuSans-Bold&#34;</span>, bold_font_path))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;regular&#34;</span>: <span style=color:#e6db74>&#34;DejaVuSans&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bold&#34;</span>: <span style=color:#e6db74>&#34;DejaVuSans-Bold&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span></code></pre></div><p>ReportLab styles should use this font instead of the default font:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>styles<span style=color:#f92672>.</span>add(ParagraphStyle(
+</span></span><span style=display:flex><span>    name<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;VNBody&#34;</span>,
+</span></span><span style=display:flex><span>    parent<span style=color:#f92672>=</span>styles[<span style=color:#e6db74>&#34;BodyText&#34;</span>],
+</span></span><span style=display:flex><span>    fontName<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;DejaVuSans&#34;</span>,
+</span></span><span style=display:flex><span>    fontSize<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>,
+</span></span><span style=display:flex><span>    leading<span style=color:#f92672>=</span><span style=color:#ae81ff>14</span>
+</span></span><span style=display:flex><span>))
+</span></span></code></pre></div><h5 id=109-verify-the-pdf-after-attaching-the-layer>10.9. Verify the PDF after attaching the layer</h5><p>After attaching the layer and deploying the code, test the <code>aws-reviewer-pdf-generator</code> Lambda again.</p><p>Expected output:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reportlab_available&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;pdf_status&#34;</span>: <span style=color:#e6db74>&#34;PDF_GENERATED&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;pdf_report_s3_uri&#34;</span>: <span style=color:#e6db74>&#34;s3://ai-aws-reviewer-report-bucket-tiersteam/reports/REV-TEST-PDF/report.pdf&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Then open the S3 Report Bucket and check the PDF file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/report.pdf
+</span></span></code></pre></div><p>If the PDF displays Vietnamese characters such as <code>đ</code>, <code>ư</code>, <code>ế</code>, <code>ệ</code>, and <code>ộ</code> correctly, the Vietnamese font configuration is successful.</p></details><hr><details><summary><strong>Step 11: Update review history in DynamoDB</strong></summary><p>After the report is generated successfully, the PDF Generator Lambda updates the review item in DynamoDB. This update allows the frontend to display the review result instead of only showing the <code>uploaded</code> status.</p><p>The DynamoDB table used in this project is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AIArchitectureReviews
+</span></span></code></pre></div><p>The partition key is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reviewId
+</span></span></code></pre></div><p>DynamoDB update process:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Upload Lambda creates a new item with status = uploaded.
+</span></span><span style=display:flex><span>2. EventBridge triggers Step Functions.
+</span></span><span style=display:flex><span>3. Step Functions runs AI Analyzer, Cost Tool, and PDF Generator.
+</span></span><span style=display:flex><span>4. PDF Generator generates the report successfully.
+</span></span><span style=display:flex><span>5. PDF Generator calls DynamoDB UpdateItem.
+</span></span><span style=display:flex><span>6. The item is updated with status = completed.
+</span></span></code></pre></div><p>When the upload backend creates a new review item, the initial status is:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploaded
+</span></span></code></pre></div><p>After the AI Workflow is completed, the PDF Generator Lambda updates the status to:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>completed
+</span></span></code></pre></div><p>Fields updated after completion:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>status
+</span></span><span style=display:flex><span>completedDate
+</span></span><span style=display:flex><span>updatedAt
+</span></span><span style=display:flex><span>score
+</span></span><span style=display:flex><span>architectureType
+</span></span><span style=display:flex><span>detectedServices
+</span></span><span style=display:flex><span>wellArchitectedResult
+</span></span><span style=display:flex><span>costResult
+</span></span><span style=display:flex><span>recommendations
+</span></span><span style=display:flex><span>risks
+</span></span><span style=display:flex><span>bestPractices
+</span></span><span style=display:flex><span>reportFiles
+</span></span><span style=display:flex><span>htmlReportS3Key
+</span></span><span style=display:flex><span>pdfReportS3Key
+</span></span><span style=display:flex><span>finalReview
+</span></span><span style=display:flex><span>analysisStatus
+</span></span></code></pre></div><p>Example DynamoDB item after completion:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reviewId&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;completed&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;score&#34;</span>: <span style=color:#ae81ff>82</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;architectureType&#34;</span>: <span style=color:#e6db74>&#34;Serverless Architecture&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;completedDate&#34;</span>: <span style=color:#e6db74>&#34;2026-07-08T03:49:31.000000&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;detectedServices&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;recommendations&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;risks&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;bestPractices&#34;</span>: [],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;costResult&#34;</span>: {},
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reportFiles&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;jsonReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report-data.json&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;htmlReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report.html&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;pdfReportS3Key&#34;</span>: <span style=color:#e6db74>&#34;reports/REV-0491BC4A/report.pdf&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;pdfStatus&#34;</span>: <span style=color:#e6db74>&#34;PDF_GENERATED&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Check this in DynamoDB:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to Amazon DynamoDB.
+</span></span><span style=display:flex><span>2. Select Tables.
+</span></span><span style=display:flex><span>3. Open the AIArchitectureReviews table.
+</span></span><span style=display:flex><span>4. Select Explore table items.
+</span></span><span style=display:flex><span>5. Search for the corresponding reviewId, for example REV-0491BC4A.
+</span></span><span style=display:flex><span>6. Check that the status has changed to completed.
+</span></span><span style=display:flex><span>7. Check the reportFiles, score, costResult, and recommendations fields.
+</span></span></code></pre></div><p>This update allows the React frontend to display review history and completed analysis results.</p><p><img alt="DynamoDB Updated Review" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-review-completed.png></p></details><hr><details><summary><strong>Step 12: Configure IAM permissions</strong></summary><p>Each Lambda function, Step Functions workflow, and EventBridge target needs an IAM role with the correct permissions. IAM is important because if a permission is missing, the workflow may run until a certain step and then fail with <code>AccessDenied</code>.</p><p>How to add an inline policy to each role:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to IAM.
+</span></span><span style=display:flex><span>2. Select Roles.
+</span></span><span style=display:flex><span>3. Open the role that needs to be configured.
+</span></span><span style=display:flex><span>4. Choose Add permissions.
+</span></span><span style=display:flex><span>5. Choose Create inline policy.
+</span></span><span style=display:flex><span>6. Select the JSON tab.
+</span></span><span style=display:flex><span>7. Paste the corresponding policy.
+</span></span><span style=display:flex><span>8. Choose Next.
+</span></span><span style=display:flex><span>9. Enter a policy name.
+</span></span><span style=display:flex><span>10. Choose Create policy.
+</span></span></code></pre></div><h5 id=121-iam-policy-for-ai-analyzer-lambda>12.1. IAM policy for AI Analyzer Lambda</h5><p>The AI Analyzer Lambda needs permission to read files from the S3 Input Bucket, invoke Amazon Bedrock, and write logs to CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;ReadInputBucket&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;s3:GetObject&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:s3:::ai-aws-reviewer-input-bucket-tiersteam/*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=122-iam-policy-for-cost-tool-lambda>12.2. IAM policy for Cost Tool Lambda</h5><p>The Cost Tool Lambda needs permission to call AWS Price List API, invoke Amazon Bedrock, and write logs to CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;AllowPricingApi&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:GetProducts&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:DescribeServices&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pricing:GetAttributeValues&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=123-iam-policy-for-pdf-generator-lambda>12.3. IAM policy for PDF Generator Lambda</h5><p>The PDF Generator Lambda needs permission to write reports to the S3 Report Bucket, update DynamoDB, invoke Amazon Bedrock, and write logs to CloudWatch.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteReportBucket&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;s3:PutObject&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:s3:::ai-aws-reviewer-report-bucket-tiersteam/*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;UpdateReviewHistory&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;dynamodb:GetItem&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;dynamodb:UpdateItem&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:dynamodb:ap-southeast-1:675492141438:table/AIArchitectureReviews&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeBedrockModel&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;bedrock:InvokeModel&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteCloudWatchLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogGroup&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogStream&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutLogEvents&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=124-iam-policy-for-step-functions-role>12.4. IAM policy for Step Functions role</h5><p>The Step Functions role needs permission to invoke the three Lambda functions in the AI Workflow.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;InvokeWorkflowLambdas&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;lambda:InvokeFunction&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-ai-analyzer&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-cost-tool&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;arn:aws:lambda:ap-southeast-1:675492141438:function:aws-reviewer-pdf-generator&#34;</span>
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;WriteStepFunctionsLogs&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:CreateLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:GetLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:UpdateLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DeleteLogDelivery&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:ListLogDeliveries&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:PutResourcePolicy&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DescribeResourcePolicies&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;logs:DescribeLogGroups&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h5 id=125-iam-policy-for-eventbridge-target-role>12.5. IAM policy for EventBridge target role</h5><p>EventBridge needs permission to start execution of the Step Functions state machine.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Version&#34;</span>: <span style=color:#e6db74>&#34;2012-10-17&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;Statement&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Sid&#34;</span>: <span style=color:#e6db74>&#34;StartAIWorkflowExecution&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Action&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;states:StartExecution&#34;</span>
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:ap-southeast-1:675492141438:stateMachine:Architecture-review-workflow&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p><img alt="IAM Roles" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/ai-workflow-iam-roles.png></p></details><hr><details><summary><strong>Step 13: Test the AI Workflow</strong></summary><p>To test the full AI Workflow, upload an architecture diagram from the frontend or use the upload API. When the upload succeeds, S3 generates an Object Created event, EventBridge captures the event, and Step Functions starts automatically.</p><p>Prepare an architecture image file on your local machine:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>D:\Learning\AWS\test-files\architecture-1.png
+</span></span></code></pre></div><p>Test upload with PowerShell:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-powershell data-lang=powershell><span style=display:flex><span>curl.exe -X POST <span style=color:#e6db74>&#34;https://031hqksomd.execute-api.ap-southeast-1.amazonaws.com/upload&#34;</span> <span style=color:#f92672>-F</span> <span style=color:#e6db74>&#34;file=@D:\Learning\AWS\test-files\architecture-1.png&#34;</span>
+</span></span></code></pre></div><p>If the upload succeeds, the API returns a review ID:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;reviewId&#34;</span>: <span style=color:#e6db74>&#34;REV-0491BC4A&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;uploaded&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileName&#34;</span>: <span style=color:#e6db74>&#34;architecture-1.png&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileType&#34;</span>: <span style=color:#e6db74>&#34;image/png&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;fileSize&#34;</span>: <span style=color:#ae81ff>17755</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;message&#34;</span>: <span style=color:#e6db74>&#34;Upload successful&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>After receiving the review ID, check the workflow in this order:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to the S3 Input Bucket.
+</span></span><span style=display:flex><span>2. Check that the file exists under uploads/{reviewId}/.
+</span></span><span style=display:flex><span>3. Go to the EventBridge rule and check the Matched events metric.
+</span></span><span style=display:flex><span>4. Go to Step Functions.
+</span></span><span style=display:flex><span>5. Open the state machine Architecture-review-workflow.
+</span></span><span style=display:flex><span>6. Select the latest execution.
+</span></span><span style=display:flex><span>7. Check the Graph view.
+</span></span></code></pre></div><p>The following states should complete successfully:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AnalyzeArchitectureWithAI
+</span></span><span style=display:flex><span>EstimateCost
+</span></span><span style=display:flex><span>GenerateReport
+</span></span></code></pre></div><p>If a state fails, open the <code>Input</code> and <code>Output</code> tabs of that state to inspect the input data and returned error.</p><p><img alt="Step Functions Success" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/step-functions-execution-success.png></p></details><hr><details><summary><strong>Step 14: Verify generated reports in S3</strong></summary><p>After the Step Functions execution is completed, the PDF Generator Lambda stores the report files in the S3 Report Bucket.</p><p>Open the S3 Report Bucket:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>ai-aws-reviewer-report-bucket-tiersteam
+</span></span></code></pre></div><p>The report files are stored under this prefix:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/{reviewId}/
+</span></span></code></pre></div><p>Example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>reports/REV-0491BC4A/report-data.json
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.html
+</span></span><span style=display:flex><span>reports/REV-0491BC4A/report.pdf
+</span></span></code></pre></div><p>Verify the files:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to Amazon S3.
+</span></span><span style=display:flex><span>2. Open the bucket ai-aws-reviewer-report-bucket-tiersteam.
+</span></span><span style=display:flex><span>3. Open the reports folder.
+</span></span><span style=display:flex><span>4. Open the folder with the reviewId, for example REV-0491BC4A.
+</span></span><span style=display:flex><span>5. Check that report-data.json, report.html, and report.pdf are all available.
+</span></span><span style=display:flex><span>6. Open or download report.pdf to check the report content.
+</span></span></code></pre></div><p>Meaning of each file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>report-data.json:
+</span></span><span style=display:flex><span>Stores structured review data, suitable for frontend or backend reuse.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.html:
+</span></span><span style=display:flex><span>Stores the HTML report, which displays well in the browser.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>report.pdf:
+</span></span><span style=display:flex><span>Stores the final PDF report, which can be downloaded or used in the demo result.
+</span></span></code></pre></div><p><img alt="Generated Reports" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/s3-generated-reports.png></p></details><hr><details><summary><strong>Step 15: Verify the completed review in DynamoDB</strong></summary><p>DynamoDB stores the review history and processing status. After the workflow is completed, the PDF Generator Lambda must update the item that matches the <code>reviewId</code>.</p><p>Open the DynamoDB table:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AIArchitectureReviews
+</span></span></code></pre></div><p>Verify the item:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Go to Amazon DynamoDB.
+</span></span><span style=display:flex><span>2. Select Tables.
+</span></span><span style=display:flex><span>3. Open the AIArchitectureReviews table.
+</span></span><span style=display:flex><span>4. Select Explore table items.
+</span></span><span style=display:flex><span>5. Search for the reviewId you just uploaded, for example REV-0491BC4A.
+</span></span><span style=display:flex><span>6. Check the status field.
+</span></span><span style=display:flex><span>7. Check completedDate and updatedAt.
+</span></span><span style=display:flex><span>8. Check reportFiles, costResult, detectedServices, and recommendations.
+</span></span></code></pre></div><p>The review status should change from:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>uploaded
+</span></span></code></pre></div><p>to:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>completed
+</span></span></code></pre></div><p>Important fields that should exist:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>status = completed
+</span></span><span style=display:flex><span>score
+</span></span><span style=display:flex><span>architectureType
+</span></span><span style=display:flex><span>detectedServices
+</span></span><span style=display:flex><span>wellArchitectedResult
+</span></span><span style=display:flex><span>costResult
+</span></span><span style=display:flex><span>recommendations
+</span></span><span style=display:flex><span>risks
+</span></span><span style=display:flex><span>bestPractices
+</span></span><span style=display:flex><span>reportFiles
+</span></span><span style=display:flex><span>completedDate
+</span></span><span style=display:flex><span>updatedAt
+</span></span></code></pre></div><p>If the item is still in the <code>uploaded</code> state, check the CloudWatch Logs of the PDF Generator Lambda. Common causes are a missing <code>TABLE_NAME</code> environment variable or missing <code>dynamodb:UpdateItem</code> permission.</p><p><img alt="DynamoDB Completed Review" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/dynamodb-completed-review.png></p></details><hr><details><summary><strong>Step 16: Verify review history on the frontend</strong></summary><p>The React frontend reads review history from the upload backend API. After the PDF Generator updates DynamoDB, the frontend can display the completed review status and analysis result.</p><p>The API routes used for review history are:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>GET /reviews
+</span></span><span style=display:flex><span>GET /reviews/{reviewId}
+</span></span><span style=display:flex><span>GET /reviews/{reviewId}/status
+</span></span></code></pre></div><p>Verify on the frontend:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>1. Open the React frontend.
+</span></span><span style=display:flex><span>2. Upload a new architecture diagram.
+</span></span><span style=display:flex><span>3. Record the reviewId returned by the API.
+</span></span><span style=display:flex><span>4. Wait for the AI Workflow to finish in Step Functions.
+</span></span><span style=display:flex><span>5. Refresh the review history page.
+</span></span><span style=display:flex><span>6. Check that the review status has changed to completed.
+</span></span><span style=display:flex><span>7. Open the review detail page to view score, detected services, recommendations, and report links.
+</span></span></code></pre></div><p>After the AI Workflow is completed, the frontend can display:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Review ID
+</span></span><span style=display:flex><span>File name
+</span></span><span style=display:flex><span>Upload date
+</span></span><span style=display:flex><span>Review status
+</span></span><span style=display:flex><span>Architecture score
+</span></span><span style=display:flex><span>Detected services
+</span></span><span style=display:flex><span>Recommendations
+</span></span><span style=display:flex><span>Risks
+</span></span><span style=display:flex><span>Report links
+</span></span></code></pre></div><p>This step completes the full upload and AI review process.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Upload Backend → S3 Input Bucket → EventBridge → Step Functions
+</span></span><span style=display:flex><span>→ AI Analyzer → Cost Tool → PDF Generator
+</span></span><span style=display:flex><span>→ S3 Report Bucket → DynamoDB → Frontend Review History
+</span></span></code></pre></div><p><img alt="Frontend Review History" src=/fcj-workshop-template-VoTienPhat/images/5-Workshop/5.6-AI-workflow/frontend-review-history.png></p></details><hr><h4 id=ai-workflow-result>AI Workflow result</h4><p>After completing this section, the system can automatically process an uploaded AWS architecture diagram and generate a complete review report.</p><p>The final result includes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>AI-based architecture analysis
+</span></span><span style=display:flex><span>Detected AWS services
+</span></span><span style=display:flex><span>AWS Well-Architected Framework assessment
+</span></span><span style=display:flex><span>Estimated monthly cost
+</span></span><span style=display:flex><span>Cost optimization recommendations
+</span></span><span style=display:flex><span>HTML report
+</span></span><span style=display:flex><span>PDF report
+</span></span><span style=display:flex><span>Updated review history
+</span></span></code></pre></div><p>The AI Workflow automates the entire process after upload. Users only need to upload an architecture diagram, and the backend automatically performs analysis, cost estimation, report generation, and review history update.</p><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=/fcj-workshop-template-VoTienPhat/5-workshop/5.5-review-api/ title="Integrate Review APIs and Frontend Pages"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=/fcj-workshop-template-VoTienPhat/5-workshop/5.7-monitoring-security/ title="Monitoring with CloudWatch, SNS Alert and IAM Least Privilege" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=/fcj-workshop-template-VoTienPhat/js/clipboard.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/perfect-scrollbar.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/perfect-scrollbar.jquery.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/jquery.sticky.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/featherlight.min.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/highlight.pack.js?1784651547></script><script>hljs.initHighlightingOnLoad()</script><script src=/fcj-workshop-template-VoTienPhat/js/modernizr.custom-3.6.0.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/learn.js?1784651547></script><script src=/fcj-workshop-template-VoTienPhat/js/hugo-learn.js?1784651547></script><link href=/fcj-workshop-template-VoTienPhat/mermaid/mermaid.css?1784651547 rel=stylesheet><script src=/fcj-workshop-template-VoTienPhat/mermaid/mermaid.js?1784651547></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>
